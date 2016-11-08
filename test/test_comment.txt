@@ -1,0 +1,216 @@
+const int intC1 = 1;
+const char charC1 = 'a', charC2 = 'b';
+int intV1, intV2[2];
+char charV1;
+
+int iFunc1() {
+  // 表达式为项
+  // 项为因子
+  // 因子为整数
+  return (1);
+}
+
+int iFunc2() {
+  // 表达式为项
+  // 项为因子
+  // 因子为有返回值函数调用语句
+  return (iFunc1());
+}
+
+char cFunc1() {
+  // 表达式为项
+  // 项为因子
+  // 因子为字符
+  return ('a');
+}
+
+int iFunc3() {
+  // 表达式为项
+  // 项为因子
+  // 因子为标识符
+  return (intC1);
+}
+
+int iFunc4() {
+  // 表达式为项
+  // 项为因子
+  // 因子为标识符加下标
+  return (intV2[0]);
+}
+
+int iFunc5() {
+  // 表达式为项
+  // 项为因子
+  // 因子为左括号加表达式加右括号
+  return ((0));
+}
+
+// 以上覆盖了因子的所有分支
+
+int iFunc6() {
+  // 表达式为项
+  // 项为因子加乘法运算符加因子
+  return (1 * 2);
+}
+
+int iFunc7() {
+  // 表达式为项
+  // 项为因子加乘法运算符加因子加乘法运算符加因子
+  return (1 * 2 / (-1));
+}
+
+// 以上覆盖了项的所有分支
+
+int iFunc8() {
+  // 表达式为加号加项
+  return (+1);
+}
+
+int iFunc9() {
+  // 表达式为减号加项
+  return (-1);
+}
+
+int iFunc10() {
+  // 表达式为项加加法运算符加项
+  return (iFunc8() + iFunc9());
+}
+
+int iFunc11() {
+  // 表达式为项加加法运算符加项加加法运算符加项
+  return (iFunc8() + iFunc9() + iFunc10());
+}
+
+// 以上覆盖了表达式的所有分支
+
+void vFunc1() {
+  // 复合语句无常量说明，无变量说明
+  // 参数表为空
+  printf("vFunc1() called");
+}
+
+void vFunc2(int param1) {
+  // 复合语句有常量说明，无变量说明
+  // 参数表有一个参数
+  const int intC2 = 2;
+  printf("vFunc2() called");
+  printf("param1 is ", param1);
+  printf("intC2 is ", intC2);
+}
+
+void vFunc3(int param1, char param2) {
+  // 复合语句无常量说明，有变量说明
+  // 参数表有两个参数
+  int intV3;
+  intV3 = param1 + param2;
+  printf("vFunc3() called");
+  printf("param1 is ", param1);
+  printf("param2 is ", param2);
+  printf("param1 + param2 is ", intV3);
+}
+
+void vFunc4() {
+  // 复合语句有常量说明，有变量说明
+  // 参数表无参数
+  const char charC3 = 'c', charC4 = 'd';
+  int intV4;
+  intV4 = 4;
+  printf("vFunc4() called");
+  printf("charC3 is ", charC3);
+  printf("charC4 is ", charC4);
+  printf("intV4 is ", intV4);
+}
+
+// 以上覆盖了常量说明和变量说明的所有分支
+// 以上覆盖了参数表的所有分支
+
+int gcd(int a , int b） {
+	if (a == b) {
+		return (a);
+	}
+	else if (a > b) {
+		return (gcd(b, a - b));
+	}
+	else if (a < b) {
+		return (gcd(b - a, a));
+	}
+}
+
+void main() {
+  const intC3 = 5;
+  int intV5, intV6[6];
+
+  scanf(intV1);
+  scanf(intV2[0], intV2[1]);
+  scanf(charV1);
+  // 以上覆盖了读语句的所有分支
+
+  printf("iFunc1() = ", iFunc1());
+  printf("iFunc2()= ", iFunc2());
+  printf(cfunc1());
+  printf("iFunc3()= ", iFunc3());
+  printf("iFunc4()= ", iFunc4());
+  printf("iFunc5()= ", iFunc5());
+  printf("iFunc6()= ", iFunc6());
+  printf("iFunc7()= ", iFunc7());
+  printf("iFunc8()= ", iFunc8());
+  printf("iFunc9()= ", iFunc9());
+  printf("iFunc10()= ", iFunc10());
+  printf("iFunc11()= ", iFunc11());
+  // 以上覆盖了写语句的所有分支
+
+  vFunc1();
+  vFunc2(2);
+  vFunc3(3, 'c');
+  vFunc4();
+  // 以上覆盖了值参数表的所有分支
+  // 以上覆盖了无返回值函数调用语句的所有分支
+  // 以上覆盖了有返回值函数调用语句的所有分支
+
+  if (intV1 == 0) printf("intV1 == 0");
+  if (intV1 != 0) printf("intV1 != 0");
+  if (intV1 >  0) printf("intV1 >  0");
+  if (intV1 <  0) printf("intV1 <  0");
+  if (intV1 >= 0) printf("intV1 >= 0");
+  if (intV1 <= 0) printf("intV1 <= 0");
+  // 以上覆盖了关系运算符的所有分支
+  if (intV1) printf("intV1 is true");
+  // 以上覆盖了条件的所有分支
+
+  while (intV1 < 5) {
+    intV1 = intV1 + 1;
+    printf("intV1 becomes ", intV1);
+  }
+
+  switch (intV2[0]) {
+    case 0:
+      printf("intV2[0] is 0");
+  }
+
+  switch (intV2[0]) {
+    case 0:
+      printf("intV2[0] is 0");
+    case 1:
+      printf("intV2[0] is 1");
+  }
+
+  switch (intV2[0]) {
+    case 0:
+      printf("intV2[0] is 0");
+    case 1:
+      printf("intV2[0] is 1");
+    default:
+      pritnf("intV2[0] is neither 0 nor 1")
+  }
+
+  intV5 = intC3;
+  intV6[0] = intV5;
+  // 以上覆盖了赋值语句的所有分支
+
+  // 语句存在递归定义，以上覆盖了第一层递归，即语句为条件语句、循环语句、语句列、情况语句，且四种语法成分的规则右部取写语句的情况
+  // 而两种函数调用、赋值语句、读语句、写语句、空和返回语句已经在之前覆盖，因此可以认为
+  // 以上基本覆盖了语句的所有分支
+
+  printf(gcd(intV2[0], intV2[1]));
+  // 以上覆盖了递归调用
+}
