@@ -40,7 +40,7 @@ LexicalDecoder::LexicalDecoder() {
 LexicalDecoder::~LexicalDecoder() {
     source -> close();
     delete source;
-    source = nullptr;
+    source = NULL;
 }
 
 void LexicalDecoder::NextWord() {
@@ -58,12 +58,12 @@ void LexicalDecoder::NextWord() {
         pointer++;
     }
     
-    if (isalpha(lastLine[pointer])) {
+    if (isalpha(lastLine[pointer]) || lastLine[pointer] == '_') {
         string temp;
         temp.push_back(lastLine[pointer]);
         pointer++;
         
-        while (isalnum(lastLine[pointer])) {
+        while (isalnum(lastLine[pointer]) || lastLine[pointer] == '_') {
             temp.push_back(lastLine[pointer]);
             pointer++;
         }
@@ -81,12 +81,12 @@ void LexicalDecoder::NextWord() {
             lastChar = '\0';
         }
     }
-    else if (isnumber(lastLine[pointer])) {
+    else if (isdigit(lastLine[pointer])) {
         string temp;
         temp.push_back(lastLine[pointer]);
         pointer++;
         
-        while (isnumber(lastLine[pointer])) {
+        while (isdigit(lastLine[pointer])) {
             temp.push_back(lastLine[pointer]);
             pointer++;
         }
