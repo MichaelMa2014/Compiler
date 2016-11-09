@@ -48,7 +48,12 @@ void LexicalDecoder::NextWord() {
     //  Skip blank lines
     while (lastLine[pointer] == '\0') {
         if (source -> getline(lastLine, LINELENGTH) == 0) {
-            ERR ("Unexpected end of file. Or other errors reading the source file");
+            if (source -> fail()) {
+                if (source -> eof()) {
+                    ERR ("Unexpected end of file. Or other errors reading the source file");
+                }
+                ERR ("Too long line");
+            }
         }
         pointer = 0;
     }
@@ -253,10 +258,21 @@ void LexicalDecoder::NextWord() {
         lastChar = '\0';
     }
     else if (lastLine[pointer] == '"') {
+        string temp;
         pointer++;
-        lastWord = symbols;
-        lastSymbol = doubleQSym;
-        lastStr = "";
+        
+        while (lastLine[pointer] != '"') {
+            if (lastLine[pointer] == '\0') {
+                ERR("Second not found");
+            }
+            temp.push_back(lastLine[pointer]);
+            pointer++;
+        }
+        pointer++;
+        
+        lastWord = strings;
+        lastSymbol = ndef;
+        lastStr = temp;
         lastNum = 0;
         lastChar = '\0';
     }

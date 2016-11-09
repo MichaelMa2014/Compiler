@@ -1,0 +1,7 @@
+void main () {
+    printf("This is main");
+    printf("This is another main");
+    printf("This is tooooooooooooooooooooooooooooooooooooooooooooooo long");
+    printf("The next line is empty");
+    printf("");
+}
