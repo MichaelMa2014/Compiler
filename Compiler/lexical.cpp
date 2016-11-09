@@ -251,11 +251,25 @@ void LexicalDecoder::NextWord() {
     }
     else if (lastLine[pointer] == '\'') {
         pointer++;
-        lastWord = symbols;
-        lastSymbol = singleQSym;
-        lastStr = "";
-        lastNum = 0;
-        lastChar = '\0';
+        char temp = '\0';
+        if (lastLine[pointer] == '+' || lastLine[pointer] == '-' || lastLine[pointer] == '*' || lastLine[pointer] == '/' || lastLine[pointer] == '_' || isalnum(lastLine[pointer])) {
+            temp = lastLine[pointer];
+        }
+        else {
+            ERR("Illigal character for character constant");
+        }
+        pointer++;
+        if (lastLine[pointer] == '\'') {
+            lastWord = characters;
+            lastSymbol = ndef;
+            lastStr = "";
+            lastNum = 0;
+            lastChar = temp;
+        }
+        else {
+            ERR("Second singal quote not found");
+        }
+        pointer++;
     }
     else if (lastLine[pointer] == '"') {
         string temp;
@@ -263,7 +277,7 @@ void LexicalDecoder::NextWord() {
         
         while (lastLine[pointer] != '"') {
             if (lastLine[pointer] == '\0') {
-                ERR("Second not found");
+                ERR("Second double quote not found");
             }
             temp.push_back(lastLine[pointer]);
             pointer++;
@@ -310,7 +324,7 @@ wordType LexicalDecoder::LastWordType() {
     return this -> lastWord;
 }
 
-symbolID LexicalDecoder::LastSymbol() {
+symbolNo LexicalDecoder::LastSymbol() {
     return this -> lastSymbol;
 }
 

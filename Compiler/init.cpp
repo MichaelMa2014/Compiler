@@ -8,7 +8,7 @@
 
 #include "init.hpp"
 
-map<string, symbolID> dictionary;
+map<string, symbolNo> dictionary;
 const char * symbolString[WORDNUM];
 
 void init() {

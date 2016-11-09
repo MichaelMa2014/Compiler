@@ -1,0 +1,13 @@
+void main() {
+    printf('_');
+    printf('a');
+    printf('A');
+    printf('+');
+    printf('-');
+    printf('*');
+    printf('/');
+    printf('0');
+    int a;
+    a = 0 + '0';
+    printf(a);
+}

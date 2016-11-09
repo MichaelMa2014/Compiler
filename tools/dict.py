@@ -27,7 +27,7 @@ Type = [
 print ('#define WORDNUM ' + str(len(Name)))
 
 # generate enum definition
-print ('enum symbolID {' + Type[0], end = '')
+print ('enum symbolNo {' + Type[0], end = '')
 for i in range(1, len(Type)):
     print (', ' + Type[i], end = '')
 print ('};')

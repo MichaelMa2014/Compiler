@@ -6,7 +6,7 @@ All **words** are divided into 5 **categories**
 
 1. **Symbols** are reserve **words** defined by compiler.
 
-    There are several symbols, each has a **name** and a **id**. For exmaple, `const` is a reserve word, its **name** is `"const"` as a string, and its **id**, defined in `enum symbolID`, is `0` as a number. The ID of a symbol is `dictionary[name]`, and the name of a symbol is `symbolString[id]`.
+    There are several symbols, each has a **name** and a **number**. For exmaple, `const` is a reserve word, its **name** is `"const"` as a string, and its **number**, defined in `enum symbolNo`, is `0` as a number. The number of a symbol is `dictionary[name]`, and the name of a symbol is `symbolString[number]`.
 
 2. **Identifiers** are **words** defined by the source file.
 

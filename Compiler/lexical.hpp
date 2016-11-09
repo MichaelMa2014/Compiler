@@ -33,7 +33,7 @@ private:
     int pointer;
     
     wordType lastWord;
-    symbolID lastSymbol;
+    symbolNo lastSymbol;
     string lastStr;
     int lastNum;
     char lastChar;
@@ -44,7 +44,7 @@ public:
     void NextWord();
     
     wordType LastWordType();
-    symbolID LastSymbol();
+    symbolNo LastSymbol();
     string LastStr();
     int LastNum();
     char LastChar();
