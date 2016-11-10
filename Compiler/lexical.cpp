@@ -269,17 +269,12 @@ void LexicalDecoder::NextWord() {
         //  <数字>::=0|<非零数字>
         //  <非零数字>::=1|．．．|9
         //  Only the following characters are allowed as character constant
-        while (!(lastLine[pointer] == '+' || lastLine[pointer] == '-' || lastLine[pointer] == '*' || lastLine[pointer] == '/' || lastLine[pointer] == '_' || isalnum(lastLine[pointer]))) {
-            //  When encoutered illegal character constants, print the them and keep looking until the end of file
-            error(ILLEGAL_CHARACTER_CONST);
+        if (!(lastLine[pointer] == '+' || lastLine[pointer] == '-' || lastLine[pointer] == '*' || lastLine[pointer] == '/' || lastLine[pointer] == '_' || isalnum(lastLine[pointer]))) {
             cout << lastLine[pointer] << endl;
-            pointer++;
-            if (lastLine[pointer] == '\0') {
-                NextLine();
-            }
+            error(ILLEGAL_CHARACTER_CONST);
+            exit(ILLEGAL_CHARACTER_CONST);
         }
         
-        //  After the loop breaks, the pointer points to a legal character to become character constant
         lastWord = characters;
         lastSymbol = ndef;
         lastStr = "";
