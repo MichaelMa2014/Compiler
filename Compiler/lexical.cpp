@@ -43,24 +43,35 @@ LexicalDecoder::~LexicalDecoder() {
     source = NULL;
 }
 
+void LexicalDecoder::NextLine() {
+    for (int i = 0; i < LINELENGTH; i++) {
+        lastLine[i] = 0;
+    }
+    if (source -> getline(lastLine, LINELENGTH) == 0) {
+        if (source -> fail()) {
+            if (source -> eof()) {
+                error(UNEXPECTED_END);
+                exit(UNEXPECTED_END);
+            }
+            error(LINE_TOO_LONG);
+            exit(LINE_TOO_LONG);
+        }
+    }
+    pointer = 0;
+}
 void LexicalDecoder::NextWord() {
     //  Encountered end of line
     //  Skip blank lines
     while (lastLine[pointer] == '\0') {
-        if (source -> getline(lastLine, LINELENGTH) == 0) {
-            if (source -> fail()) {
-                if (source -> eof()) {
-                    ERR ("Unexpected end of file. Or other errors reading the source file");
-                }
-                ERR ("Too long line");
-            }
-        }
-        pointer = 0;
+        NextLine();
     }
     
     //  Skip whitespaces and tabs, no other white characters allowed
     while (lastLine[pointer] == ' ' || lastLine[pointer] == '\t') {
         pointer++;
+        while (lastLine[pointer] == '\0') {
+            NextLine();
+        }
     }
     
     if (isalpha(lastLine[pointer]) || lastLine[pointer] == '_') {
@@ -243,7 +254,7 @@ void LexicalDecoder::NextWord() {
             pointer++;
         }
         else {
-            ERR("Illegal character !");
+            error(ILLEGAL_CHARACTER);
         }
         lastStr = "";
         lastNum = 0;
@@ -251,36 +262,49 @@ void LexicalDecoder::NextWord() {
     }
     else if (lastLine[pointer] == '\'') {
         pointer++;
-        char temp = '\0';
-        if (lastLine[pointer] == '+' || lastLine[pointer] == '-' || lastLine[pointer] == '*' || lastLine[pointer] == '/' || lastLine[pointer] == '_' || isalnum(lastLine[pointer])) {
-            temp = lastLine[pointer];
+        //  <字符>::='<加法运算符>'|'<乘法运算符>'|'<字母>'|'<数字>'
+        //  <加法运算符>::=+|-
+        //  <乘法运算符>::=*|/
+        //  <字母>::=_|a|．．．|z|A|．．．|Z
+        //  <数字>::=0|<非零数字>
+        //  <非零数字>::=1|．．．|9
+        //  Only the following characters are allowed as character constant
+        while (!(lastLine[pointer] == '+' || lastLine[pointer] == '-' || lastLine[pointer] == '*' || lastLine[pointer] == '/' || lastLine[pointer] == '_' || isalnum(lastLine[pointer]))) {
+            //  When encoutered illegal character constants, print the them and keep looking until the end of file
+            error(ILLEGAL_CHARACTER_CONST);
+            cout << lastLine[pointer] << endl;
+            pointer++;
+            if (lastLine[pointer] == '\0') {
+                NextLine();
+            }
         }
-        else {
-            ERR("Illigal character for character constant");
-        }
+        
+        //  After the loop breaks, the pointer points to a legal character to become character constant
+        lastWord = characters;
+        lastSymbol = ndef;
+        lastStr = "";
+        lastNum = 0;
+        lastChar = lastLine[pointer];
+        
+        //  There should be another single quote sign here, if there is not any, then leave the pointer where it is for encoding at next time
         pointer++;
-        if (lastLine[pointer] == '\'') {
-            lastWord = characters;
-            lastSymbol = ndef;
-            lastStr = "";
-            lastNum = 0;
-            lastChar = temp;
-        }
-        else {
-            ERR("Second singal quote not found");
+        if (lastLine[pointer] != '\'') {
+            error(ORPHAN_SINGLE_QUOTE);
+            return;
         }
         pointer++;
     }
     else if (lastLine[pointer] == '"') {
         string temp;
         pointer++;
-        
+        // TODO how to move the pointer properly
         while (lastLine[pointer] != '"') {
-            if (lastLine[pointer] == '\0') {
-                ERR("Second double quote not found");
-            }
             temp.push_back(lastLine[pointer]);
             pointer++;
+            if (lastLine[pointer] == '\0') {
+                error(ORPHAN_DOUBLE_QUOTE);
+                NextLine();
+            }
         }
         pointer++;
         
@@ -316,7 +340,7 @@ void LexicalDecoder::NextWord() {
     }
     else {
         cout << lastLine[pointer] << endl;
-        ERR("Illegal character.");
+        error(ILLEGAL_CHARACTER);
     }
 }
 

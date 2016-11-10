@@ -9,5 +9,9 @@ void main() {
     printf('0');
     int a;
     a = 0 + '0';
+    orphan_single = 'a;
+    orphan_single = 'a
+    wrong_char = '%a';
+    wrong_char = '%';
     printf(a);
 }

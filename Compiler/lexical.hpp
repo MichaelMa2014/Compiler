@@ -29,6 +29,7 @@ private:
     ifstream * source;
     
     char lastLine[LINELENGTH];
+    void NextLine();
     
     int pointer;
     

@@ -1,4 +1,4 @@
-# Lexical.cpp
+# lexical.cpp
 for i in range(0, len(Name)):
     if (len(Name[i]) == 1):
         print ('else if (lastLine[pointer] == \'' + Name[i] + '\') {')

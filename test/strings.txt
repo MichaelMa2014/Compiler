@@ -4,4 +4,5 @@ void main () {
     printf("This is tooooooooooooooooooooooooooooooooooooooooooooooo long");
     printf("The next line is empty");
     printf("");
+    printf("This is an orphan double quote);
 }
