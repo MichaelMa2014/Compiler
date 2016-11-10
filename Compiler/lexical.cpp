@@ -107,6 +107,11 @@ void LexicalDecoder::NextWord() {
             pointer++;
         }
         
+        if (temp.length() > NUMBERLENGTH) {
+            cout << temp << endl;
+            ERR(NUMBER_TOO_LONG);
+        }
+        
         lastWord = numbers;
         lastSymbol = ndef;
         lastStr = "";

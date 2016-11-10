@@ -28,5 +28,8 @@ void error(int errNo) {
         case 103:
             ERR("103: ILLEGAL_CHARACTER_CONST");
             break;
+        case 104:
+            ERR("104: NUMBER_TOO_LONG");
+            break;
     }
 }

@@ -23,6 +23,7 @@ using namespace std;
 #define ORPHAN_DOUBLE_QUOTE 101
 #define ORPHAN_SINGLE_QUOTE 102
 #define ILLEGAL_CHARACTER_CONST 103
+#define NUMBER_TOO_LONG 104
 
 void error(int errNo);
 

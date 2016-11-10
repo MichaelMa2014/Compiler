@@ -18,6 +18,7 @@
 
 #define LINELENGTH 80
 #define PATHLENGTH 80
+#define NUMBERLENGTH 9
 
 using namespace std;
 
