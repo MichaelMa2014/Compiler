@@ -10,16 +10,20 @@
 
 
 #include "Lexical.hpp"
+#include "grammar.hpp"
 
 int main(int argc, const char * argv[]) {
     init();
     
     LexicalDecoder ld = LexicalDecoder();
+    GrammarDecoder gd = GrammarDecoder(& ld);
+    
+    ld.NextWord();
+    gd.Expression();
     
     LOG("Starting lexical decoding");
     
     while (true) {
-        ld.NextWord();
         switch (ld.LastWordType()) {
             case symbols:
                 cout << "symbol " << ld.LastSymbol() << " " << symbolString[ld.LastSymbol()] << endl;
@@ -37,6 +41,7 @@ int main(int argc, const char * argv[]) {
                 cout << "character " << ld.LastChar() << endl;
                 break;
         }
+        ld.NextWord();
     }
     return 0;
 }

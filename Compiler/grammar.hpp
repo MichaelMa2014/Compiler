@@ -17,27 +17,37 @@ class GrammarDecoder {
 private:
     LexicalDecoder * ld;
 public:
-    GrammarDecoder(LexicalDecoder * l);
+    GrammarDecoder(LexicalDecoder * l) {
+        this -> ld = l;
+    }
     void Program();
-    void ConstDeclare();
-    void VarDeclare();
-    void FuncDeclare();
-    void VoidFuncDeclare();
     void Main();
+    
+    void ConstDeclare();
+    void ConstDefine();
+    void StaticVarDeclare(symbolNo type, string name);
+    void StaticVarDefine(symbolNo type, string name);
+    void VarDeclare();
+    void VarDefine();
+    
     void Param();
-    void Statement();
+    void FuncDeclare(symbolNo type, string name);
+    void VoidFuncDeclare(symbolNo type, string name);
+    void ValueParam();
+    void FuncCall(string name);
+    void VoidFuncCall();
+    
+    void Statements();
     void IfStat();
     void WhileStat();
     void SwitchStat();
     void CaseStat();
     void DefaultStat();
-    void FuncCall();
-    void VoidFuncCall();
-    void ValueParam();
     void BecomeStat();
     void ScanfStat();
     void PrintfStat();
     void ReturnStat();
+    
     void Expression();
     void Term();
     void Factor();
