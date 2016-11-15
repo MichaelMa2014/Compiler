@@ -13,7 +13,10 @@ error1 = [
 error2 = [
           ['DOUBLE_DECLARE', 'An identifier is declared twice', 'The second declaration is ignored'],
           ['NO_DECLARE', 'An identifier is refered to before any declaration', 'The statement containing the reference is ignored'],
-          ['MISSING_IDENTIFIER', 'No identifier found following int or char', 'Shut down']
+          ['MISSING_SEMI', 'An semi colon sign is missing', 'Add a semi colon'],
+          ['MISSING_IDENTIFIER', 'No identifier found following int or char', 'Shut down'],
+          ['MISSING_EQUAL', 'No equal sign found in constant definition', 'Add an equal sign right after the identifier'],
+          ['MISSING_VALUE', 'No value found in constant definition', 'Shut down']
 ]
 
 def pad(i):

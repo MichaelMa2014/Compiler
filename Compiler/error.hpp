@@ -24,6 +24,13 @@ using namespace std;
 #define ORPHAN_SINGLE_QUOTE 102
 #define ILLEGAL_CHARACTER_CONST 103
 #define NUMBER_TOO_LONG 104
+#define DOUBLE_DECLARE 200
+#define NO_DECLARE 201
+#define MISSING_SEMI 202
+#define MISSING_IDENTIFIER 203
+#define MISSING_EQUAL 204
+#define MISSING_VALUE 205
+
 
 void error(int errNo);
 
