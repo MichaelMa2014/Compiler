@@ -12,6 +12,10 @@ void GrammarDecoder::Statements() {
     
 }
 
+void GrammarDecoder::Statement() {
+    
+}
+
 void GrammarDecoder::IfStat() {
     
 }

@@ -9,7 +9,40 @@
 #include "grammar.hpp"
 
 void GrammarDecoder::Param() {
-    return;
+    if (ld -> LastSymbol() == intSym || ld -> LastSymbol() == charSym) {
+        symbolNo type = ld -> LastSymbol();
+        ld -> NextWord();
+        
+        if (ld -> LastWordType() != identifiers) {
+            error(MISSING_IDENTIFIER);
+            exit(MISSING_IDENTIFIER);
+        }
+        else {
+            string name = ld -> LastStr();
+            ld -> NextWord();
+            
+            LOG("Parameter logged " + name);
+        }
+    }
+    while (ld -> LastSymbol() == commaSym) {
+        ld -> NextWord();
+        
+        if (ld -> LastSymbol() == intSym || ld -> LastSymbol() == charSym) {
+            symbolNo type = ld -> LastSymbol();
+            ld -> NextWord();
+            
+            if (ld -> LastWordType() != identifiers) {
+                error(MISSING_IDENTIFIER);
+                exit(MISSING_IDENTIFIER);
+            }
+            else {
+                string name = ld -> LastStr();
+                ld -> NextWord();
+                
+                LOG("Parameter logged " + name);
+            }
+        }
+    }
 }
 
 void GrammarDecoder::FuncDeclare(symbolNo type, string name) {
@@ -31,14 +64,47 @@ void GrammarDecoder::FuncDeclare(symbolNo type, string name) {
         ERR("Missing right curly bracket");
     }
     else ld -> NextWord();
+    
+    LOG("Decoded a function declaration");
 }
 
-void GrammarDecoder::VoidFuncDeclare(symbolNo type, string name) {
+void GrammarDecoder::VoidFuncDeclare(string name) {
+    Param();
     
+    if (ld -> LastSymbol() != rRoundSym) {
+        ERR("Missing right round bracket");
+    }
+    else ld -> NextWord();
+    
+    if (ld -> LastSymbol() != lCurlySym) {
+        ERR("Missing left curly bracket");
+    }
+    else ld -> NextWord();
+    
+    Statements();
+    
+    if (ld -> LastSymbol() != rCurlySym) {
+        ERR("Missing right curly bracket");
+    }
+    else ld -> NextWord();
+    
+    LOG("Decoded a void function declaration");
 }
 
 void GrammarDecoder::ValueParam() {
+    if (ld -> LastSymbol() == rRoundSym) {
+        return;
+        // FIXME: This is a trick becasue the last word is used but NextWord is not called
+    }
     
+    Expression();
+    LOG("Decoded a value parameter");
+    
+    while (ld -> LastSymbol() == commaSym) {
+        ld -> NextWord();
+        Expression();
+        LOG("Decoded a value parameter");
+    }
 }
 
 void GrammarDecoder::FuncCall(string name) {
@@ -50,5 +116,9 @@ void GrammarDecoder::FuncCall(string name) {
 }
 
 void GrammarDecoder::VoidFuncCall() {
-    
+    ValueParam();
+    if (ld -> LastSymbol() != rRoundSym) {
+        ERR("Missing right round bracket");
+    }
+    else ld -> NextWord();
 }

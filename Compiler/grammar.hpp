@@ -32,12 +32,13 @@ public:
     
     void Param();
     void FuncDeclare(symbolNo type, string name);
-    void VoidFuncDeclare(symbolNo type, string name);
+    void VoidFuncDeclare(string name);
     void ValueParam();
     void FuncCall(string name);
     void VoidFuncCall();
     
     void Statements();
+    void Statement();
     void IfStat();
     void WhileStat();
     void SwitchStat();
