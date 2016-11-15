@@ -23,7 +23,7 @@
 using namespace std;
 
 enum wordType {symbols, identifiers, strings, numbers, characters};
-//enum idType {variable, constant, matrix, function};
+enum idType {variable, constant, matrix, function};
 
 class LexicalDecoder {
 private:
