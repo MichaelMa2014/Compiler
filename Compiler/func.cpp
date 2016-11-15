@@ -42,7 +42,11 @@ void GrammarDecoder::ValueParam() {
 }
 
 void GrammarDecoder::FuncCall(string name) {
-
+    ValueParam();
+    if (ld -> LastSymbol() != rRoundSym) {
+        ERR("Missing right round bracket");
+    }
+    else ld -> NextWord();
 }
 
 void GrammarDecoder::VoidFuncCall() {

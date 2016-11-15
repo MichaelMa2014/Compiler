@@ -15,7 +15,7 @@
 using namespace std;
 
 #define LOG(x) do {cerr << "***LOG " << x << endl;} while(0);
-#define ERR(x) do {cerr << "***ERR " << x << endl;} while(0);
+#define ERR(x) do {cerr << "***ERR " << x << endl; exit(-1);} while(0);
 
 #define UNEXPECTED_END 000
 #define LINE_TOO_LONG 001

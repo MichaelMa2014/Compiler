@@ -15,23 +15,29 @@ void GrammarDecoder::Expression() {
     else if (ld -> LastSymbol() == minusSym) {
         ld -> NextWord();
     }
-    else do {
-        Term();
+    
+    Term();
+    
+    while (ld -> LastSymbol() == plusSym || ld -> LastSymbol() == minusSym) {
         ld -> NextWord();
-    } while (ld -> LastSymbol() == plusSym || ld -> LastSymbol() == minusSym);
+        Term();
+    }
 }
 
 void GrammarDecoder::Term() {
-    do {
-        Factor();
+    Factor();
+    
+    while (ld -> LastSymbol() == multiSym || ld -> LastSymbol() == divideSym) {
         ld -> NextWord();
-    } while (ld -> LastSymbol() == multiSym || ld -> LastSymbol() == divideSym);
+        Factor();
+    }
 }
 
 void GrammarDecoder::Factor() {
     if (ld -> LastWordType() == identifiers) {
         string name = ld -> LastStr();
         ld -> NextWord();
+        
         if (ld -> LastSymbol() == lSquareSym) {
             ld -> NextWord();
             
@@ -45,16 +51,17 @@ void GrammarDecoder::Factor() {
             LOG("Matrix member as factor");
         }
         else if (ld -> LastSymbol() == lRoundSym) {
+            ld -> NextWord();
             FuncCall(name);
-            
-            if (ld -> LastSymbol() != rRoundSym) {
-                ERR("Missing right round bracket");
-            }
-            else ld -> NextWord();
+
             LOG("Function call as factor");
+        }
+        else {
+            LOG("Identifier as factor");
         }
     }
     else if (ld -> LastSymbol() == lRoundSym) {
+        ld -> NextWord();
         Expression();
         
         if (ld -> LastSymbol() != rRoundSym) {
@@ -63,9 +70,13 @@ void GrammarDecoder::Factor() {
         else ld -> NextWord();
     }
     else if (ld -> LastWordType() == numbers) {
+        ld -> NextWord();
+        
         LOG("Numbers as factor");
     }
     else if (ld -> LastWordType() == characters) {
+        ld -> NextWord();
+        
         LOG("Character as factor");
     }
     else ERR("Illegal word for a factor");
