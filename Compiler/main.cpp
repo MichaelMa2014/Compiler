@@ -19,7 +19,7 @@ int main(int argc, const char * argv[]) {
     GrammarDecoder gd = GrammarDecoder(& ld);
     
     ld.NextWord();
-    gd.Expression();
+    gd.Statements();
     
     LOG("Starting lexical decoding");
     

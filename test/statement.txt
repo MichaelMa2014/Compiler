@@ -1,0 +1,64 @@
+const int intC3 = 5;
+int intV5, intV6[6];
+int _intV7, i_ntV8, int_V9, intV10_, _____;
+
+scanf(intV1);
+scanf(charV1);
+
+printf("iFunc1() = ", iFunc1());
+printf("iFunc2()= ", iFunc2());
+printf(cfunc1());
+printf("iFunc3()= ", iFunc3());
+printf("iFunc4()= ", iFunc4());
+printf("iFunc5()= ", iFunc5());
+printf("iFunc6()= ", iFunc6());
+printf("iFunc7()= ", iFunc7());
+printf("iFunc8()= ", iFunc8());
+printf("iFunc9()= ", iFunc9());
+printf("iFunc10()= ", iFunc10());
+printf("iFunc11()= ", iFunc11());
+
+vFunc1();
+vFunc2(2);
+vFunc3(3, 'c');
+vFunc4();
+
+if (intV1 == 0) printf("intV1 == 0");
+if (intV1 != 0) printf("intV1 != 0");
+if (intV1 >  0) printf("intV1 >  0");
+if (intV1 <  0) printf("intV1 <  0");
+if (intV1 >= 0) printf("intV1 >= 0");
+if (intV1 <= 0) printf("intV1 <= 0");
+if (intV1) printf("intV1 is true");
+
+while (intV1 < 5) {
+intV1 = intV1 + 1;
+printf("intV1 becomes ", intV1);
+}
+
+switch (intV2[0]) {
+case 0:
+printf("intV2[0] is 0");
+}
+
+switch (intV2[0]) {
+case 0:
+printf("intV2[0] is 0");
+case 1:
+printf("intV2[0] is 1");
+}
+
+switch (intV2[0]) {
+case 0:
+printf("intV2[0] is 0");
+case 1:
+printf("intV2[0] is 1");
+default:
+printf("intV2[0] is neither 0 nor 1");
+}
+
+intV5 = intC3;
+intV6[0] = intV5;
+
+
+printf(gcd(intV2[0], intV2[1]));

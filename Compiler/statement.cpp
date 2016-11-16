@@ -25,8 +25,6 @@ void GrammarDecoder::StatementBlock() {
         // FIXME NextWord is not called
         Statement();
     }
-    
-    ld -> NextWord();
 }
 
 void GrammarDecoder::Statement() {
@@ -35,7 +33,8 @@ void GrammarDecoder::Statement() {
         string name = ld -> LastStr();
         ld -> NextWord();
         
-        if (ld -> LastSymbol() == '(') {
+        if (ld -> LastSymbol() == lRoundSym) {
+            ld -> NextWord();
             AllFuncCall(name);
             
             if (ld -> LastSymbol() != semiSym) {
@@ -57,30 +56,19 @@ void GrammarDecoder::Statement() {
         }
     }
     else if (ld -> LastSymbol() == ifSym){
+        ld -> NextWord();
         IfStat();
-        
-        if (ld -> LastSymbol() != semiSym) {
-            ERR("Missing semi colon");
-        }
-        else ld -> NextWord();
     }
     else if (ld -> LastSymbol() == whileSym){
+        ld -> NextWord();
         WhileStat();
-        
-        if (ld -> LastSymbol() != semiSym) {
-            ERR("Missing semi colon");
-        }
-        else ld -> NextWord();
     }
     else if (ld -> LastSymbol() == switchSym){
+        ld -> NextWord();
         SwitchStat();
-        
-        if (ld -> LastSymbol() != semiSym) {
-            ERR("Missing semi colon");
-        }
-        else ld -> NextWord();
     }
     else if (ld -> LastSymbol() == scanfSym){
+        ld -> NextWord();
         ScanfStat();
         
         if (ld -> LastSymbol() != semiSym) {
@@ -89,6 +77,7 @@ void GrammarDecoder::Statement() {
         else ld -> NextWord();
     }
     else if (ld -> LastSymbol() == printfSym){
+        ld -> NextWord();
         PrintfStat();
         
         if (ld -> LastSymbol() != semiSym) {
@@ -97,6 +86,7 @@ void GrammarDecoder::Statement() {
         else ld -> NextWord();
     }
     else if (ld -> LastSymbol() == returnSym){
+        ld -> NextWord();
         ReturnStat();
         
         if (ld -> LastSymbol() != semiSym) {
@@ -105,6 +95,7 @@ void GrammarDecoder::Statement() {
         else ld -> NextWord();
     }
     else if (ld -> LastSymbol() == lCurlySym){
+        ld -> NextWord();
         StatementBlock();
         
         if (ld -> LastSymbol() != rCurlySym) {
@@ -153,6 +144,8 @@ void GrammarDecoder::IfStat() {
     }
     else ld -> NextWord();
     
+    Statement();
+    
     LOG("If statement decoded");
 }
 
@@ -193,6 +186,11 @@ void GrammarDecoder::SwitchStat() {
     }
     else ld -> NextWord();
     
+    if (ld -> LastSymbol() != lCurlySym) {
+        ERR("Missing left curly bracket");
+    }
+    else ld -> NextWord();
+    
     while (ld -> LastSymbol() == caseSym) {
         ld -> NextWord();
         CaseStat();
@@ -202,6 +200,11 @@ void GrammarDecoder::SwitchStat() {
         ld -> NextWord();
         DefaultStat();
     }
+    
+    if (ld -> LastSymbol() != rCurlySym) {
+        ERR("Missing right curly bracket");
+    }
+    else ld -> NextWord();
     
     LOG("Switch statement decoded");
 }
@@ -261,6 +264,11 @@ void GrammarDecoder::ScanfStat() {
             ld -> NextWord();
         }
     }
+    
+    if (ld -> LastSymbol() != rRoundSym) {
+        ERR("Missing right round bracket in scanf");
+    }
+    else ld -> NextWord();
     
     LOG("Scanf statement decoded");
 }
