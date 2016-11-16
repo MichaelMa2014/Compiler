@@ -11,12 +11,27 @@ error1 = [
 ]
 
 error2 = [
-          ['DOUBLE_DECLARE', 'An identifier is declared twice', 'The second declaration is ignored'],
-          ['NO_DECLARE', 'An identifier is refered to before any declaration', 'The statement containing the reference is ignored'],
-          ['MISSING_SEMI', 'An semi colon sign is missing', 'Add a semi colon'],
+          ['MISSING_SEMI', 'An semi colon sign is missing', 'Act as if normal'],
+          ['MISSING_LEFT_CURLY', 'An left curly bracket is missing', 'Act as if normal'],
+          ['MISSING_LEFT_ROUND', 'An left round bracket is missing', 'Act as if normal'],
+          ['ORPHAN_SQUARE', 'A square bracket is missing', 'Act as if normal'],
+          ['ORPHAN_ROUND', 'A round bracket is missing', 'Act as if normal'],
+          ['ORPHAN_CURLY', 'A curly bracket is missing', 'Act as if normal'],
+          ['MISSING_TYPE', 'No int or char after const', 'Shut down'],
           ['MISSING_IDENTIFIER', 'No identifier found following int or char', 'Shut down'],
-          ['MISSING_EQUAL', 'No equal sign found in constant definition', 'Add an equal sign right after the identifier'],
-          ['MISSING_VALUE', 'No value found in constant definition', 'Shut down']
+          ['MISSING_BECOME', 'No become sign found in constant definition', 'Add an equal sign right after the identifier'],
+          ['MISSING_VALUE', 'No value found in constant definition', 'Shut down'],
+          ['MISSING_SIZE', 'No number found following left square bracket', 'Shut down'],
+          ['ILLEGAL_SIZE', 'Illegal size for matrix definition', 'Shut down'],
+          ['ILLEGAL_FACTOR', 'Illegal word for factor', 'Shut down'],
+          ['MISSING_CASE_VALUE', 'No value found following case symbol', 'Shut down'],
+          ['MISSING_CASE_COLON', 'No colon sign found following case value or default symbol', 'Act as if normal'],
+          ['ILLEGAL_SCANF', 'Missing identifier in scanf statement', 'Shut down']
+]
+
+error3 = [
+          ['DOUBLE_DECLARE', 'An identifier is declared twice', 'The second declaration is ignored'],
+          ['NO_DECLARE', 'An identifier is refered to before any declaration', 'The statement containing the reference is ignored']
 ]
 
 def pad(i):

@@ -49,7 +49,7 @@ void GrammarDecoder::Program() {
         ld -> NextWord();
         
         if (ld -> LastSymbol() != lRoundSym) {
-            ERR("Missing left round bracket");
+            error(MISSING_LEFT_ROUND);
         }
         else ld -> NextWord();
         
@@ -68,22 +68,22 @@ void GrammarDecoder::Program() {
 
 void GrammarDecoder::Main() {
     if (ld -> LastSymbol() != lRoundSym) {
-        ERR("Missing left round bracket after main");
+        error(MISSING_LEFT_ROUND);
     }
     else ld -> NextWord();
     if (ld -> LastSymbol() != rRoundSym) {
-        ERR("Missing right round bracket after main");
+        error(ORPHAN_ROUND);
     }
     else ld -> NextWord();
     if (ld -> LastSymbol() != lCurlySym) {
-        ERR("Missing left curly bracket after main");
+        error(MISSING_LEFT_CURLY);
     }
     else ld -> NextWord();
     
     Statements();
     
     if (ld -> LastSymbol() != rCurlySym) {
-        ERR("Missing right curly bracket");
+        error(ORPHAN_CURLY);
     }
     
     LOG("Decoded main function");

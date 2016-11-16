@@ -49,19 +49,19 @@ void GrammarDecoder::FuncDeclare(symbolNo type, string name) {
     Param();
     
     if (ld -> LastSymbol() != rRoundSym) {
-        ERR("Missing right round bracket");
+        error(ORPHAN_ROUND);
     }
     else ld -> NextWord();
     
     if (ld -> LastSymbol() != lCurlySym) {
-        ERR("Missing left curly bracket");
+        error(MISSING_LEFT_CURLY);
     }
     else ld -> NextWord();
     
     Statements();
     
     if (ld -> LastSymbol() != rCurlySym) {
-        ERR("Missing right curly bracket");
+        error(ORPHAN_CURLY);
     }
     else ld -> NextWord();
     
@@ -72,19 +72,19 @@ void GrammarDecoder::VoidFuncDeclare(string name) {
     Param();
     
     if (ld -> LastSymbol() != rRoundSym) {
-        ERR("Missing right round bracket");
+        error(ORPHAN_ROUND);
     }
     else ld -> NextWord();
     
     if (ld -> LastSymbol() != lCurlySym) {
-        ERR("Missing left curly bracket");
+        error(MISSING_LEFT_CURLY);
     }
     else ld -> NextWord();
     
     Statements();
     
     if (ld -> LastSymbol() != rCurlySym) {
-        ERR("Missing right curly bracket");
+        error(ORPHAN_CURLY);
     }
     else ld -> NextWord();
     
@@ -110,7 +110,7 @@ void GrammarDecoder::ValueParam() {
 void GrammarDecoder::FuncCall(string name) {
     ValueParam();
     if (ld -> LastSymbol() != rRoundSym) {
-        ERR("Missing right round bracket");
+        error(ORPHAN_ROUND);
     }
     else ld -> NextWord();
 }
@@ -118,7 +118,7 @@ void GrammarDecoder::FuncCall(string name) {
 void GrammarDecoder::VoidFuncCall(string name) {
     ValueParam();
     if (ld -> LastSymbol() != rRoundSym) {
-        ERR("Missing right round bracket");
+        error(ORPHAN_ROUND);
     }
     else ld -> NextWord();
 }
@@ -126,7 +126,7 @@ void GrammarDecoder::VoidFuncCall(string name) {
 void GrammarDecoder::AllFuncCall(string name) {
     ValueParam();
     if (ld -> LastSymbol() != rRoundSym) {
-        ERR("Missing right round bracket");
+        error(ORPHAN_ROUND);
     }
     else ld -> NextWord();
 }

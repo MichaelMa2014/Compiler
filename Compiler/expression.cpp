@@ -45,7 +45,7 @@ void GrammarDecoder::Factor() {
             Expression();
             
             if (ld -> LastSymbol() != rSquareSym) {
-                ERR("Missing right square bracket");
+                error(ORPHAN_SQUARE);
             }
             else ld -> NextWord();
             LOG("Matrix member as factor");
@@ -65,7 +65,7 @@ void GrammarDecoder::Factor() {
         Expression();
         
         if (ld -> LastSymbol() != rRoundSym) {
-            ERR("Missing right round bracket");
+            error(ORPHAN_ROUND);
         }
         else ld -> NextWord();
     }
@@ -79,5 +79,5 @@ void GrammarDecoder::Factor() {
         
         LOG("Character as factor");
     }
-    else ERR("Illegal word for a factor");
+    else error(ILLEGAL_FACTOR);
 }

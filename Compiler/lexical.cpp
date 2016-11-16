@@ -109,7 +109,7 @@ void LexicalDecoder::NextWord() {
         
         if (temp.length() > NUMBERLENGTH) {
             cout << temp << endl;
-            ERR(NUMBER_TOO_LONG);
+            error(NUMBER_TOO_LONG);
         }
         
         lastWord = numbers;

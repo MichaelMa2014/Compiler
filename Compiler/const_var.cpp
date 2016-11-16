@@ -16,7 +16,7 @@ void GrammarDecoder::ConstDeclare() {
         ConstDefine();
         
         if (ld -> LastSymbol() != semiSym) {
-            ERR(MISSING_SEMI);
+            error(MISSING_SEMI);
         }
         else ld -> NextWord();
     }
@@ -24,8 +24,8 @@ void GrammarDecoder::ConstDeclare() {
 
 void GrammarDecoder::ConstDefine() {
     if (ld -> LastSymbol() != intSym && ld -> LastSymbol() != charSym) {
-        ERR("No int or char after const");
-        exit(-1);
+        error(MISSING_TYPE);
+        exit(MISSING_TYPE);
     }
     
     symbolNo type = ld -> LastSymbol();
@@ -40,7 +40,7 @@ void GrammarDecoder::ConstDefine() {
         
         ld -> NextWord();
         if (ld -> LastSymbol() != becomeSym) {
-            error(MISSING_EQUAL);
+            error(MISSING_BECOME);
         }
         else ld -> NextWord();
         
@@ -91,18 +91,19 @@ void GrammarDecoder::VarDefine() {
             ld -> NextWord();
             
             if (ld -> LastWordType() != numbers) {
-                ERR("Missing numbers after left square bracket");
-                exit(-1);
+                error(MISSING_SIZE);
+                exit(MISSING_SIZE);
             }
             
             size = ld -> LastNum();
             if (size == 0) {
-                ERR("Illegal size for matrix");
+                error(ILLEGAL_SIZE);
+                exit(ILLEGAL_SIZE);
             }
             ld -> NextWord();
             
             if (ld -> LastSymbol() != rSquareSym) {
-                ERR("Missing right square bracket");
+                error(ORPHAN_SQUARE);
             }
             else ld -> NextWord();
         }
@@ -166,18 +167,19 @@ void GrammarDecoder::StaticVarDefine(symbolNo type, string name) {
         ld -> NextWord();
         
         if (ld -> LastWordType() != numbers) {
-            ERR("Missing numbers after left square bracket");
-            exit(-1);
+            error(MISSING_SIZE);
+            exit(MISSING_SIZE);
         }
         
         size = ld -> LastNum();
         if (size == 0) {
-            ERR("Illegal size for matrix");
+            error(ILLEGAL_SIZE);
+            exit(ILLEGAL_SIZE);
         }
         ld -> NextWord();
         
         if (ld -> LastSymbol() != rSquareSym) {
-            ERR("Missing right square bracket");
+            error(ORPHAN_SQUARE);
         }
         else ld -> NextWord();
         
@@ -210,18 +212,19 @@ void GrammarDecoder::StaticVarDefine(symbolNo type, string name) {
             ld -> NextWord();
             
             if (ld -> LastWordType() != numbers) {
-                ERR("Missing numbers after left square bracket");
-                exit(-1);
+                error(MISSING_SIZE);
+                exit(MISSING_SIZE);
             }
             
             size = ld -> LastNum();
             if (size == 0) {
-                ERR("Illegal size for matrix");
+                error(ILLEGAL_SIZE);
+                exit(ILLEGAL_SIZE);
             }
             ld -> NextWord();
             
             if (ld -> LastSymbol() != rSquareSym) {
-                ERR("Missing right square bracket");
+                error(ORPHAN_SQUARE);
             }
             else ld -> NextWord();
         }

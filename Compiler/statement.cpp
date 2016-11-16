@@ -38,7 +38,7 @@ void GrammarDecoder::Statement() {
             AllFuncCall(name);
             
             if (ld -> LastSymbol() != semiSym) {
-                ERR("Missing semi colon");
+                error(MISSING_SEMI);
             }
             else ld -> NextWord();
             
@@ -48,7 +48,7 @@ void GrammarDecoder::Statement() {
             BecomeStat();
             
             if (ld -> LastSymbol() != semiSym) {
-                ERR("Missing semi colon");
+                error(MISSING_SEMI);
             }
             else ld -> NextWord();
             
@@ -72,7 +72,7 @@ void GrammarDecoder::Statement() {
         ScanfStat();
         
         if (ld -> LastSymbol() != semiSym) {
-            ERR("Missing semi colon");
+            error(MISSING_SEMI);
         }
         else ld -> NextWord();
     }
@@ -81,7 +81,7 @@ void GrammarDecoder::Statement() {
         PrintfStat();
         
         if (ld -> LastSymbol() != semiSym) {
-            ERR("Missing semi colon");
+            error(MISSING_SEMI);
         }
         else ld -> NextWord();
     }
@@ -90,7 +90,7 @@ void GrammarDecoder::Statement() {
         ReturnStat();
         
         if (ld -> LastSymbol() != semiSym) {
-            ERR("Missing semi colon");
+            error(MISSING_SEMI);
         }
         else ld -> NextWord();
     }
@@ -99,7 +99,7 @@ void GrammarDecoder::Statement() {
         StatementBlock();
         
         if (ld -> LastSymbol() != rCurlySym) {
-            ERR("Missing right curly bracket");
+            error(ORPHAN_CURLY);
         }
         else ld -> NextWord();
     }
@@ -112,13 +112,13 @@ void GrammarDecoder::BecomeStat() {
         Expression();
         
         if (ld -> LastSymbol() != rSquareSym) {
-            ERR("Missing right square bracket");
+            error(ORPHAN_SQUARE);
         }
         else ld -> NextWord();
     }
     
     if (ld -> LastSymbol() != becomeSym) {
-        ERR("Missing become sign after identifier");
+        error(MISSING_BECOME);
     }
     else ld -> NextWord();
     
@@ -127,7 +127,7 @@ void GrammarDecoder::BecomeStat() {
 
 void GrammarDecoder::IfStat() {
     if (ld -> LastSymbol() != lRoundSym) {
-        ERR("Left round bracket missing after if");
+        error(MISSING_LEFT_ROUND);
     }
     else ld -> NextWord();
     
@@ -140,7 +140,7 @@ void GrammarDecoder::IfStat() {
     }
     
     if (ld -> LastSymbol() != rRoundSym) {
-        ERR("Right round bracket missing");
+        error(ORPHAN_ROUND);
     }
     else ld -> NextWord();
     
@@ -151,7 +151,7 @@ void GrammarDecoder::IfStat() {
 
 void GrammarDecoder::WhileStat() {
     if (ld -> LastSymbol() != lRoundSym) {
-        ERR("Left round bracket missing after if");
+        error(MISSING_LEFT_ROUND);
     }
     else ld -> NextWord();
     
@@ -164,7 +164,7 @@ void GrammarDecoder::WhileStat() {
     }
     
     if (ld -> LastSymbol() != rRoundSym) {
-        ERR("Right round bracket missing");
+        error(ORPHAN_ROUND);
     }
     else ld -> NextWord();
     
@@ -175,19 +175,19 @@ void GrammarDecoder::WhileStat() {
 
 void GrammarDecoder::SwitchStat() {
     if (ld -> LastSymbol() != lRoundSym) {
-        ERR("Left round bracket missing after if");
+        error(MISSING_LEFT_ROUND);
     }
     else ld -> NextWord();
     
     Expression();
     
     if (ld -> LastSymbol() != rRoundSym) {
-        ERR("Right round bracket missing");
+        error(ORPHAN_ROUND);
     }
     else ld -> NextWord();
     
     if (ld -> LastSymbol() != lCurlySym) {
-        ERR("Missing left curly bracket");
+        error(MISSING_LEFT_CURLY);
     }
     else ld -> NextWord();
     
@@ -202,7 +202,7 @@ void GrammarDecoder::SwitchStat() {
     }
     
     if (ld -> LastSymbol() != rCurlySym) {
-        ERR("Missing right curly bracket");
+        error(ORPHAN_CURLY);
     }
     else ld -> NextWord();
     
@@ -211,7 +211,8 @@ void GrammarDecoder::SwitchStat() {
 
 void GrammarDecoder::CaseStat() {
     if (ld -> LastWordType() != numbers && ld -> LastWordType() != characters) {
-        ERR("Missing value after case");
+        error(MISSING_CASE_VALUE);
+        exit(MISSING_CASE_VALUE);
     }
     else {
         int value = ld -> LastWordType() == numbers ? ld -> LastNum() : ld -> LastChar();
@@ -219,7 +220,7 @@ void GrammarDecoder::CaseStat() {
         LOG("Decoded a case");
     }
     if (ld -> LastSymbol() != colonSym) {
-        ERR("Missing colon after case");
+        error(MISSING_CASE_COLON);
     }
     else ld -> NextWord();
     
@@ -230,7 +231,7 @@ void GrammarDecoder::CaseStat() {
 
 void GrammarDecoder::DefaultStat() {
     if (ld -> LastSymbol() != colonSym) {
-        ERR("Missing colon after default");
+        error(MISSING_CASE_COLON);
     }
     else ld -> NextWord();
     
@@ -241,12 +242,13 @@ void GrammarDecoder::DefaultStat() {
 
 void GrammarDecoder::ScanfStat() {
     if (ld -> LastSymbol() != lRoundSym) {
-        ERR("Missing left round bracket after scanf");
+        error(MISSING_LEFT_ROUND);
     }
     else ld -> NextWord();
     
     if (ld -> LastWordType() != identifiers) {
-        ERR("Missing identifier in scanf");
+        error(ILLEGAL_SCANF);
+        exit(ILLEGAL_SCANF);
     }
     else {
         string name = ld -> LastStr();
@@ -257,7 +259,8 @@ void GrammarDecoder::ScanfStat() {
         ld -> NextWord();
         
         if (ld -> LastWordType() != identifiers) {
-            ERR("Missing identifier in scanf");
+            error(ILLEGAL_SCANF);
+            exit(ILLEGAL_SCANF);
         }
         else {
             string name = ld -> LastStr();
@@ -266,7 +269,7 @@ void GrammarDecoder::ScanfStat() {
     }
     
     if (ld -> LastSymbol() != rRoundSym) {
-        ERR("Missing right round bracket in scanf");
+        error(ORPHAN_ROUND);
     }
     else ld -> NextWord();
     
@@ -275,7 +278,7 @@ void GrammarDecoder::ScanfStat() {
 
 void GrammarDecoder::PrintfStat() {
     if (ld -> LastSymbol() != lRoundSym) {
-        ERR("Missing left round bracket after printf");
+        error(MISSING_LEFT_ROUND);
     }
     else ld -> NextWord();
     
@@ -296,7 +299,7 @@ void GrammarDecoder::PrintfStat() {
     }
     
     if (ld -> LastSymbol() != rRoundSym) {
-        ERR("Missing right round bracket in printf");
+        error(ORPHAN_ROUND);
     }
     else ld -> NextWord();
     
@@ -310,7 +313,7 @@ void GrammarDecoder::ReturnStat() {
         Expression();
         
         if (ld -> LastSymbol() != rRoundSym) {
-            ERR("Missing right round bracket in return statement");
+            error(ORPHAN_ROUND);
         }
         else ld -> NextWord();
     }

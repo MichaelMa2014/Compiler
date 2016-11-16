@@ -11,25 +11,73 @@
 void error(int errNo) {
     switch (errNo) {
         case 000:
-            ERR("000: UNEXPECTED_END");
+            ERR("000: Unexpected end of source file");
             break;
         case 001:
-            ERR("001: LINE_TOO_LONG");
+            ERR("001: One line is too long in source file");
             break;
         case 100:
-            ERR("100: ILLEGAL_CHARACTER");
+            ERR("100: Illegal character in source file");
             break;
         case 101:
-            ERR("101: ORPHAN_DOUBLE_QUOTE");
+            ERR("101: Reached end of line before finding another double quote");
             break;
         case 102:
-            ERR("102: ORPHAN_SINGLE_QUOTE");
+            ERR("102: The second character after one single quote is not a single quote");
             break;
         case 103:
-            ERR("103: ILLEGAL_CHARACTER_CONST");
+            ERR("103: Illegal character used as character constant");
             break;
         case 104:
-            ERR("104: NUMBER_TOO_LONG");
+            ERR("104: Number constant is too long for int");
+            break;
+        case 200:
+            ERR("200: An semi colon sign is missing");
+            break;
+        case 201:
+            ERR("201: An left curly bracket is missing");
+            break;
+        case 202:
+            ERR("202: An left round bracket is missing");
+            break;
+        case 203:
+            ERR("203: A square bracket is missing");
+            break;
+        case 204:
+            ERR("204: A round bracket is missing");
+            break;
+        case 205:
+            ERR("205: A curly bracket is missing");
+            break;
+        case 206:
+            ERR("206: No int or char after const");
+            break;
+        case 207:
+            ERR("207: No identifier found following int or char");
+            break;
+        case 208:
+            ERR("208: No become sign found in constant definition");
+            break;
+        case 209:
+            ERR("209: No value found in constant definition");
+            break;
+        case 210:
+            ERR("210: No number found following left square bracket");
+            break;
+        case 211:
+            ERR("211: Illegal size for matrix definition");
+            break;
+        case 212:
+            ERR("212: Illegal word for factor");
+            break;
+        case 213:
+            ERR("213: No value found following case symbol");
+            break;
+        case 214:
+            ERR("214: No colon sign found following case value or default symbol");
+            break;
+        case 215:
+            ERR("215: Missing identifier in scanf statement");
             break;
     }
 }
