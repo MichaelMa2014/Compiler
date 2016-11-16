@@ -134,13 +134,25 @@ void GrammarDecoder::StaticVarDeclare(symbolNo type, string name) {
     else ld -> NextWord();
     
     while (ld -> LastSymbol() == intSym || ld -> LastSymbol() == charSym) {
-        LOG("Call VarDefine");
-        VarDefine();
+        symbolNo type = ld -> LastSymbol();
+        ld -> NextWord();
         
-        if (ld -> LastSymbol() != semiSym) {
-            error(MISSING_SEMI);
+        if (ld -> LastWordType() != identifiers) {
+            error(MISSING_IDENTIFIER);
         }
-        else ld -> NextWord();
+        else {
+            string name = ld -> LastStr();
+            ld -> NextWord();
+        }
+        
+        if (ld -> LastSymbol() == lRoundSym) {
+            ld -> NextWord();
+            
+            FuncDeclare(type, name);
+            break;
+        }
+        
+        StaticVarDefine(type, name);
     }
 }
 

@@ -4,7 +4,7 @@
 Name = [
     '',
     'void', 'const', 'int', 'char', 'switch', 'case', 'default', 'if', 'while',
-    'scanf', 'printf', 'return',
+    'main', 'scanf', 'printf', 'return',
     '+', '-', '*', '/',
     '(', ')', '[', ']', '{', '}',
     '<', '<=', '>', '>=','!=', '==', '=',
@@ -14,7 +14,7 @@ Name = [
 No = [
     'ndef',
     'voidSym', 'constSym', 'intSym', 'charSym', 'switchSym', 'caseSym', 'defaultSym', 'ifSym', 'whileSym',
-    'scanfSym', 'printfSym', 'returnSym',
+    'mainSym', 'scanfSym', 'printfSym', 'returnSym',
     'plusSym', 'minusSym', 'multiSym', 'divideSym',
     'lRoundSym', 'rRoundSym', 'lSquareSym', 'rSquareSym', 'lCurlySym', 'rCurlySym',
     'lessSym', 'leqSym', 'moreSym', 'meqSym', 'neqSym', 'equalSym', 'becomeSym',

@@ -15,33 +15,11 @@
 int main(int argc, const char * argv[]) {
     init();
     
-    LexicalDecoder ld = LexicalDecoder();
-    GrammarDecoder gd = GrammarDecoder(& ld);
+    LexicalDecoder * ld = new LexicalDecoder();
+    GrammarDecoder * gd = new GrammarDecoder(ld);
     
-    ld.NextWord();
-    gd.Statements();
+    ld -> NextWord();
+    gd -> Program();
     
-    LOG("Starting lexical decoding");
-    
-    while (true) {
-        switch (ld.LastWordType()) {
-            case symbols:
-                cout << "symbol " << ld.LastSymbol() << " " << symbolString[ld.LastSymbol()] << endl;
-                break;
-            case identifiers:
-                cout << "identifier " << ld.LastStr() << endl;
-                break;
-            case strings:
-                cout << "string " << ld.LastStr() << endl;
-                break;
-            case numbers:
-                cout << "number " << ld.LastNum() << endl;
-                break;
-            case characters:
-                cout << "character " << ld.LastChar() << endl;
-                break;
-        }
-        ld.NextWord();
-    }
     return 0;
 }

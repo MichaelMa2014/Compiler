@@ -15,8 +15,8 @@
 
 using namespace std;
 
-#define WORDNUM 35
-enum symbolNo {ndef, voidSym, constSym, intSym, charSym, switchSym, caseSym, defaultSym, ifSym, whileSym, scanfSym, printfSym, returnSym, plusSym, minusSym, multiSym, divideSym, lRoundSym, rRoundSym, lSquareSym, rSquareSym, lCurlySym, rCurlySym, lessSym, leqSym, moreSym, meqSym, neqSym, equalSym, becomeSym, singleQSym, doubleQSym, semiSym, colonSym, commaSym};
+#define WORDNUM 36
+enum symbolNo {ndef, voidSym, constSym, intSym, charSym, switchSym, caseSym, defaultSym, ifSym, whileSym, mainSym, scanfSym, printfSym, returnSym, plusSym, minusSym, multiSym, divideSym, lRoundSym, rRoundSym, lSquareSym, rSquareSym, lCurlySym, rCurlySym, lessSym, leqSym, moreSym, meqSym, neqSym, equalSym, becomeSym, singleQSym, doubleQSym, semiSym, colonSym, commaSym};
 
 // extern tells whoever includes this header file that dictionary is a valid word
 extern map<string, symbolNo> dictionary;
