@@ -35,9 +35,11 @@ public:
     void VoidFuncDeclare(string name);
     void ValueParam();
     void FuncCall(string name);
-    void VoidFuncCall();
+    void VoidFuncCall(string name);
+    void AllFuncCall(string name);
     
     void Statements();
+    void StatementBlock();
     void Statement();
     void IfStat();
     void WhileStat();

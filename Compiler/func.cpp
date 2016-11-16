@@ -115,7 +115,15 @@ void GrammarDecoder::FuncCall(string name) {
     else ld -> NextWord();
 }
 
-void GrammarDecoder::VoidFuncCall() {
+void GrammarDecoder::VoidFuncCall(string name) {
+    ValueParam();
+    if (ld -> LastSymbol() != rRoundSym) {
+        ERR("Missing right round bracket");
+    }
+    else ld -> NextWord();
+}
+
+void GrammarDecoder::AllFuncCall(string name) {
     ValueParam();
     if (ld -> LastSymbol() != rRoundSym) {
         ERR("Missing right round bracket");
