@@ -9,7 +9,8 @@
 #ifndef error_hpp
 #define error_hpp
 
-#include <stdio.h>
+#include <cstdio>
+#include <cstdlib>
 #include <iostream>
 
 using namespace std;

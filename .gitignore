@@ -11,10 +11,6 @@
 
 *.plist
 
-*.cbp
-
-*.layout
-
 *.xcsettings
 
 *.xcexplist
