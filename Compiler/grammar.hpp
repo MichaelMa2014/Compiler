@@ -35,7 +35,7 @@ public:
     void VarDeclare();
     void VarDefine();
     
-    void Param();
+    Parameter Param();
     void FuncDeclare(symbolNo type, string name);
     void VoidFuncDeclare(string name);
     void ValueParam();

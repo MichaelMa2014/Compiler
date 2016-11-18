@@ -51,10 +51,12 @@ void GrammarDecoder::ConstDefine() {
         
         if (type == intSym) {
             int value = ld -> LastNum();
+            id -> Enter(name, value);
             LOG("Found constant int " + name);
         }
         else {
             char value = ld -> LastChar();
+            id -> Enter(name, value);
             LOG("Found constant char " + name);
         }
         ld -> NextWord();
@@ -110,17 +112,21 @@ void GrammarDecoder::VarDefine() {
         
         if (size == 0) {
             if (type == intSym) {
+                id -> EnterInt(name);
                 LOG("Found variable int " + name);
             }
             else {
+                id -> EnterChar(name);
                 LOG("Found variable char " + name);
             }
         }
         else {
             if (type == intSym) {
+                id -> EnterInt(name, size);
                 LOG("Found matrix int " + name);
             }
             else {
+                id -> EnterChar(name, size);
                 LOG("Found matrix char " + name);
             }
         }
@@ -184,17 +190,21 @@ void GrammarDecoder::StaticVarDefine(symbolNo type, string name) {
         else ld -> NextWord();
         
         if (type == intSym) {
+            id -> EnterInt(name, size);
             LOG("Found matrix int " + name);
         }
         else {
+            id -> EnterChar(name, size);
             LOG("Found matrix char " + name);
         }
     }
     else {
         if (type == intSym) {
+            id -> EnterInt(name);
             LOG("Found variable int " + name);
         }
         else {
+            id -> EnterChar(name);
             LOG("Found variable char " + name);
         }
     }
@@ -231,17 +241,21 @@ void GrammarDecoder::StaticVarDefine(symbolNo type, string name) {
         
         if (size == 0) {
             if (type == intSym) {
+                id -> EnterInt(name);
                 LOG("Found variable int " + name);
             }
             else {
+                id -> EnterChar(name);
                 LOG("Found variable char " + name);
             }
         }
         else {
             if (type == intSym) {
+                id -> EnterInt(name, size);
                 LOG("Found matrix int " + name);
             }
             else {
+                id -> EnterChar(name, size);
                 LOG("Found matrix char " + name);
             }
         }

@@ -8,7 +8,10 @@
 
 #include "grammar.hpp"
 
-void GrammarDecoder::Param() {
+Parameter GrammarDecoder::Param() {
+    Parameter list;
+    list.clear();
+    
     if (ld -> LastSymbol() == intSym || ld -> LastSymbol() == charSym) {
         symbolNo type = ld -> LastSymbol();
         ld -> NextWord();
@@ -21,7 +24,16 @@ void GrammarDecoder::Param() {
             string name = ld -> LastStr();
             ld -> NextWord();
             
-            LOG("Parameter logged " + name);
+            if (type == intSym) {
+                id -> EnterInt(name);
+                list.push_back(intId);
+                LOG("Int Parameter logged " + name);
+            }
+            else {
+                id -> EnterChar(name);
+                list.push_back(charId);
+                LOG("Char Parameter logged " + name);
+            }
         }
     }
     while (ld -> LastSymbol() == commaSym) {
@@ -39,14 +51,27 @@ void GrammarDecoder::Param() {
                 string name = ld -> LastStr();
                 ld -> NextWord();
                 
-                LOG("Parameter logged " + name);
+                if (type == intSym) {
+                    id -> EnterInt(name);
+                    list.push_back(intId);
+                    LOG("Int Parameter logged " + name);
+                }
+                else {
+                    id -> EnterChar(name);
+                    list.push_back(charId);
+                    LOG("Char Parameter logged " + name);
+                }
             }
         }
     }
+    
+    return list;
 }
 
 void GrammarDecoder::FuncDeclare(symbolNo type, string name) {
-    Param();
+    id = new IdentifierTable();
+    
+    Parameter list = Param();
     
     if (ld -> LastSymbol() != rRoundSym) {
         error(ORPHAN_ROUND);
@@ -65,11 +90,22 @@ void GrammarDecoder::FuncDeclare(symbolNo type, string name) {
     }
     else ld -> NextWord();
     
+    if (type == intSym) {
+        gid -> EnterInt(name, list);
+    }
+    else {
+        gid -> EnterChar(name, list);
+    }
     LOG("Decoded a function declaration");
+    
+    delete id;
+    id = NULL;
 }
 
 void GrammarDecoder::VoidFuncDeclare(string name) {
-    Param();
+    id = new IdentifierTable();
+    
+    Parameter list = Param();
     
     if (ld -> LastSymbol() != rRoundSym) {
         error(ORPHAN_ROUND);
@@ -88,7 +124,11 @@ void GrammarDecoder::VoidFuncDeclare(string name) {
     }
     else ld -> NextWord();
     
+    gid -> EnterFunc(name, list);
     LOG("Decoded a void function declaration");
+    
+    delete id;
+    id = NULL;
 }
 
 void GrammarDecoder::ValueParam() {
