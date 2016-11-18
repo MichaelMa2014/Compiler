@@ -11,12 +11,18 @@
 
 #include "Lexical.hpp"
 #include "grammar.hpp"
+#include "identifier_table.hpp"
 
 int main(int argc, const char * argv[]) {
     init();
     
     LexicalDecoder * ld = new LexicalDecoder();
-    GrammarDecoder * gd = new GrammarDecoder(ld);
+    IdentifierTable * id = new IdentifierTable();
+    GrammarDecoder * gd = new GrammarDecoder(ld, id, id);
+    
+    int value = 99;
+    id -> Enter("test2", value);
+    id -> Enter("test", 'c');
     
     ld -> NextWord();
     gd -> Program();

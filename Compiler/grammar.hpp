@@ -12,13 +12,18 @@
 #include "init.hpp"
 #include "error.hpp"
 #include "lexical.hpp"
+#include "identifier_table.hpp"
 
 class GrammarDecoder {
 private:
     LexicalDecoder * ld;
+    IdentifierTable * id;
+    IdentifierTable * gid;
 public:
-    GrammarDecoder(LexicalDecoder * l) {
+    GrammarDecoder(LexicalDecoder * l, IdentifierTable * i, IdentifierTable * gi) {
         this -> ld = l;
+        this -> id = i;
+        this -> gid = gi;
     }
     void Program();
     void Main();
