@@ -79,5 +79,11 @@ void error(int errNo) {
         case 215:
             ERR("215: Missing identifier in scanf statement");
             break;
+        case 300:
+            ERR("300: An identifier is declared twice");
+            break;
+        case 301:
+            ERR("301: An identifier is refered to before any declaration");
+            break;
     }
 }

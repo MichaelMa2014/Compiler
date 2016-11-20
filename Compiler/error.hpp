@@ -41,6 +41,8 @@ using namespace std;
 #define MISSING_CASE_VALUE 213
 #define MISSING_CASE_COLON 214
 #define ILLEGAL_SCANF 215
+#define DOUBLE_DECLARE 300
+#define NO_DECLARE 301
 
 
 void error(int errNo);
