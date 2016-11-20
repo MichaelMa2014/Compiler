@@ -49,16 +49,10 @@ void GrammarDecoder::ConstDefine() {
             exit(MISSING_VALUE);
         }
         
-        if (type == intSym) {
-            int value = ld -> LastNum();
-            id -> Enter(name, value);
-            LOG("Found constant int " + name);
-        }
-        else {
-            char value = ld -> LastChar();
-            id -> Enter(name, value);
-            LOG("Found constant char " + name);
-        }
+        int value = ld -> LastNum();
+        
+        id -> EnterConstant(name, type, value);
+        
         ld -> NextWord();
     
     } while (ld -> LastSymbol() == commaSym);
@@ -110,26 +104,9 @@ void GrammarDecoder::VarDefine() {
             else ld -> NextWord();
         }
         
-        if (size == 0) {
-            if (type == intSym) {
-                id -> EnterInt(name);
-                LOG("Found variable int " + name);
-            }
-            else {
-                id -> EnterChar(name);
-                LOG("Found variable char " + name);
-            }
-        }
-        else {
-            if (type == intSym) {
-                id -> EnterInt(name, size);
-                LOG("Found matrix int " + name);
-            }
-            else {
-                id -> EnterChar(name, size);
-                LOG("Found matrix char " + name);
-            }
-        }
+        id -> EnterVariable(name, type, size);
+        
+        LOG("Found variable or matrix");
     } while (ld -> LastSymbol() == commaSym);
 }
 
@@ -189,24 +166,14 @@ void GrammarDecoder::StaticVarDefine(symbolNo type, string name) {
         }
         else ld -> NextWord();
         
-        if (type == intSym) {
-            id -> EnterInt(name, size);
-            LOG("Found matrix int " + name);
-        }
-        else {
-            id -> EnterChar(name, size);
-            LOG("Found matrix char " + name);
-        }
+        id -> EnterVariable(name, type, size);
+            
+        LOG("Found static matrix");
     }
     else {
-        if (type == intSym) {
-            id -> EnterInt(name);
-            LOG("Found variable int " + name);
-        }
-        else {
-            id -> EnterChar(name);
-            LOG("Found variable char " + name);
-        }
+        id -> EnterVariable(name, type, 0);
+    
+        LOG("Found static variable");
     }
     while (ld -> LastSymbol() == commaSym) {
         ld -> NextWord();
@@ -239,26 +206,9 @@ void GrammarDecoder::StaticVarDefine(symbolNo type, string name) {
             else ld -> NextWord();
         }
         
-        if (size == 0) {
-            if (type == intSym) {
-                id -> EnterInt(name);
-                LOG("Found variable int " + name);
-            }
-            else {
-                id -> EnterChar(name);
-                LOG("Found variable char " + name);
-            }
-        }
-        else {
-            if (type == intSym) {
-                id -> EnterInt(name, size);
-                LOG("Found matrix int " + name);
-            }
-            else {
-                id -> EnterChar(name, size);
-                LOG("Found matrix char " + name);
-            }
-        }
+        id -> EnterVariable(name, type, size);
+        
+        LOG("Found variable or matrix");
     }
 
 }

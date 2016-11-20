@@ -283,7 +283,7 @@ void LexicalDecoder::NextWord() {
         lastWord = characters;
         lastSymbol = ndef;
         lastStr = "";
-        lastNum = 0;
+        lastNum = lastLine[pointer];
         lastChar = lastLine[pointer];
         
         //  There should be another single quote sign here, if there is not any, then leave the pointer where it is for encoding at next time

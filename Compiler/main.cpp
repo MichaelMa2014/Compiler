@@ -21,8 +21,6 @@ int main(int argc, const char * argv[]) {
     GrammarDecoder * gd = new GrammarDecoder(ld, id, id);
     
     int value = 99;
-    id -> Enter("test2", value);
-    id -> Enter("test", 'c');
     
     ld -> NextWord();
     gd -> Program();
