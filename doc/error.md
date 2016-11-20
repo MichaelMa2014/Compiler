@@ -25,3 +25,5 @@ There are several error defined in the compiler.
 | 213  | No value found following case symbol | Shut down |
 | 214  | No colon sign found following case value or default symbol | Act as if normal |
 | 215  | Missing identifier in scanf statement | Shut down |
+| 300  | An identifier is declared twice | The second declaration is ignored |
+| 301  | An identifier is refered to before any declaration | The statement containing the reference is ignored |

@@ -48,6 +48,8 @@ for i in range(0, len(error1)):
     print ('#define ' + error1[i][0] + ' ' + '1' + pad(i))
 for i in range(0, len(error2)):
     print ('#define ' + error2[i][0] + ' ' + '2' + pad(i))
+for i in range(0, len(error3)):
+    print ('#define ' + error3[i][0] + ' ' + '3' + pad(i))
 
 # error.cpp
 for i in range(0, len(error0)):
@@ -62,6 +64,10 @@ for i in range(0, len(error2)):
     print ('case 2' + pad(i) + ':')
     print ('    ERR("2' + pad(i) + ': ' + error2[i][1] + '");')
     print ('    break;')
+for i in range(0, len(error3)):
+    print ('case 3' + pad(i) + ':')
+    print ('    ERR("3' + pad(i) + ': ' + error3[i][1] + '");')
+    print ('    break;')
 
 # error.md
 for i in range(0, len(error0)):
@@ -70,4 +76,6 @@ for i in range(0, len(error1)):
     print ('| 1' + pad(i) + '  | ' + error1[i][1] + ' | ' + error1[i][2] + ' |')
 for i in range(0, len(error2)):
     print ('| 2' + pad(i) + '  | ' + error2[i][1] + ' | ' + error2[i][2] + ' |')
+for i in range(0, len(error3)):
+    print ('| 3' + pad(i) + '  | ' + error3[i][1] + ' | ' + error3[i][2] + ' |')
 
