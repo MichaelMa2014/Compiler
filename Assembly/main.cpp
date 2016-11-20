@@ -15,6 +15,6 @@ int main(int, const char**)
 {
     int RDTSC1 = GetRDTSC();
     int RDTSC2 = GetRDTSC();
-    printf("Time-Stamp Counters: %c - %d\n", RDTSC1, RDTSC2);
+    printf("Time-Stamp Counters: %x - %x\n", RDTSC1, RDTSC2);
     return 0;
 }
