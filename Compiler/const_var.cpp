@@ -118,14 +118,14 @@ void GrammarDecoder::StaticVarDeclare(symbolNo type, string name) {
     else ld -> NextWord();
     
     while (ld -> LastSymbol() == intSym || ld -> LastSymbol() == charSym) {
-        symbolNo type = ld -> LastSymbol();
+        type = ld -> LastSymbol();
         ld -> NextWord();
         
         if (ld -> LastWordType() != identifiers) {
             error(MISSING_IDENTIFIER);
         }
         else {
-            string name = ld -> LastStr();
+            name = ld -> LastStr();
             ld -> NextWord();
         }
         
