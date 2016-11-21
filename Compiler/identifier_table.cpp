@@ -8,7 +8,11 @@
 
 #include "identifier_table.hpp"
 
-Constant::Constant(symbolNo k, int v) {
+Identifier::Identifier(string n) {
+    this -> name = n;
+}
+
+Constant::Constant(string name, symbolNo k, int v) : Identifier(name){
     this -> kind = k;
     this -> value = v;
 }
@@ -25,7 +29,7 @@ int Constant::Value() {
     return this -> value;
 }
 
-Variable::Variable(symbolNo k) {
+Variable::Variable(string name, symbolNo k) : Identifier(name){
     this -> kind = k;
 }
 
@@ -37,7 +41,7 @@ symbolNo Variable::Kind() {
     return this -> kind;
 }
 
-Matrix::Matrix(symbolNo k, int s) {
+Matrix::Matrix(string name, symbolNo k, int s) : Identifier(name){
     this -> kind = k;
     this -> size = s;
 }
@@ -54,7 +58,7 @@ int Matrix::Size() {
     return this -> size;
 }
 
-Function::Function(symbolNo k, Parameter * p) {
+Function::Function(string name, symbolNo k, Parameter * p) : Identifier(name) {
     this -> kind = k;
     this -> parameters = p;
 }
@@ -88,9 +92,9 @@ IdentifierTable::~IdentifierTable() {
     }
 }
 
-const Identifier * IdentifierTable::Look(string name) {
+Identifier * IdentifierTable::Look(string name) {
     if (table[name] == NULL) {
-        error(NO_DECLARE);
+        // Will not throw error here because this might only be the local IDT
     }
     return table[name];
 }
@@ -99,7 +103,7 @@ void IdentifierTable::EnterConstant(string name, symbolNo type, int value) {
     if (table[name] != NULL) {
         error(DOUBLE_DECLARE);
     }
-    Identifier * temp = new Constant(type, value);
+    Identifier * temp = new Constant(name, type, value);
     table[name] = temp;
 }
 
@@ -109,9 +113,9 @@ void IdentifierTable::EnterVariable(string name, symbolNo type, int size){
     }
     Identifier * temp;
     if (size == 0) {
-        temp = new Variable(type);
+        temp = new Variable(name, type);
     }
-    else temp = new Matrix(type, size);
+    else temp = new Matrix(name, type, size);
     table[name] = temp;
 }
 
@@ -119,7 +123,7 @@ void IdentifierTable::EnterFunction(string name, symbolNo type, Parameter * list
     if (table[name] != NULL) {
         error(DOUBLE_DECLARE);
     }
-    Identifier * temp = new Function(type, list);
+    Identifier * temp = new Function(name, type, list);
     table[name] = temp;
 }
 
@@ -127,7 +131,7 @@ void GIdentifierTable::EnterConstant(string name, symbolNo type, int value) {
     if (table[name] != NULL) {
         error(DOUBLE_DECLARE);
     }
-    Identifier * temp = new Constant(type, value);
+    Identifier * temp = new Constant(name, type, value);
     table[name] = temp;
 }
 
@@ -137,9 +141,9 @@ void GIdentifierTable::EnterVariable(string name, symbolNo type, int size){
     }
     Identifier * temp;
     if (size == 0) {
-        temp = new Variable(type);
+        temp = new Variable(name, type);
     }
-    else temp = new Matrix(type, size);
+    else temp = new Matrix(name, type, size);
     table[name] = temp;
 }
 
@@ -147,6 +151,6 @@ void GIdentifierTable::EnterFunction(string name, symbolNo type, Parameter * lis
     if (table[name] != NULL) {
         error(DOUBLE_DECLARE);
     }
-    Identifier * temp = new Function(type, list);
+    Identifier * temp = new Function(name, type, list);
     table[name] = temp;
 }

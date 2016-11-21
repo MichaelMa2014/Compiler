@@ -25,6 +25,8 @@ class Identifier {
 private:
     int addr;
 public:
+    string name;
+    Identifier(string name);
     int Addr() {
         return this -> addr;
     }
@@ -57,7 +59,7 @@ private:
     symbolNo kind;
     int value;
 public:
-    Constant(symbolNo kind, int value);
+    Constant(string name, symbolNo kind, int value);
     virtual IdType Type();
     virtual symbolNo Kind();
     virtual int Value();
@@ -67,7 +69,7 @@ class Variable : public Identifier {
 private:
     symbolNo kind;
 public:
-    Variable(symbolNo kind);
+    Variable(string name, symbolNo kind);
     virtual IdType Type();
     virtual symbolNo Kind();
 };
@@ -77,7 +79,7 @@ private:
     symbolNo kind;
     int size;
 public:
-    Matrix(symbolNo kind, int size);
+    Matrix(string name, symbolNo kind, int size);
     virtual IdType Type();
     virtual symbolNo Kind();
     virtual int Size();
@@ -88,7 +90,7 @@ private:
     symbolNo kind;
     Parameter * parameters;
 public:
-    Function(symbolNo kind, Parameter * parameters);
+    Function(string name, symbolNo kind, Parameter * parameters);
     ~Function();
     virtual IdType Type();
     virtual symbolNo Kind();
@@ -101,7 +103,7 @@ protected:
 public:
     IdentifierTable();
     ~IdentifierTable();
-    const Identifier * Look(string name);
+    Identifier * Look(string name);
     virtual void EnterConstant(string name, symbolNo type, int value);
     virtual void EnterVariable(string name, symbolNo type, int size);
     virtual void EnterFunction(string name, symbolNo type, Parameter * list);
