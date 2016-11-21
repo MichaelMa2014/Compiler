@@ -91,7 +91,7 @@ void GrammarDecoder::Main() {
     
     LOG("Decoded main function");
     
-//    delete id;
+//    delete id; FIXME
     id = NULL;
     
     ge -> SetId(gid);

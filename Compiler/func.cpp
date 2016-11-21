@@ -84,7 +84,7 @@ void GrammarDecoder::FuncDeclare(symbolNo type, string name) {
     gid -> EnterFunction(name, type, list);
     LOG("Decoded a function declaration");
     
-//    delete id;
+//    delete id; FIXME
     id = NULL;
     
     ge -> SetId(gid);
@@ -116,7 +116,7 @@ void GrammarDecoder::VoidFuncDeclare(string name) {
     gid -> EnterFunction(name, voidSym, list);
     LOG("Decoded a void function declaration");
     
-//    delete id;
+//    delete id; FIXME
     id = NULL;
     
     ge -> SetId(gid);
