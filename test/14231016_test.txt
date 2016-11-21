@@ -107,7 +107,7 @@ void main() {
 
     printf("iFunc1() = ", iFunc1());
     printf("iFunc2()= ", iFunc2());
-    printf(cfunc1());
+    printf(cFunc1());
     printf("iFunc3()= ", iFunc3());
     printf("iFunc4()= ", iFunc4());
     printf("iFunc5()= ", iFunc5());
