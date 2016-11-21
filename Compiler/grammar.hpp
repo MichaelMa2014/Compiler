@@ -13,15 +13,17 @@
 #include "error.hpp"
 #include "lexical.hpp"
 #include "identifier_table.hpp"
+#include "quaternary.hpp"
+
+extern LexicalDecoder * ld;
+extern Generator * ge;
 
 class GrammarDecoder {
 private:
-    LexicalDecoder * ld;
     IdentifierTable * id;
     IdentifierTable * gid;
 public:
-    GrammarDecoder(LexicalDecoder * l, IdentifierTable * i, IdentifierTable * gi) {
-        this -> ld = l;
+    GrammarDecoder(IdentifierTable * i, IdentifierTable * gi) {
         this -> id = i;
         this -> gid = gi;
     }
@@ -56,9 +58,9 @@ public:
     void PrintfStat();
     void ReturnStat();
     
-    void Expression();
-    void Term();
-    void Factor();
+    Identifier * Expression();
+    Identifier * Term();
+    Identifier * Factor();
 };
 
 #endif /* grammar_hpp */
