@@ -60,6 +60,7 @@ Parameter * GrammarDecoder::Param() {
 
 void GrammarDecoder::FuncDeclare(symbolNo type, string name) {
     id = new IdentifierTable();
+    ge -> SetId(id);
     
     Parameter * list = Param();
     
@@ -83,13 +84,15 @@ void GrammarDecoder::FuncDeclare(symbolNo type, string name) {
     gid -> EnterFunction(name, type, list);
     LOG("Decoded a function declaration");
     
-    
-    delete id;
+//    delete id;
     id = NULL;
+    
+    ge -> SetId(gid);
 }
 
 void GrammarDecoder::VoidFuncDeclare(string name) {
     id = new IdentifierTable();
+    ge -> SetId(id);
     
     Parameter * list = Param();
     
@@ -113,8 +116,10 @@ void GrammarDecoder::VoidFuncDeclare(string name) {
     gid -> EnterFunction(name, voidSym, list);
     LOG("Decoded a void function declaration");
     
-    delete id;
+//    delete id;
     id = NULL;
+    
+    ge -> SetId(gid);
 }
 
 void GrammarDecoder::ValueParam() {
