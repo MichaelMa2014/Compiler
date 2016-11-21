@@ -8,76 +8,121 @@
 
 #include "grammar.hpp"
 
-void GrammarDecoder::Expression() {
+Identifier * GrammarDecoder::Expression() {
+    bool negative = false;
+    
     if (ld -> LastSymbol() == plusSym) {
         ld -> NextWord();
     }
     else if (ld -> LastSymbol() == minusSym) {
         ld -> NextWord();
+        negative = true;
     }
     
-    Term();
+    Identifier * source1 = Term();
     
     while (ld -> LastSymbol() == plusSym || ld -> LastSymbol() == minusSym) {
+        symbolNo type = ld -> LastSymbol();
         ld -> NextWord();
-        Term();
+        
+        Identifier * source2 = Term();
+        
+        source1 = ge -> PlusMinus(type, source1, source2);
     }
+    
+    if (negative) {
+        return ge -> Negative(source1);
+    }
+    else return source1;
 }
 
-void GrammarDecoder::Term() {
-    Factor();
+Identifier * GrammarDecoder::Term() {
+    Identifier * source1 = Factor();
     
     while (ld -> LastSymbol() == multiSym || ld -> LastSymbol() == divideSym) {
+        symbolNo type = ld -> LastSymbol();
         ld -> NextWord();
-        Factor();
+        
+        Identifier * source2 = Factor();
+        
+        source1 = ge -> MultiplyDivide(type, source1, source2);
     }
+    
+    return source1;
 }
 
-void GrammarDecoder::Factor() {
+Identifier * GrammarDecoder::Factor() {
     if (ld -> LastWordType() == identifiers) {
         string name = ld -> LastStr();
+        
+        Identifier * pointer = id -> Look(name);
+        if (pointer == NULL) {
+            pointer = gid -> Look(name);
+        }
+        if (pointer == NULL) {
+            error(NO_DECLARE);
+        }
+        
         ld -> NextWord();
         
         if (ld -> LastSymbol() == lSquareSym) {
             ld -> NextWord();
             
-            int index;
-            Expression();
+            Identifier * index = Expression();
             
             if (ld -> LastSymbol() != rSquareSym) {
                 error(ORPHAN_SQUARE);
             }
             else ld -> NextWord();
+            
             LOG("Matrix member as factor");
+            
+            return ge -> MatrixMember(pointer, index);
         }
         else if (ld -> LastSymbol() == lRoundSym) {
             ld -> NextWord();
             FuncCall(name);
 
             LOG("Function call as factor");
+            
+            return ge -> FunctionCall(gid -> Look(name));
         }
         else {
             LOG("Identifier as factor");
+            
+            return pointer;
         }
     }
     else if (ld -> LastSymbol() == lRoundSym) {
         ld -> NextWord();
-        Expression();
+        Identifier * temp = Expression();
         
         if (ld -> LastSymbol() != rRoundSym) {
             error(ORPHAN_ROUND);
         }
         else ld -> NextWord();
+        
+        return temp;
     }
     else if (ld -> LastWordType() == numbers) {
+        int number = ld -> LastNum();
         ld -> NextWord();
         
         LOG("Numbers as factor");
+        
+        return ge -> NumberConstant(number);
     }
     else if (ld -> LastWordType() == characters) {
+        char character = ld -> LastChar();
         ld -> NextWord();
         
         LOG("Character as factor");
+        
+        return ge -> CharacterConstant(character);
     }
-    else error(ILLEGAL_FACTOR);
+    else {
+        cout << symbolString[ld -> LastSymbol()];
+        error(ILLEGAL_FACTOR);
+        exit(ILLEGAL_FACTOR);
+    }
 }

@@ -85,17 +85,7 @@ void vFunc4() {
 }
 
 
-int gcd(int a , int b){
-	if (a == b) {
-		return (a);
-	}
-    if (a > b) {
-		return (gcd(b, a - b));
-	}
-    if (a < b) {
-		return (gcd(b - a, a));
-	}
-}
+
 
 void main() {
     const int intC3 = 5;
@@ -161,5 +151,4 @@ void main() {
     intV6[0] = intV5;
 
 
-    printf(gcd(intV2[0], intV2[1]));
 }
