@@ -67,6 +67,9 @@ void GrammarDecoder::Program() {
 }
 
 void GrammarDecoder::Main() {
+    id = new IdentifierTable();
+    ge -> SetId(id);
+    
     if (ld -> LastSymbol() != lRoundSym) {
         error(MISSING_LEFT_ROUND);
     }
@@ -87,4 +90,9 @@ void GrammarDecoder::Main() {
     }
     
     LOG("Decoded main function");
+    
+//    delete id;
+    id = NULL;
+    
+    ge -> SetId(gid);
 }
