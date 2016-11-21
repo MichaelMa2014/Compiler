@@ -5,3 +5,7 @@ When Grammar Decoder encounters a become statement, it will call Expression to g
 The **unified** process are described here. Each quaternary contains an instruction code, two pointers to identifiers acting as oprands and one pointer to identifier as destination. This though, only applies to arithematic operations, whose meaning is to do calculations between two (or one) identifiers (user-defined or compiler-generated) and assign the result to another.
 
 There are, however, other instrutions apart from arithematic ones that do not fit this process. Some quaternaries have to contain, for example, labels. This will be addressed later.
+
+Now we shall address one of the peculiar instructions that do not fit the pattern, one source of which is a number constant. A new class is derived from Quaternary, called Quaternary_immediate, for dealing with this instruction. When number constants (AKA immediate numbers) are used as factors, an object of this derived class will be created and used to express the meaning of storing an immediate number to an identifier. This quaternary will be translated to a `mov` instruction in assembly code.
+
+All the quaternaries will be stored in a single table, in the order of generating them. The assembly instructions translated from the quaternaries will also be excuted in the order of translating them. As a result, it is critical that the compiler calls the generator in right order.
