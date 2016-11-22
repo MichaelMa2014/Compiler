@@ -8,4 +8,10 @@ There are, however, other instructions apart from arithmetic ones that do not fi
 
 Now we shall address one of the peculiar instructions that do not fit the pattern, one source of which is a number constant. A new class is derived from `Quaternary`, called `Quaternary_immediate`, for dealing with this instruction. When number constants (AKA immediate numbers) are used as factors, an object of this derived class will be created and used to express the meaning of storing an immediate number to an identifier. This quaternary will be translated to a `mov` instruction in assembly code.
 
-All the quaternaries will be stored in a single table, in the order of generating them. The assembly instructions translated from the quaternaries will also be excuted in the order of translating them. As a result, it is critical that the compiler calls the generator in right order.
+Another kind of the peculiar instructions that do not fit the pattern is to assign value to a matrix member. `mov` instruction will be used but this time we have to provide the address of the matrix member. As a result, it is critical to design how addresses are assigned.
+
+All the quaternaries will be stored in a single table, in the order of generating them. The assembly instructions translated from the quaternaries will also be executed in the order of translating them. As a result, it is critical that the compiler calls the generator in right order.
+
+Each quaternary should be capable of carrying a label. The will be kept when translated to x86 assembly language. The labels should be unique to each other, which makes the index in the table a perfect fit for the job. NASM, however, does not allow labels containing only numbers. So the compiler will add `label` before the indices to generate legal labels. When a label is "set", the compiler will simply set a bool value in the quaternary to `true`, and when translated, the quaternary with `true` value will be printed along with its label.
+
+Now we shall design how the grammar decoder and other components can locate and set the label of a particular quaternary. Label is used in `IfStat`, `WhileStat`, `SwitchStat` and `ReturnStat`.
