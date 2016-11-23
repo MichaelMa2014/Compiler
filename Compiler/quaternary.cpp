@@ -8,7 +8,21 @@
 
 #include "quaternary.hpp"
 
+const char * InsString[INSNUM];
+
 Quaternary::Quaternary(insNo i, Identifier * s1, Identifier * s2, Identifier * d) {
+    InsString[0] = "extractIns     ";
+    InsString[1] = "assignIns      ";
+    InsString[2] = "callIns        ";
+    InsString[3] = "movIns         ";
+    InsString[4] = "mulIns         ";
+    InsString[5] = "divIns         ";
+    InsString[6] = "plusIns        ";
+    InsString[7] = "minusIns       ";
+    InsString[8] = "negIns         ";
+    InsString[9] = "scanIns        ";
+    InsString[10] = "printIns       ";
+    InsString[11] = "acllocIns      ";
     this -> ins = i;
     this -> source1 = s1;
     this -> source2 = s2;
@@ -17,13 +31,13 @@ Quaternary::Quaternary(insNo i, Identifier * s1, Identifier * s2, Identifier * d
 
 void Quaternary::Print() {
     if (ins == mulIns || ins == divIns || ins == plusIns || ins == minusIns) {
-        cout << this -> ins << " " << this -> source1 -> name << " " << this -> source2 -> name << " " << this -> dest -> name << endl;
+        cout << InsString[this -> ins] << " " << this -> source1 -> Addr() << " " << this -> source2 -> Addr() << " " << this -> dest -> Addr() << endl;
     }
     if (ins == movIns || ins == callIns) {
-        cout << this -> ins << " " << this -> source1 -> name << " " << this -> dest -> name << endl;
+        cout << InsString[this -> ins] << " " << this -> source1 -> Addr() << " " << this -> dest -> Addr() << endl;
     }
     if (ins == extractIns) {
-        cout << this -> ins << " " << this -> source1 -> name << " " << this -> source2 -> name << " " << this -> dest -> name << endl;
+        cout << InsString[this -> ins] << " " << this -> source1 -> Addr() << " " << this -> source2 -> Addr() << " " << this -> dest -> Addr() << endl;
     }
 }
 
@@ -32,7 +46,7 @@ Quaternary_immediate::Quaternary_immediate(insNo i, int num, Identifier * d) : Q
 }
 
 void Quaternary_immediate::Print() {
-    cout << this -> ins << " " << this -> immediate << " " << this -> dest -> name << endl;
+    cout << InsString[this -> ins] << " " << this -> immediate << " " << this -> dest -> Addr() << endl;
 }
 
 string itoa(int i) {
@@ -160,5 +174,10 @@ Identifier * Generator::Negative(Identifier *source) {
 
 void Generator::Scan(Identifier * dest) {
     Quaternary * temp = new Quaternary(scanIns, NULL, NULL, dest);
+    table.push_back(temp);
+}
+
+void Generator::Allocate() {
+    Quaternary * temp = new Quaternary(allocIns, NULL, NULL, NULL);
     table.push_back(temp);
 }

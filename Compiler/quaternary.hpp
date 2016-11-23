@@ -14,7 +14,10 @@
 
 #include "identifier_table.hpp"
 
-enum insNo {extractIns, assignIns, callIns, movIns, mulIns, divIns, plusIns, minusIns, negIns, scanIns, printIns};
+#define INSNUM 12
+enum insNo {extractIns, assignIns, callIns, movIns, mulIns, divIns, plusIns, minusIns, negIns, scanIns, printIns, allocIns};
+
+extern const char * InsString[];
 
 class Quaternary {
 protected:
@@ -56,6 +59,8 @@ public:
     Identifier * Negative(Identifier * source);
     
     void Scan(Identifier * dest);
+    
+    void Allocate();
 };
 
 #endif /* quarternary_hpp */
