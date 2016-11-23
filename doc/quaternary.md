@@ -8,7 +8,9 @@ There are, however, other instructions apart from arithmetic ones that do not fi
 
 Now we shall address one of the peculiar instructions that do not fit the pattern, one source of which is a number constant. A new class is derived from `Quaternary`, called `Quaternary_immediate`, for dealing with this instruction. When number constants (AKA immediate numbers) are used as factors, an object of this derived class will be created and used to express the meaning of storing an immediate number to an identifier. This quaternary will be translated to a `mov` instruction in assembly code.
 
-Another kind of the peculiar instructions that do not fit the pattern is to assign value to a matrix member. `mov` instruction will be used but this time we have to provide the address of the matrix member. As a result, it is critical to design how addresses are assigned.
+Another kind of the peculiar instructions that do not fit the pattern is to assign value to a matrix member. `mov` instruction will be used but this time we have to provide the address of the matrix member. As a result, it is critical to design how addresses are assigned, which is further addressed in `doc/address.md`. A new class is derived from `Quaternary`, called `Quaternary_address`. The first source should be the identifier pointer pointing to the matrix. The second source is an identifier pointer pointing to the identifier containing the right value waiting to be assigned. The dest is the index of the member, which is an integer.
+
+Allocating stack space is another peculiar instruction. This instruction does not take any source and destination. It simply means `mov %esp, %esp - 4`. However no derived class is needed because we can just set all three pointers in the base class to `NULL`.
 
 All the quaternaries will be stored in a single table, in the order of generating them. The assembly instructions translated from the quaternaries will also be executed in the order of translating them. As a result, it is critical that the compiler calls the generator in right order.
 
