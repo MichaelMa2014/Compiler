@@ -14,16 +14,16 @@
 
 #include "identifier_table.hpp"
 
-enum Instruction {extractIns, assignIns, callIns, movIns, mulIns, divIns, plusIns, minusIns, negIns};
+enum insNo {extractIns, assignIns, callIns, movIns, mulIns, divIns, plusIns, minusIns, negIns, scanIns, printIns};
 
 class Quaternary {
 protected:
-    Instruction ins;
+    insNo ins;
     Identifier * source1;
     Identifier * source2;
     Identifier * dest;
 public:
-    Quaternary(Instruction ins, Identifier * source1, Identifier * source2, Identifier * dest);
+    Quaternary(insNo ins, Identifier * source1, Identifier * source2, Identifier * dest);
     virtual void Print();
 };
 
@@ -33,7 +33,7 @@ class Quaternary_immediate : public Quaternary{
 private:
     int immediate;
 public:
-    Quaternary_immediate(Instruction ins, int number, Identifier * dest);
+    Quaternary_immediate(insNo ins, int number, Identifier * dest);
     virtual void Print();
 };
 
@@ -54,6 +54,8 @@ public:
     Identifier * MultiplyDivide(symbolNo type, Identifier * source1, Identifier * source2);
     Identifier * PlusMinus(symbolNo type, Identifier * source1, Identifier * source2);
     Identifier * Negative(Identifier * source);
+    
+    void Scan(Identifier * dest);
 };
 
 #endif /* quarternary_hpp */

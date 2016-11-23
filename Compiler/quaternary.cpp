@@ -8,7 +8,7 @@
 
 #include "quaternary.hpp"
 
-Quaternary::Quaternary(Instruction i, Identifier * s1, Identifier * s2, Identifier * d) {
+Quaternary::Quaternary(insNo i, Identifier * s1, Identifier * s2, Identifier * d) {
     this -> ins = i;
     this -> source1 = s1;
     this -> source2 = s2;
@@ -27,7 +27,7 @@ void Quaternary::Print() {
     }
 }
 
-Quaternary_immediate::Quaternary_immediate(Instruction i, int num, Identifier * d) : Quaternary(i, NULL, NULL, d){
+Quaternary_immediate::Quaternary_immediate(insNo i, int num, Identifier * d) : Quaternary(i, NULL, NULL, d){
     this -> immediate = num;
 }
 
@@ -64,9 +64,6 @@ Identifier * Generator::MatrixMember(Identifier * matrix, Identifier * index) {
 }
 
 void Generator::Assign(Identifier * value, Identifier * index, Identifier * dest) {
-    string name = itoa(count);
-    count++;
-    
     Quaternary * temp = new Quaternary(assignIns, value, index, dest);
     table.push_back(temp);
 }
@@ -159,4 +156,9 @@ Identifier * Generator::Negative(Identifier *source) {
     table.push_back(temp);
     
     return dest;
+}
+
+void Generator::Scan(Identifier * dest) {
+    Quaternary * temp = new Quaternary(scanIns, NULL, NULL, dest);
+    table.push_back(temp);
 }
