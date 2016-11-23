@@ -7,6 +7,10 @@
 //
 
 #include "identifier_table.hpp"
+#include "quaternary.hpp"
+
+extern Generator * ge;
+string itoa(int i);
 
 Identifier::Identifier(string n) {
     this -> name = n;
@@ -83,6 +87,7 @@ Parameter * Function::Parameters() {
 IdentifierTable::IdentifierTable() {
     this -> table = Table();
     this -> table.clear();
+    this -> offset = 4;
 }
 
 IdentifierTable::~IdentifierTable() {
@@ -105,6 +110,12 @@ void IdentifierTable::EnterConstant(string name, symbolNo type, int value) {
     }
     Identifier * temp = new Constant(name, type, value);
     table[name] = temp;
+    
+    ge -> Allocate();
+    
+    temp -> offset = this -> offset;
+    this -> offset += 4;
+    temp -> addr = "ebp - " + itoa(temp -> offset);
 }
 
 void IdentifierTable::EnterVariable(string name, symbolNo type, int size){
@@ -117,14 +128,17 @@ void IdentifierTable::EnterVariable(string name, symbolNo type, int size){
     }
     else temp = new Matrix(name, type, size);
     table[name] = temp;
+    
+    ge -> Allocate();
+    
+    temp -> offset = this -> offset;
+    this -> offset += 4;
+    temp -> addr = "ebp - " + itoa(temp -> offset);
 }
 
 void IdentifierTable::EnterFunction(string name, symbolNo type, Parameter * list) {
-    if (table[name] != NULL) {
-        error(DOUBLE_DECLARE);
-    }
-    Identifier * temp = new Function(name, type, list);
-    table[name] = temp;
+    ERR("Log function in local IDT");
+    exit(-1);
 }
 
 void GIdentifierTable::EnterConstant(string name, symbolNo type, int value) {
@@ -133,6 +147,12 @@ void GIdentifierTable::EnterConstant(string name, symbolNo type, int value) {
     }
     Identifier * temp = new Constant(name, type, value);
     table[name] = temp;
+    
+    ge -> Allocate();
+    
+    string label = "label" + itoa(label_count++);
+    temp -> addr = label;
+    temp -> offset = 0;
 }
 
 void GIdentifierTable::EnterVariable(string name, symbolNo type, int size){
@@ -145,6 +165,12 @@ void GIdentifierTable::EnterVariable(string name, symbolNo type, int size){
     }
     else temp = new Matrix(name, type, size);
     table[name] = temp;
+    
+    ge -> Allocate();
+    
+    string label = "label" + itoa(label_count++);
+    temp -> addr = label;
+    temp -> offset = 0;
 }
 
 void GIdentifierTable::EnterFunction(string name, symbolNo type, Parameter * list) {
@@ -153,4 +179,10 @@ void GIdentifierTable::EnterFunction(string name, symbolNo type, Parameter * lis
     }
     Identifier * temp = new Function(name, type, list);
     table[name] = temp;
+    
+    ge -> Allocate();
+    
+    string label = "label" + itoa(label_count++);
+    temp -> addr = label;
+    temp -> offset = 0;
 }

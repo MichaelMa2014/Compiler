@@ -23,12 +23,16 @@ class Identifier {
     friend class IdentifierTable;
     friend class GIdentifierTable;
 private:
-    int addr;
+    string addr;
+    int offset;
 public:
     string name;
     Identifier(string name);
-    int Addr() {
+    string Addr() {
         return this -> addr;
+    }
+    int Offset() {
+        return this -> offset;
     }
     virtual IdType Type() {
         ERR("Identifier::Type() called");
@@ -98,6 +102,8 @@ public:
 };
 
 class IdentifierTable {
+private:
+    int offset; // a multiple of 4
 protected:
     Table table;
 public:
@@ -110,6 +116,8 @@ public:
 };
 
 class GIdentifierTable : public IdentifierTable {
+private:
+    int label_count;
 public:
     virtual void EnterConstant(string name, symbolNo type, int value);
     virtual void EnterVariable(string name, symbolNo type, int size);

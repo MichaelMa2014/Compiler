@@ -13,16 +13,21 @@
 #include "grammar.hpp"
 #include "identifier_table.hpp"
 
+
 LexicalDecoder * ld;
 Generator * ge;
 vector<Quaternary *> table;
+
+void AllocateStack() {
+    ge -> Allocate();
+}
 
 int main(int argc, const char * argv[]) {
     init();
     
     ld = new LexicalDecoder();
     
-    IdentifierTable * id = new IdentifierTable();
+    GIdentifierTable * id = new GIdentifierTable();
     GrammarDecoder * gd = new GrammarDecoder(id, id);
     
     ge = new Generator(id);
