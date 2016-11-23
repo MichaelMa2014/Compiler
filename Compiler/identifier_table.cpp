@@ -115,7 +115,7 @@ void IdentifierTable::EnterConstant(string name, symbolNo type, int value) {
     
     temp -> offset = this -> offset;
     this -> offset += 4;
-    temp -> addr = "ebp - " + itoa(temp -> offset);
+    temp -> addr = "[ebp - " + itoa(temp -> offset) + "]";
 }
 
 void IdentifierTable::EnterVariable(string name, symbolNo type, int size){
@@ -133,7 +133,7 @@ void IdentifierTable::EnterVariable(string name, symbolNo type, int size){
     
     temp -> offset = this -> offset;
     this -> offset += 4;
-    temp -> addr = "ebp - " + itoa(temp -> offset);
+    temp -> addr = "[ebp - " + itoa(temp -> offset) + "]";
 }
 
 void IdentifierTable::EnterFunction(string name, symbolNo type, Parameter * list) {
@@ -150,7 +150,7 @@ void GIdentifierTable::EnterConstant(string name, symbolNo type, int value) {
     
     ge -> Allocate();
     
-    string label = "label" + itoa(label_count++);
+    string label = "[label" + itoa(label_count++) + "]";
     temp -> addr = label;
     temp -> offset = 0;
 }
@@ -168,7 +168,7 @@ void GIdentifierTable::EnterVariable(string name, symbolNo type, int size){
     
     ge -> Allocate();
     
-    string label = "label" + itoa(label_count++);
+    string label = "[label" + itoa(label_count++) + "]";
     temp -> addr = label;
     temp -> offset = 0;
 }
@@ -182,7 +182,7 @@ void GIdentifierTable::EnterFunction(string name, symbolNo type, Parameter * lis
     
     ge -> Allocate();
     
-    string label = "label" + itoa(label_count++);
+    string label = "[label" + itoa(label_count++) + "]";
     temp -> addr = label;
     temp -> offset = 0;
 }
