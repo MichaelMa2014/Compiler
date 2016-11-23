@@ -63,6 +63,14 @@ Identifier * Generator::MatrixMember(Identifier * matrix, Identifier * index) {
     return dest;
 }
 
+void Generator::Assign(Identifier * value, Identifier * index, Identifier * dest) {
+    string name = itoa(count);
+    count++;
+    
+    Quaternary * temp = new Quaternary(assignIns, value, index, dest);
+    table.push_back(temp);
+}
+
 Identifier * Generator::FunctionCall(Identifier *func) {
     // Just pretend there has been a call
     string name = itoa(count);

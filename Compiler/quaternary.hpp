@@ -14,7 +14,7 @@
 
 #include "identifier_table.hpp"
 
-enum Instruction {extractIns, callIns, movIns, mulIns, divIns, plusIns, minusIns, negIns};
+enum Instruction {extractIns, assignIns, callIns, movIns, mulIns, divIns, plusIns, minusIns, negIns};
 
 class Quaternary {
 protected:
@@ -44,7 +44,10 @@ private:
 public:
     Generator(IdentifierTable * i);
     void SetId(IdentifierTable * i);
+    
     Identifier * MatrixMember(Identifier * matrix, Identifier * index);
+    void Assign(Identifier * value, Identifier * index, Identifier * dest);
+    
     Identifier * FunctionCall(Identifier * func);
     Identifier * NumberConstant(int number);
     Identifier * CharacterConstant(char character);

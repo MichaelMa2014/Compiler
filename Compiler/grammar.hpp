@@ -53,7 +53,7 @@ public:
     void SwitchStat();
     void CaseStat();
     void DefaultStat();
-    void BecomeStat();
+    void BecomeStat(string name);
     void ScanfStat();
     void PrintfStat();
     void ReturnStat();

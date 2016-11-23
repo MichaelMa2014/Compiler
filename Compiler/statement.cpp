@@ -45,7 +45,7 @@ void GrammarDecoder::Statement() {
             LOG("Decoded function call");
         }
         else {
-            BecomeStat();
+            BecomeStat(name);
             
             if (ld -> LastSymbol() != semiSym) {
                 error(MISSING_SEMI);
@@ -105,11 +105,21 @@ void GrammarDecoder::Statement() {
     }
 }
 
-void GrammarDecoder::BecomeStat() {
+void GrammarDecoder::BecomeStat(string name) {
+    Identifier * dest, * index = NULL, * value;
+    
+    dest = id -> Look(name);
+    if (dest == NULL) {
+        dest = gid -> Look(name);
+    }
+    if (dest == NULL) {
+        error(NO_DECLARE);
+    }
+    
     if (ld -> LastSymbol() == lSquareSym) {
         ld -> NextWord();
         
-        Expression();
+        index = Expression();
         
         if (ld -> LastSymbol() != rSquareSym) {
             error(ORPHAN_SQUARE);
@@ -122,7 +132,9 @@ void GrammarDecoder::BecomeStat() {
     }
     else ld -> NextWord();
     
-    Expression();
+    value = Expression();
+    
+    ge -> Assign(value, index, dest);
 }
 
 void GrammarDecoder::IfStat() {
