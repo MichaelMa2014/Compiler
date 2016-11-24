@@ -22,10 +22,12 @@ class GrammarDecoder {
 private:
     IdentifierTable * id;
     IdentifierTable * gid;
+    int label_count;
 public:
     GrammarDecoder(IdentifierTable * i, IdentifierTable * gi) {
         this -> id = i;
         this -> gid = gi;
+        this -> label_count = 0;
     }
     void Program();
     void Main();

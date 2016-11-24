@@ -11,18 +11,26 @@
 const char * InsString[INSNUM];
 
 Quaternary::Quaternary(insNo i, Identifier * s1, Identifier * s2, Identifier * d) {
-    InsString[0] = "extractIns     ";
-    InsString[1] = "assignIns      ";
-    InsString[2] = "callIns        ";
-    InsString[3] = "movIns         ";
-    InsString[4] = "mulIns         ";
-    InsString[5] = "divIns         ";
-    InsString[6] = "plusIns        ";
-    InsString[7] = "minusIns       ";
-    InsString[8] = "negIns         ";
-    InsString[9] = "scanIns        ";
-    InsString[10] = "printIns       ";
-    InsString[11] = "acllocIns      ";
+    InsString[0] = "nop            ";
+    InsString[1] = "extractIns     ";
+    InsString[2] = "assignIns      ";
+    InsString[3] = "call           ";
+    InsString[4] = "mov            ";
+    InsString[5] = "mul            ";
+    InsString[6] = "div            ";
+    InsString[7] = "add            ";
+    InsString[8] = "sub            ";
+    InsString[9] = "neg            ";
+    InsString[10] = "scanIns        ";
+    InsString[11] = "printIns       ";
+    InsString[12] = "allocIns       ";
+    InsString[13] = "cmp            ";
+    InsString[14] = "jng            ";
+    InsString[15] = "jnge           ";
+    InsString[16] = "jnl            ";
+    InsString[17] = "jnle           ";
+    InsString[18] = "jnz            ";
+    InsString[19] = "jz             ";
     this -> ins = i;
     this -> source1 = s1;
     this -> source2 = s2;
@@ -38,16 +46,24 @@ void Quaternary::Print() {
     if (ins == mulIns || ins == divIns || ins == plusIns || ins == minusIns) {
         cout << InsString[this -> ins] << " " << this -> source1 -> Addr() << " " << this -> source2 -> Addr() << " " << this -> dest -> Addr() << endl;
     }
-    if (ins == movIns || ins == callIns) {
+    if (ins == movIns) {
         cout << InsString[this -> ins] << " " << this -> source1 -> Addr() << " " << this -> dest -> Addr() << endl;
     }
     if (ins == extractIns) {
         cout << InsString[this -> ins] << " " << this -> source1 -> Addr() << " " << this -> source2 -> Addr() << " " << this -> dest -> Addr() << endl;
     }
+    if (ins == callIns) {
+        cout << "call      " << this -> source1 -> name << endl;
+        cout << "mov       " << this -> dest -> Addr() << " eax" << endl;
+    }
 }
 
 Quaternary_immediate::Quaternary_immediate(insNo i, int num, Identifier * d) : Quaternary(i, NULL, NULL, d){
     this -> immediate = num;
+}
+
+Quaternary_label::Quaternary_label(insNo i, string l) : Quaternary(i, NULL, NULL, NULL) {
+    this -> label = l;
 }
 
 void Quaternary_immediate::Print() {
@@ -184,5 +200,43 @@ void Generator::Scan(Identifier * dest) {
 
 void Generator::Allocate() {
     Quaternary * temp = new Quaternary(allocIns, NULL, NULL, NULL);
+    table.push_back(temp);
+}
+
+void Generator::LabelledNop(string label) {
+    Quaternary * temp = new Quaternary(nopIns, NULL, NULL, NULL);
+    temp -> SetLabel(label);
+    table.push_back(temp);
+}
+
+void Generator::Jump(symbolNo LogicOp, Identifier *source1, Identifier *source2, string label) {
+    Quaternary * temp = new Quaternary(cmpIns, source1, source2, NULL);
+    table.push_back(temp);
+    
+    insNo ins;
+    switch (LogicOp) {
+        case lessSym:
+            ins = jnlIns;
+            break;
+        case leqSym:
+            ins = jnleIns;
+            break;
+        case moreSym:
+            ins = jngIns;
+            break;
+        case meqSym:
+            ins = jngeIns;
+            break;
+        case equalSym:
+            ins = jnzIns;
+            break;
+        case neqSym:
+            ins = jzIns;
+            break;
+        default:
+            ERR("Illegal symbolNo for Jump");
+    }
+    
+    temp = new Quaternary_label(ins, label);
     table.push_back(temp);
 }

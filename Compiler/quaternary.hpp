@@ -14,8 +14,8 @@
 
 #include "identifier_table.hpp"
 
-#define INSNUM 12
-enum insNo {extractIns, assignIns, callIns, movIns, mulIns, divIns, plusIns, minusIns, negIns, scanIns, printIns, allocIns};
+#define INSNUM 20
+enum insNo {nopIns, extractIns, assignIns, callIns, movIns, mulIns, divIns, plusIns, minusIns, negIns, scanIns, printIns, allocIns, cmpIns, jngIns, jngeIns, jnlIns, jnleIns, jnzIns, jzIns};
 
 extern const char * InsString[];
 
@@ -34,12 +34,19 @@ public:
 
 extern vector<Quaternary *> table;
 
-class Quaternary_immediate : public Quaternary{
+class Quaternary_immediate : public Quaternary {
 private:
     int immediate;
 public:
     Quaternary_immediate(insNo ins, int number, Identifier * dest);
     virtual void Print();
+};
+
+class Quaternary_label : public Quaternary {
+private:
+    string label;
+public:
+    Quaternary_label(insNo ins, string label);
 };
 
 class Generator {
@@ -63,6 +70,9 @@ public:
     void Scan(Identifier * dest);
     
     void Allocate();
+    
+    void LabelledNop(string label);
+    void Jump(symbolNo LogicOp, Identifier * source1, Identifier * source2, string label);
 };
 
 #endif /* quarternary_hpp */

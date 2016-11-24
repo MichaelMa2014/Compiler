@@ -8,6 +8,8 @@
 
 #include "grammar.hpp"
 
+extern string itoa(int i);
+
 void GrammarDecoder::Statements() {
     if (ld -> LastSymbol() == constSym) {
         ConstDeclare();
@@ -143,20 +145,35 @@ void GrammarDecoder::IfStat() {
     }
     else ld -> NextWord();
     
-    Expression();
+    Identifier * condition1 = Expression();
+    Identifier * condition2 = NULL;
     
+    symbolNo logicOp = ndef;
     if (ld -> LastSymbol() == lessSym || ld -> LastSymbol() == leqSym || ld -> LastSymbol() == moreSym || ld -> LastSymbol() == meqSym || ld -> LastSymbol() == neqSym || ld -> LastSymbol() == equalSym) {
+        logicOp = ld -> LastSymbol();
+        
         ld -> NextWord();
         
-        Expression();
+        condition2 = Expression();
     }
-    
+
     if (ld -> LastSymbol() != rRoundSym) {
         error(ORPHAN_ROUND);
     }
     else ld -> NextWord();
     
+    string label = "code_label" + itoa(label_count++);
+
+    if (condition2 == NULL) {
+        condition2 = ge -> NumberConstant(0);
+        logicOp = neqSym;
+    }
+    
+    ge -> Jump(logicOp, condition1, condition2, label);
+    
     Statement();
+    
+    ge -> LabelledNop(label);
     
     LOG("If statement decoded");
 }
