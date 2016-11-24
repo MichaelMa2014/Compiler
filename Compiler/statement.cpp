@@ -45,7 +45,7 @@ void GrammarDecoder::Statement() {
             LOG("Decoded function call");
         }
         else {
-            BecomeStat(name);
+            AssignStat(name);
             
             if (ld -> LastSymbol() != semiSym) {
                 error(MISSING_SEMI);
@@ -105,7 +105,7 @@ void GrammarDecoder::Statement() {
     }
 }
 
-void GrammarDecoder::BecomeStat(string name) {
+void GrammarDecoder::AssignStat(string name) {
     Identifier * dest, * index = NULL, * value;
     
     dest = id -> Look(name);
@@ -306,7 +306,7 @@ void GrammarDecoder::PrintfStat() {
         }
     }
     else {
-        // FIXME The first word in expression is used but NextWord is not called
+        // FIXME: The first word in expression is used but NextWord is not called
         Expression();
     }
     

@@ -21,12 +21,14 @@ extern const char * InsString[];
 
 class Quaternary {
 protected:
+    string label;
     insNo ins;
     Identifier * source1;
     Identifier * source2;
     Identifier * dest;
 public:
     Quaternary(insNo ins, Identifier * source1, Identifier * source2, Identifier * dest);
+    void SetLabel(string label);
     virtual void Print();
 };
 

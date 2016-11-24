@@ -116,7 +116,8 @@ void GrammarDecoder::VoidFuncDeclare(string name) {
     gid -> EnterFunction(name, voidSym, list);
     LOG("Decoded a void function declaration");
     
-//    delete id; FIXME
+//    delete id;
+//    FIXME: Huge memory leak
     id = NULL;
     
     ge -> SetId(gid);

@@ -26,6 +26,7 @@ private:
     string addr;
     int offset;
 public:
+    // FIXME: Should name be set to public?
     string name;
     Identifier(string name);
     string Addr() {

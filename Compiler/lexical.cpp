@@ -297,7 +297,7 @@ void LexicalDecoder::NextWord() {
     else if (lastLine[pointer] == '"') {
         string temp;
         pointer++;
-        // TODO how to move the pointer properly
+        // TODO: how to move the pointer properly
         while (lastLine[pointer] != '"') {
             temp.push_back(lastLine[pointer]);
             pointer++;

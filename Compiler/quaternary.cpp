@@ -29,7 +29,12 @@ Quaternary::Quaternary(insNo i, Identifier * s1, Identifier * s2, Identifier * d
     this -> dest = d;
 }
 
+void Quaternary::SetLabel(string l) {
+    this -> label = l;
+}
+
 void Quaternary::Print() {
+    // FIXME: Should we use this large function to translate from Quaternary to x86?
     if (ins == mulIns || ins == divIns || ins == plusIns || ins == minusIns) {
         cout << InsString[this -> ins] << " " << this -> source1 -> Addr() << " " << this -> source2 -> Addr() << " " << this -> dest -> Addr() << endl;
     }
@@ -90,7 +95,7 @@ Identifier * Generator::FunctionCall(Identifier *func) {
     id -> EnterVariable(name, func -> Kind(), 0);
     Identifier * dest = id -> Look(name);
     
-    // FIXIT value parameters should be passed in
+    // FIXME: value parameters should be passed in
     Quaternary * temp = new Quaternary(callIns, func, NULL, dest);
     table.push_back(temp);
     
