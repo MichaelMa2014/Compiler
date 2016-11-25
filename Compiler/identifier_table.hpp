@@ -113,7 +113,7 @@ public:
     Identifier * Look(string name);
     virtual void EnterConstant(string name, symbolNo type, int value);
     virtual void EnterVariable(string name, symbolNo type, int size);
-    virtual void EnterFunction(string name, symbolNo type, Parameter * list);
+    virtual void EnterFunction(string name, symbolNo type, Parameter * list, string entrance);
 };
 
 class GIdentifierTable : public IdentifierTable {
@@ -122,7 +122,7 @@ private:
 public:
     virtual void EnterConstant(string name, symbolNo type, int value);
     virtual void EnterVariable(string name, symbolNo type, int size);
-    virtual void EnterFunction(string name, symbolNo type, Parameter * list);
+    virtual void EnterFunction(string name, symbolNo type, Parameter * list, string entrance);
 };
 
 #endif /* identifier_table_hpp */

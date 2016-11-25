@@ -8,6 +8,8 @@
 
 #include "grammar.hpp"
 
+extern string itoa(int i);
+
 Parameter * GrammarDecoder::Param() {
     Parameter * list =  new Parameter();
     list -> clear();
@@ -74,7 +76,10 @@ void GrammarDecoder::FuncDeclare(symbolNo type, string name) {
     }
     else ld -> NextWord();
     
-    gid -> EnterFunction(name, type, list);
+    string label = "code_label" + itoa(label_count++) + name;
+    ge -> LabelledNop(label);
+    
+    gid -> EnterFunction(name, type, list, label);
     
     Statements();
     
@@ -107,6 +112,11 @@ void GrammarDecoder::VoidFuncDeclare(string name) {
     }
     else ld -> NextWord();
     
+    string label = "code_label" + itoa(label_count++) + name;
+    ge -> LabelledNop(label);
+    
+    gid -> EnterFunction(name, voidSym, list, label);
+    
     Statements();
     
     if (ld -> LastSymbol() != rCurlySym) {
@@ -114,7 +124,6 @@ void GrammarDecoder::VoidFuncDeclare(string name) {
     }
     else ld -> NextWord();
     
-    gid -> EnterFunction(name, voidSym, list);
     LOG("Decoded a void function declaration");
     
 //    delete id;

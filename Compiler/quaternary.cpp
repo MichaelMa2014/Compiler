@@ -35,18 +35,21 @@ void Quaternary::Print() {
         cout << label << ":" << endl;
     }
     
-    if (ins == mulIns || ins == divIns || ins == plusIns || ins == minusIns || ins == cmpIns) {
+    if (ins == mulIns || ins == divIns || ins == plusIns || ins == minusIns) {
         cout << InsString[this -> ins] << " " << this -> source1 -> Addr() << " " << this -> source2 -> Addr() << " " << this -> dest -> Addr() << endl;
     }
+    if (ins == cmpIns) {
+        cout << InsString[this -> ins] << " " << this -> source1 -> Addr() << " " << this -> source2 -> Addr() << endl;
+    }
     if (ins == movIns) {
-        cout << InsString[this -> ins] << " " << this -> source1 -> Addr() << " " << this -> dest -> Addr() << endl;
+        cout << InsString[this -> ins] << " " << this -> dest -> Addr() << " " << this -> source1 -> Addr() << endl;
     }
     if (ins == extractIns) {
         cout << InsString[this -> ins] << " " << this -> source1 -> Addr() << " " << this -> source2 -> Addr() << " " << this -> dest -> Addr() << endl;
     }
     if (ins == callIns) {
         cout << InsString[this -> ins] << this -> source1 -> name << endl;
-        cout << InsString[this -> ins] << this -> dest -> Addr() << " eax" << endl;
+        cout << "mov            " << this -> dest -> Addr() << " eax" << endl;
     }
 }
 
@@ -55,7 +58,7 @@ Quaternary_immediate::Quaternary_immediate(insNo i, int num, Identifier * d) : Q
 }
 
 void Quaternary_immediate::Print() {
-    cout << InsString[this -> ins] << " " << this -> immediate << " " << this -> dest -> Addr() << endl;
+    cout << InsString[this -> ins] << " " << this -> dest -> Addr() << " " << this -> immediate << endl;
 }
 
 Quaternary_label::Quaternary_label(insNo i, string l) : Quaternary(i, NULL, NULL, NULL) {

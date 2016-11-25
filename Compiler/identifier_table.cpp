@@ -136,7 +136,7 @@ void IdentifierTable::EnterVariable(string name, symbolNo type, int size){
     temp -> addr = "[ebp - " + itoa(temp -> offset) + "]";
 }
 
-void IdentifierTable::EnterFunction(string name, symbolNo type, Parameter * list) {
+void IdentifierTable::EnterFunction(string name, symbolNo type, Parameter * list, string entrance) {
     ERR("Log function in local IDT");
     exit(-1);
 }
@@ -173,15 +173,14 @@ void GIdentifierTable::EnterVariable(string name, symbolNo type, int size){
     ge -> AllocateBss(label);
 }
 
-void GIdentifierTable::EnterFunction(string name, symbolNo type, Parameter * list) {
+void GIdentifierTable::EnterFunction(string name, symbolNo type, Parameter * list, string label) {
     if (table[name] != NULL) {
         error(DOUBLE_DECLARE);
     }
     Identifier * temp = new Function(name, type, list);
     table[name] = temp;
     
-    string label = "[label" + itoa(label_count++) + "]";
-    ge -> LabelledNop(label);
-    temp -> addr = label;
+    string addr = "[" + label + "]";
+    temp -> addr = addr;
     temp -> offset = 0;
 }
