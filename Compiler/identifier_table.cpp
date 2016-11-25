@@ -180,9 +180,8 @@ void GIdentifierTable::EnterFunction(string name, symbolNo type, Parameter * lis
     Identifier * temp = new Function(name, type, list);
     table[name] = temp;
     
-    ge -> Allocate();
-    
     string label = "[label" + itoa(label_count++) + "]";
+    ge -> LabelledNop(label);
     temp -> addr = label;
     temp -> offset = 0;
 }

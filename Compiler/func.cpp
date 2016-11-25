@@ -74,6 +74,8 @@ void GrammarDecoder::FuncDeclare(symbolNo type, string name) {
     }
     else ld -> NextWord();
     
+    gid -> EnterFunction(name, type, list);
+    
     Statements();
     
     if (ld -> LastSymbol() != rCurlySym) {
@@ -81,7 +83,6 @@ void GrammarDecoder::FuncDeclare(symbolNo type, string name) {
     }
     else ld -> NextWord();
     
-    gid -> EnterFunction(name, type, list);
     LOG("Decoded a function declaration");
     
 //    delete id; FIXME
