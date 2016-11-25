@@ -8,11 +8,36 @@
 
 #include "quaternary.hpp"
 
+const char * InsString[INSNUM];
+
 extern string itoa(int i);
 
 Generator::Generator(IdentifierTable * i) {
+    InsString[0] = "nop            ";
+    InsString[1] = "extractIns     ";
+    InsString[2] = "assignIns      ";
+    InsString[3] = "call           ";
+    InsString[4] = "mov            ";
+    InsString[5] = "mul            ";
+    InsString[6] = "div            ";
+    InsString[7] = "add            ";
+    InsString[8] = "sub            ";
+    InsString[9] = "neg            ";
+    InsString[10] = "scanIns        ";
+    InsString[11] = "printIns       ";
+    InsString[12] = "sub esp 4      ";
+    InsString[13] = "dd             ";
+    InsString[14] = "resd           ";
+    InsString[15] = "cmp            ";
+    InsString[16] = "jng            ";
+    InsString[17] = "jnge           ";
+    InsString[18] = "jnl            ";
+    InsString[19] = "jnle           ";
+    InsString[20] = "jnz            ";
+    InsString[21] = "jz             ";
     this -> id = i;
     this -> count = 100;
+    this -> string_count = 0;
 }
 
 void Generator::SetId(IdentifierTable * i) {
@@ -132,9 +157,24 @@ void Generator::Scan(Identifier * dest) {
     table.push_back(temp);
 }
 
-void Generator::Allocate() {
+void Generator::AllocateStack() {
     Quaternary * temp = new Quaternary(allocIns, NULL, NULL, NULL);
     table.push_back(temp);
+}
+
+void Generator::AllocateData(string label, int value) {
+    Quaternary * temp = new Quaternary_data(label, value);
+    data_table.push_back(temp);
+}
+
+void Generator::AllocateBss(string label) {
+    Quaternary * temp = new Quaternary_bss(label);
+    data_table.push_back(temp);
+}
+
+void Generator::AllocateString(string label, string value) {
+    Quaternary * temp = new Quaternary_string(label, value);
+    data_table.push_back(temp);
 }
 
 void Generator::LabelledNop(string label) {

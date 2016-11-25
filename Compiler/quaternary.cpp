@@ -8,42 +8,34 @@
 
 #include "quaternary.hpp"
 
-const char * InsString[INSNUM];
+string itoa(int i) {
+    stringstream out;
+    out << i;
+    return out.str();
+}
 
 Quaternary::Quaternary(insNo i, Identifier * s1, Identifier * s2, Identifier * d) {
-    InsString[0] = "nop            ";
-    InsString[1] = "extractIns     ";
-    InsString[2] = "assignIns      ";
-    InsString[3] = "call           ";
-    InsString[4] = "mov            ";
-    InsString[5] = "mul            ";
-    InsString[6] = "div            ";
-    InsString[7] = "add            ";
-    InsString[8] = "sub            ";
-    InsString[9] = "neg            ";
-    InsString[10] = "scanIns        ";
-    InsString[11] = "printIns       ";
-    InsString[12] = "allocIns       ";
-    InsString[13] = "cmp            ";
-    InsString[14] = "jng            ";
-    InsString[15] = "jnge           ";
-    InsString[16] = "jnl            ";
-    InsString[17] = "jnle           ";
-    InsString[18] = "jnz            ";
-    InsString[19] = "jz             ";
     this -> ins = i;
     this -> source1 = s1;
     this -> source2 = s2;
     this -> dest = d;
+    this -> label_set = false;
+    this -> label = "";
 }
 
 void Quaternary::SetLabel(string l) {
+    this -> label_set = true;
     this -> label = l;
 }
 
 void Quaternary::Print() {
     // FIXME: Should we use this large function to translate from Quaternary to x86?
-    if (ins == mulIns || ins == divIns || ins == plusIns || ins == minusIns) {
+    
+    if (label_set) {
+        cout << label << ":" << endl;
+    }
+    
+    if (ins == mulIns || ins == divIns || ins == plusIns || ins == minusIns || ins == cmpIns) {
         cout << InsString[this -> ins] << " " << this -> source1 -> Addr() << " " << this -> source2 -> Addr() << " " << this -> dest -> Addr() << endl;
     }
     if (ins == movIns) {
@@ -53,8 +45,8 @@ void Quaternary::Print() {
         cout << InsString[this -> ins] << " " << this -> source1 -> Addr() << " " << this -> source2 -> Addr() << " " << this -> dest -> Addr() << endl;
     }
     if (ins == callIns) {
-        cout << "call      " << this -> source1 -> name << endl;
-        cout << "mov       " << this -> dest -> Addr() << " eax" << endl;
+        cout << InsString[this -> ins] << this -> source1 -> name << endl;
+        cout << InsString[this -> ins] << this -> dest -> Addr() << " eax" << endl;
     }
 }
 
@@ -62,16 +54,45 @@ Quaternary_immediate::Quaternary_immediate(insNo i, int num, Identifier * d) : Q
     this -> immediate = num;
 }
 
-Quaternary_label::Quaternary_label(insNo i, string l) : Quaternary(i, NULL, NULL, NULL) {
-    this -> label = l;
-}
-
 void Quaternary_immediate::Print() {
     cout << InsString[this -> ins] << " " << this -> immediate << " " << this -> dest -> Addr() << endl;
 }
 
-string itoa(int i) {
-    stringstream out;
-    out << i;
-    return out.str();
+Quaternary_label::Quaternary_label(insNo i, string l) : Quaternary(i, NULL, NULL, NULL) {
+    this -> label = l;
 }
+
+void Quaternary_label::Print() {
+    cout << InsString[this -> ins] << " " << this -> label << endl;
+}
+
+Quaternary_data::Quaternary_data(string l, int v) : Quaternary(ddIns, NULL, NULL, NULL) {
+    this -> label = l;
+    this -> value = v;
+}
+
+void Quaternary_data::Print() {
+    cout << this -> label << ":" << endl << InsString[this -> ins] << this -> value << endl;
+}
+
+Quaternary_bss::Quaternary_bss(string l) : Quaternary(resdIns, NULL, NULL, NULL) {
+    this -> label = l;
+}
+
+void Quaternary_bss::Print() {
+    cout << this -> label << ":" << endl << InsString[this -> ins] << endl;
+}
+
+Quaternary_string::Quaternary_string(string l, string v) : Quaternary(ddIns, NULL, NULL, NULL) {
+    this -> label = l;
+    this -> value = v;
+}
+
+void Quaternary_string::Print() {
+    cout << this -> label << ":" << endl << InsString[this -> ins] << "\"" << this -> value << "\"" << endl;
+}
+
+
+
+
+

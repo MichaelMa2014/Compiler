@@ -3,11 +3,9 @@ global _GetRDTSC
 section .text
 
 _GetRDTSC:
-    mov  dword  [message], 0x9
-    mov  dword  [message + 4], 0xa
-    mov  eax, [message + 4]
+    mov eax, [message + 1]
     ret
 
-section .bss
+section .data
 message:
-    resd 2
+    dd "This is a message certainly longer than double words, which is 32 byte. Because if one character takes one byte, only 32 characters can take double words"

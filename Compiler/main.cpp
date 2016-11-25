@@ -17,10 +17,7 @@
 LexicalDecoder * ld;
 Generator * ge;
 vector<Quaternary *> table;
-
-void AllocateStack() {
-    ge -> Allocate();
-}
+vector<Quaternary *> data_table;
 
 int main(int argc, const char * argv[]) {
     init();

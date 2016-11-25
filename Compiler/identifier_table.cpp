@@ -111,7 +111,7 @@ void IdentifierTable::EnterConstant(string name, symbolNo type, int value) {
     Identifier * temp = new Constant(name, type, value);
     table[name] = temp;
     
-    ge -> Allocate();
+    ge -> AllocateStack();
     
     temp -> offset = this -> offset;
     this -> offset += 4;
@@ -129,7 +129,7 @@ void IdentifierTable::EnterVariable(string name, symbolNo type, int size){
     else temp = new Matrix(name, type, size);
     table[name] = temp;
     
-    ge -> Allocate();
+    ge -> AllocateStack();
     
     temp -> offset = this -> offset;
     this -> offset += 4;
@@ -148,11 +148,11 @@ void GIdentifierTable::EnterConstant(string name, symbolNo type, int value) {
     Identifier * temp = new Constant(name, type, value);
     table[name] = temp;
     
-    ge -> Allocate();
-    
     string label = "[label" + itoa(label_count++) + "]";
     temp -> addr = label;
     temp -> offset = 0;
+    
+    ge -> AllocateData(label, value);
 }
 
 void GIdentifierTable::EnterVariable(string name, symbolNo type, int size){
@@ -166,11 +166,11 @@ void GIdentifierTable::EnterVariable(string name, symbolNo type, int size){
     else temp = new Matrix(name, type, size);
     table[name] = temp;
     
-    ge -> Allocate();
-    
     string label = "[label" + itoa(label_count++) + "]";
     temp -> addr = label;
     temp -> offset = 0;
+    
+    ge -> AllocateBss(label);
 }
 
 void GIdentifierTable::EnterFunction(string name, symbolNo type, Parameter * list) {

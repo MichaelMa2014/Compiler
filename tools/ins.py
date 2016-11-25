@@ -1,6 +1,14 @@
-Ins = ['nopIns', 'extractIns', 'assignIns', 'callIns', 'movIns', 'mulIns', 'divIns', 'plusIns', 'minusIns', 'negIns', 'scanIns', 'printIns', 'allocIns', 'cmpIns', 'jngIns', 'jngeIns', 'jnlIns', 'jnleIns', 'jnzIns', 'jzIns']
+Ins =  ['nopIns',
+        'extractIns', 'assignIns', 'callIns', 'movIns',
+        'mulIns', 'divIns', 'plusIns', 'minusIns', 'negIns',
+        'scanIns', 'printIns', 'allocIns', 'ddIns', 'resdIns',
+        'cmpIns', 'jngIns', 'jngeIns', 'jnlIns', 'jnleIns', 'jnzIns', 'jzIns']
 
-InsString = ['nop', 'extractIns', 'assignIns', 'call', 'mov', 'mul', 'div', 'add', 'sub', 'neg', 'scanIns', 'printIns', 'allocIns', 'cmp', 'jng', 'jnge', 'jnl', 'jnle', 'jnz', 'jz']
+InsString =    ['nop',
+                'extractIns', 'assignIns', 'call', 'mov',
+                'mul', 'div', 'add', 'sub', 'neg',
+                'scanIns', 'printIns', 'sub esp 4', 'dd', 'resd',
+                'cmp', 'jng', 'jnge', 'jnl', 'jnle', 'jnz', 'jz']
 
 def pad(ins):
     num = 15 - len(ins)
