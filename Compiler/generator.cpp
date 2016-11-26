@@ -47,8 +47,7 @@ void Generator::SetId(IdentifierTable * i) {
 Identifier * Generator::MatrixMember(Identifier * matrix, Identifier * index) {
     string name = itoa(count++);
     
-    id -> EnterVariable(name, matrix -> Kind(), 0);
-    Identifier * dest = id -> Look(name);
+    Identifier * dest = id -> EnterVariable(name, matrix -> Kind(), 0);
     
     Quaternary * temp = new Quaternary(extractIns, matrix, index, dest);
     table.push_back(temp);
@@ -65,8 +64,7 @@ Identifier * Generator::FunctionCall(Identifier *func) {
     // Just pretend there has been a call
     string name = itoa(count++);
     
-    id -> EnterVariable(name, func -> Kind(), 0);
-    Identifier * dest = id -> Look(name);
+    Identifier * dest = id -> EnterVariable(name, func -> Kind(), 0);
     
     // FIXME: value parameters should be passed in
     Quaternary * temp = new Quaternary(callIns, func, NULL, dest);
@@ -78,8 +76,7 @@ Identifier * Generator::FunctionCall(Identifier *func) {
 Identifier * Generator::NumberConstant(int number) {
     string name = itoa(count++);
     
-    id -> EnterVariable(name, intSym, 0);
-    Identifier * dest = id -> Look(name);
+    Identifier * dest = id -> EnterVariable(name, intSym, 0);
     
     Quaternary * temp = new Quaternary_immediate(movIns, number, dest);
     table.push_back(temp);
@@ -90,8 +87,7 @@ Identifier * Generator::NumberConstant(int number) {
 Identifier * Generator::CharacterConstant(char character) {
     string name = itoa(count++);
     
-    id -> EnterVariable(name, charSym, 0);
-    Identifier * dest = id -> Look(name);
+    Identifier * dest = id -> EnterVariable(name, charSym, 0);
     
     Quaternary * temp = new Quaternary_immediate(movIns, character, dest);
     table.push_back(temp);
@@ -102,8 +98,7 @@ Identifier * Generator::CharacterConstant(char character) {
 Identifier * Generator::MultiplyDivide(symbolNo type, Identifier *source1, Identifier *source2) {
     string name = itoa(count++);
     
-    id -> EnterVariable(name, intSym, 0);
-    Identifier * dest = id -> Look(name);
+    Identifier * dest = id -> EnterVariable(name, intSym, 0);
     
     Quaternary * temp = new Quaternary((type == multiSym ? mulIns : divIns), source1, source2, dest);
     table.push_back(temp);
@@ -114,8 +109,7 @@ Identifier * Generator::MultiplyDivide(symbolNo type, Identifier *source1, Ident
 Identifier * Generator::PlusMinus(symbolNo type, Identifier *source1, Identifier *source2) {
     string name = itoa(count++);
     
-    id -> EnterVariable(name, intSym, 0);
-    Identifier * dest = id -> Look(name);
+    Identifier * dest = id -> EnterVariable(name, intSym, 0);
     
     Quaternary * temp = new Quaternary((type == plusSym ? plusIns : minusIns), source1, source2, dest);
     table.push_back(temp);
@@ -126,14 +120,12 @@ Identifier * Generator::PlusMinus(symbolNo type, Identifier *source1, Identifier
 Identifier * Generator::Negative(Identifier * source) {
     string name = itoa(count++);
     
-    id -> EnterVariable(name, intSym, 0);
-    Identifier * zero = id -> Look(name);
+    Identifier * zero = id -> EnterVariable(name, intSym, 0);
     
     name = itoa(count);
     count++;
     
-    id -> EnterVariable(name, intSym, 0);
-    Identifier * dest = id -> Look(name);
+    Identifier * dest = id -> EnterVariable(name, intSym, 0);
     
     // Store 0 in zero
     Quaternary * temp = new Quaternary_immediate(movIns, 0, zero);
