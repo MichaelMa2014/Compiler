@@ -102,6 +102,7 @@ public:
     Identifier * Negative(Identifier * source);
     
     void Scan(Identifier * dest);
+    void Print(Identifier * source);
     
     void AllocateData(string label, int value);
     void AllocateBss(string label);

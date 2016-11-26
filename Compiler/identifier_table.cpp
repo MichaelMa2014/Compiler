@@ -88,6 +88,10 @@ String::String(string name, string v) : Identifier(name) {
     this -> value = v;
 }
 
+IdType String::Type() {
+    return stringId;
+}
+
 string String::StringValue() {
     return this -> value;
 }

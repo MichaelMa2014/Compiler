@@ -63,7 +63,17 @@ void Quaternary::Print() {
             cout << "mov            " << "[" << this -> dest -> Addr() << "] eax";
             break;
         case printIns:
-            cout << this -> source1 -> Addr();
+            switch (this -> source1 -> Type()) {
+                case stringId:
+                    cout << "[" << this -> source1 -> Addr() << "]";
+                    break;
+                case constId:
+                case varId:
+                    cout << this -> source1 -> Kind() << " [" << this -> source1 -> Addr() << "]";
+                    break;
+                default:
+                    break;
+            }
             break;
 
         default:

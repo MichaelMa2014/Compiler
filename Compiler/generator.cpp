@@ -142,6 +142,11 @@ void Generator::Scan(Identifier * dest) {
     table.push_back(temp);
 }
 
+void Generator::Print(Identifier * source) {
+    Quaternary * temp = new Quaternary(printIns, source, NULL, NULL);
+    table.push_back(temp);
+}
+
 void Generator::AllocateStack() {
     Quaternary * temp = new Quaternary(allocIns, NULL, NULL, NULL);
     table.push_back(temp);

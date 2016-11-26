@@ -15,7 +15,7 @@
 #include "init.hpp"
 #include "error.hpp"
 
-enum IdType {constId, varId, matId, funcId};
+enum IdType {constId, varId, matId, funcId, stringId};
 
 typedef vector<symbolNo> Parameter;
 
@@ -111,6 +111,7 @@ private:
     string value;
 public:
     String(string name, string value);
+    virtual IdType Type();
     virtual string StringValue();
 };
 

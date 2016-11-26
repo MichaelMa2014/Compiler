@@ -313,21 +313,24 @@ void GrammarDecoder::PrintfStat() {
     
     string temp;
     temp.clear();
+    Identifier * source = NULL;
+    
     if (ld -> LastWordType() == strings) {
         temp = ld -> LastStr();
         ld -> NextWord();
         
+        ge -> PrintString(gid -> EnterString(temp));
         LOG("Decoded string from a printf statement: " + temp);
         
         if (ld -> LastSymbol() == commaSym) {
             ld -> NextWord();
             
-            Expression();
+            source = Expression();
         }
     }
     else {
         // FIXME: The first word in expression is used but NextWord is not called
-        Expression();
+        source = Expression();
     }
     
     if (ld -> LastSymbol() != rRoundSym) {
@@ -335,7 +338,7 @@ void GrammarDecoder::PrintfStat() {
     }
     else ld -> NextWord();
     
-    ge -> PrintString(gid -> EnterString(temp));
+    if (source != NULL) ge -> Print(source);
     
     LOG("Printf statement decoded");
 }
