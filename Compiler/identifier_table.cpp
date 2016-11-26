@@ -84,6 +84,14 @@ Parameter * Function::Parameters() {
     return this -> parameters;
 }
 
+String::String(string name, string v) : Identifier(name) {
+    this -> value = v;
+}
+
+string String::StringValue() {
+    return this -> value;
+}
+
 IdentifierTable::IdentifierTable() {
     this -> table = Table();
     this -> table.clear();
@@ -104,7 +112,7 @@ Identifier * IdentifierTable::Look(string name) {
     return table[name];
 }
 
-void IdentifierTable::EnterConstant(string name, symbolNo type, int value) {
+Identifier * IdentifierTable::EnterConstant(string name, symbolNo type, int value) {
     if (table[name] != NULL) {
         error(DOUBLE_DECLARE);
     }
@@ -115,10 +123,12 @@ void IdentifierTable::EnterConstant(string name, symbolNo type, int value) {
     
     temp -> offset = this -> offset;
     this -> offset += 4;
-    temp -> addr = "[ebp - " + itoa(temp -> offset) + "]";
+    temp -> addr = "ebp - " + itoa(temp -> offset);
+    
+    return temp;
 }
 
-void IdentifierTable::EnterVariable(string name, symbolNo type, int size){
+Identifier * IdentifierTable::EnterVariable(string name, symbolNo type, int size){
     if (table[name] != NULL) {
         error(DOUBLE_DECLARE);
     }
@@ -133,29 +143,38 @@ void IdentifierTable::EnterVariable(string name, symbolNo type, int size){
     
     temp -> offset = this -> offset;
     this -> offset += 4;
-    temp -> addr = "[ebp - " + itoa(temp -> offset) + "]";
+    temp -> addr = "ebp - " + itoa(temp -> offset);
+    
+    return temp;
 }
 
-void IdentifierTable::EnterFunction(string name, symbolNo type, Parameter * list, string entrance) {
+Identifier * IdentifierTable::EnterFunction(string name, symbolNo type, Parameter * list, string entrance) {
     ERR("Log function in local IDT");
     exit(-1);
 }
 
-void GIdentifierTable::EnterConstant(string name, symbolNo type, int value) {
+Identifier * IdentifierTable::EnterString(string value) {
+    ERR("Log string in local IDT");
+    exit(-1);
+}
+
+Identifier * GIdentifierTable::EnterConstant(string name, symbolNo type, int value) {
     if (table[name] != NULL) {
         error(DOUBLE_DECLARE);
     }
     Identifier * temp = new Constant(name, type, value);
     table[name] = temp;
     
-    string label = "[label" + itoa(label_count++) + "]";
+    string label = "label" + itoa(label_count++);
     temp -> addr = label;
     temp -> offset = 0;
     
     ge -> AllocateData(label, value);
+    
+    return temp;
 }
 
-void GIdentifierTable::EnterVariable(string name, symbolNo type, int size){
+Identifier * GIdentifierTable::EnterVariable(string name, symbolNo type, int size){
     if (table[name] != NULL) {
         error(DOUBLE_DECLARE);
     }
@@ -166,21 +185,35 @@ void GIdentifierTable::EnterVariable(string name, symbolNo type, int size){
     else temp = new Matrix(name, type, size);
     table[name] = temp;
     
-    string label = "[label" + itoa(label_count++) + "]";
+    string label = "label" + itoa(label_count++);
     temp -> addr = label;
     temp -> offset = 0;
     
     ge -> AllocateBss(label);
+    
+    return temp;
 }
 
-void GIdentifierTable::EnterFunction(string name, symbolNo type, Parameter * list, string label) {
+Identifier * GIdentifierTable::EnterFunction(string name, symbolNo type, Parameter * list, string label) {
     if (table[name] != NULL) {
         error(DOUBLE_DECLARE);
     }
     Identifier * temp = new Function(name, type, list);
     table[name] = temp;
     
-    string addr = "[" + label + "]";
-    temp -> addr = addr;
+    temp -> addr = label;
     temp -> offset = 0;
+    
+    return temp;
+}
+
+Identifier * GIdentifierTable::EnterString(string value) {
+    // name and label are same for a string constant
+    string label = "label" + itoa(label_count++);
+    Identifier * temp = new String(label, value);
+    temp -> addr = label;
+    temp -> offset = 0;
+    table[label] = temp;
+    
+    return temp;
 }

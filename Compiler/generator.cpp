@@ -45,8 +45,7 @@ void Generator::SetId(IdentifierTable * i) {
 }
 
 Identifier * Generator::MatrixMember(Identifier * matrix, Identifier * index) {
-    string name = itoa(count);
-    count++;
+    string name = itoa(count++);
     
     id -> EnterVariable(name, matrix -> Kind(), 0);
     Identifier * dest = id -> Look(name);
@@ -64,8 +63,7 @@ void Generator::Assign(Identifier * value, Identifier * index, Identifier * dest
 
 Identifier * Generator::FunctionCall(Identifier *func) {
     // Just pretend there has been a call
-    string name = itoa(count);
-    count++;
+    string name = itoa(count++);
     
     id -> EnterVariable(name, func -> Kind(), 0);
     Identifier * dest = id -> Look(name);
@@ -78,8 +76,7 @@ Identifier * Generator::FunctionCall(Identifier *func) {
 }
 
 Identifier * Generator::NumberConstant(int number) {
-    string name = itoa(count);
-    count++;
+    string name = itoa(count++);
     
     id -> EnterVariable(name, intSym, 0);
     Identifier * dest = id -> Look(name);
@@ -91,8 +88,7 @@ Identifier * Generator::NumberConstant(int number) {
 }
 
 Identifier * Generator::CharacterConstant(char character) {
-    string name = itoa(count);
-    count++;
+    string name = itoa(count++);
     
     id -> EnterVariable(name, charSym, 0);
     Identifier * dest = id -> Look(name);
@@ -104,8 +100,7 @@ Identifier * Generator::CharacterConstant(char character) {
 }
 
 Identifier * Generator::MultiplyDivide(symbolNo type, Identifier *source1, Identifier *source2) {
-    string name = itoa(count);
-    count++;
+    string name = itoa(count++);
     
     id -> EnterVariable(name, intSym, 0);
     Identifier * dest = id -> Look(name);
@@ -117,8 +112,7 @@ Identifier * Generator::MultiplyDivide(symbolNo type, Identifier *source1, Ident
 }
 
 Identifier * Generator::PlusMinus(symbolNo type, Identifier *source1, Identifier *source2) {
-    string name = itoa(count);
-    count++;
+    string name = itoa(count++);
     
     id -> EnterVariable(name, intSym, 0);
     Identifier * dest = id -> Look(name);
@@ -129,9 +123,8 @@ Identifier * Generator::PlusMinus(symbolNo type, Identifier *source1, Identifier
     return dest;
 }
 
-Identifier * Generator::Negative(Identifier *source) {
-    string name = itoa(count);
-    count++;
+Identifier * Generator::Negative(Identifier * source) {
+    string name = itoa(count++);
     
     id -> EnterVariable(name, intSym, 0);
     Identifier * zero = id -> Look(name);
@@ -172,8 +165,11 @@ void Generator::AllocateBss(string label) {
     data_table.push_back(temp);
 }
 
-void Generator::AllocateString(string label, string value) {
-    Quaternary * temp = new Quaternary_string(label, value);
+void Generator::PrintString(Identifier * source) {
+    Quaternary * temp = new Quaternary(printIns, source, NULL, NULL);
+    table.push_back(temp);
+    
+    temp = new Quaternary_string(source -> Addr(), source -> StringValue());
     data_table.push_back(temp);
 }
 

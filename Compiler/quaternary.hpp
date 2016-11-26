@@ -56,6 +56,7 @@ class Quaternary_data : public Quaternary {
 private:
     string label;
     int value;
+    string string_value;
 public:
     Quaternary_data(string label, int value);
     virtual void Print();
@@ -104,8 +105,7 @@ public:
     
     void AllocateData(string label, int value);
     void AllocateBss(string label);
-    void AllocateString(string label, string value);
-    void PrintString(string data);
+    void PrintString(Identifier * source);
     
     void LabelledNop(string label);
     void Jump(symbolNo LogicOp, Identifier * source1, Identifier * source2, string label);

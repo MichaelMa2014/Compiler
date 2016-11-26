@@ -51,6 +51,10 @@ public:
         ERR("Identifier::Value() called");
         exit(-1);
     }
+    virtual string StringValue() {
+        ERR("Identifier::StringValue() called");
+        exit(-1);
+    }
     virtual Parameter * Parameters() {
         ERR("Identifier::Parameters() called");
         exit(-1);
@@ -102,6 +106,14 @@ public:
     virtual Parameter * Parameters();
 };
 
+class String : public Identifier {
+private:
+    string value;
+public:
+    String(string name, string value);
+    virtual string StringValue();
+};
+
 class IdentifierTable {
 private:
     int offset; // a multiple of 4
@@ -111,18 +123,20 @@ public:
     IdentifierTable();
     ~IdentifierTable();
     Identifier * Look(string name);
-    virtual void EnterConstant(string name, symbolNo type, int value);
-    virtual void EnterVariable(string name, symbolNo type, int size);
-    virtual void EnterFunction(string name, symbolNo type, Parameter * list, string entrance);
+    virtual Identifier * EnterConstant(string name, symbolNo type, int value);
+    virtual Identifier * EnterVariable(string name, symbolNo type, int size);
+    virtual Identifier * EnterFunction(string name, symbolNo type, Parameter * list, string entrance);
+    virtual Identifier * EnterString(string value);
 };
 
 class GIdentifierTable : public IdentifierTable {
 private:
     int label_count;
 public:
-    virtual void EnterConstant(string name, symbolNo type, int value);
-    virtual void EnterVariable(string name, symbolNo type, int size);
-    virtual void EnterFunction(string name, symbolNo type, Parameter * list, string entrance);
+    virtual Identifier * EnterConstant(string name, symbolNo type, int value);
+    virtual Identifier * EnterVariable(string name, symbolNo type, int size);
+    virtual Identifier * EnterFunction(string name, symbolNo type, Parameter * list, string entrance);
+    virtual Identifier * EnterString(string value);
 };
 
 #endif /* identifier_table_hpp */

@@ -36,5 +36,10 @@ int main(int argc, const char * argv[]) {
         (* it) -> Print();
     }
     
+    cout << "section .data" << endl;
+    for (vector<Quaternary *>::iterator it = data_table.begin(); it != data_table.end(); it++) {
+        (* it) -> Print();
+    }
+    
     return 0;
 }

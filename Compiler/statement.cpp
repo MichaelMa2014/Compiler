@@ -311,9 +311,12 @@ void GrammarDecoder::PrintfStat() {
     }
     else ld -> NextWord();
     
+    string temp;
+    temp.clear();
     if (ld -> LastWordType() == strings) {
-        string temp = ld -> LastStr();
+        temp = ld -> LastStr();
         ld -> NextWord();
+        
         LOG("Decoded string from a printf statement: " + temp);
         
         if (ld -> LastSymbol() == commaSym) {
@@ -331,6 +334,8 @@ void GrammarDecoder::PrintfStat() {
         error(ORPHAN_ROUND);
     }
     else ld -> NextWord();
+    
+    ge -> PrintString(gid -> EnterString(temp));
     
     LOG("Printf statement decoded");
 }
