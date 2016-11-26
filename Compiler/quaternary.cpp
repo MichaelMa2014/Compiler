@@ -30,27 +30,46 @@ void Quaternary::SetLabel(string l) {
 
 void Quaternary::Print() {
     // FIXME: Should we use this large function to translate from Quaternary to x86?
-    
+
     if (label_set) {
         cout << label << ":" << endl;
     }
-    
-    if (ins == mulIns || ins == divIns || ins == plusIns || ins == minusIns) {
-        cout << InsString[this -> ins] << " " << this -> source1 -> Addr() << " " << this -> source2 -> Addr() << " " << this -> dest -> Addr() << endl;
+
+    cout << InsString[this -> ins];
+    switch (this -> ins) {
+        case mulIns:
+        case divIns:
+        case plusIns:
+        case minusIns:
+            cout << "[" << this -> source1 -> Addr() << "]" << " ";
+            cout << "[" << this -> source2 -> Addr() << "]" << " ";
+            cout << "[" << this -> dest -> Addr() << "]";
+            break;
+        case cmpIns:
+            cout << "[" << this -> source1 -> Addr() << "]" << " ";
+            cout << "[" << this -> source2 -> Addr() << "]";
+            break;
+        case movIns:
+            cout << "[" << this -> dest -> Addr() << "]" << " ";
+            cout << "[" << this -> source1 -> Addr() << "]";
+            break;
+        case extractIns:
+            cout << "[" << this -> source1 -> Addr() << "]" << " ";
+            cout << "[" << this -> source2 -> Addr() << "]" << " ";
+            cout << "[" << this -> dest -> Addr() << "]";
+            break;
+        case callIns:
+            cout << this -> source1 -> name << endl;
+            cout << "mov            " << "[" << this -> dest -> Addr() << "] eax";
+            break;
+        case printIns:
+            cout << this -> source1 -> Addr();
+            break;
+
+        default:
+            break;
     }
-    if (ins == cmpIns) {
-        cout << InsString[this -> ins] << " " << this -> source1 -> Addr() << " " << this -> source2 -> Addr() << endl;
-    }
-    if (ins == movIns) {
-        cout << InsString[this -> ins] << " " << this -> dest -> Addr() << " " << this -> source1 -> Addr() << endl;
-    }
-    if (ins == extractIns) {
-        cout << InsString[this -> ins] << " " << this -> source1 -> Addr() << " " << this -> source2 -> Addr() << " " << this -> dest -> Addr() << endl;
-    }
-    if (ins == callIns) {
-        cout << InsString[this -> ins] << this -> source1 -> name << endl;
-        cout << "mov            " << this -> dest -> Addr() << " eax" << endl;
-    }
+    cout << endl;
 }
 
 Quaternary_immediate::Quaternary_immediate(insNo i, int num, Identifier * d) : Quaternary(i, NULL, NULL, d){
@@ -94,8 +113,3 @@ Quaternary_string::Quaternary_string(string l, string v) : Quaternary(ddIns, NUL
 void Quaternary_string::Print() {
     cout << this -> label << ":" << endl << InsString[this -> ins] << "\"" << this -> value << "\"" << endl;
 }
-
-
-
-
-
