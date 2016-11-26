@@ -26,15 +26,16 @@ Generator::Generator(IdentifierTable * i) {
     InsString[10] = "scanIns        ";
     InsString[11] = "printIns       ";
     InsString[12] = "sub esp 4      ";
-    InsString[13] = "dd             ";
-    InsString[14] = "resd           ";
-    InsString[15] = "cmp            ";
-    InsString[16] = "jng            ";
-    InsString[17] = "jnge           ";
-    InsString[18] = "jnl            ";
-    InsString[19] = "jnle           ";
-    InsString[20] = "jnz            ";
-    InsString[21] = "jz             ";
+    InsString[13] = "add esp 4      ";
+    InsString[14] = "dd             ";
+    InsString[15] = "resd           ";
+    InsString[16] = "cmp            ";
+    InsString[17] = "jng            ";
+    InsString[18] = "jnge           ";
+    InsString[19] = "jnl            ";
+    InsString[20] = "jnle           ";
+    InsString[21] = "jnz            ";
+    InsString[22] = "jz             ";
     this -> id = i;
     this -> count = 100;
     this -> string_count = 0;
@@ -149,6 +150,11 @@ void Generator::Print(Identifier * source) {
 
 void Generator::AllocateStack() {
     Quaternary * temp = new Quaternary(allocIns, NULL, NULL, NULL);
+    table.push_back(temp);
+}
+
+void Generator::ReleaseStack() {
+    Quaternary * temp = new Quaternary(releaseIns, NULL, NULL, NULL);
     table.push_back(temp);
 }
 

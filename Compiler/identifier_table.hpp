@@ -124,6 +124,7 @@ public:
     IdentifierTable();
     ~IdentifierTable();
     Identifier * Look(string name);
+    void ReturnStack();
     virtual Identifier * EnterConstant(string name, symbolNo type, int value);
     virtual Identifier * EnterVariable(string name, symbolNo type, int size);
     virtual Identifier * EnterFunction(string name, symbolNo type, Parameter * list, string entrance);

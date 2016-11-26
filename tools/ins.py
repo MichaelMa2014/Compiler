@@ -1,13 +1,13 @@
 Ins =  ['nopIns',
         'extractIns', 'assignIns', 'callIns', 'movIns',
         'mulIns', 'divIns', 'plusIns', 'minusIns', 'negIns',
-        'scanIns', 'printIns', 'allocIns', 'ddIns', 'resdIns',
+        'scanIns', 'printIns', 'allocIns', 'releaseIns', 'ddIns', 'resdIns',
         'cmpIns', 'jngIns', 'jngeIns', 'jnlIns', 'jnleIns', 'jnzIns', 'jzIns']
 
 InsString =    ['nop',
                 'extractIns', 'assignIns', 'call', 'mov',
                 'mul', 'div', 'add', 'sub', 'neg',
-                'scanIns', 'printIns', 'sub esp 4', 'dd', 'resd',
+                'scanIns', 'printIns', 'sub esp 4', 'add esp 4', 'dd', 'resd',
                 'cmp', 'jng', 'jnge', 'jnl', 'jnle', 'jnz', 'jz']
 
 def pad(ins):

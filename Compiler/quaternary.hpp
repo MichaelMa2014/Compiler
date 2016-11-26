@@ -14,8 +14,8 @@
 
 #include "identifier_table.hpp"
 
-#define INSNUM 22
-enum insNo {nopIns, extractIns, assignIns, callIns, movIns, mulIns, divIns, plusIns, minusIns, negIns, scanIns, printIns, allocIns, ddIns, resdIns, cmpIns, jngIns, jngeIns, jnlIns, jnleIns, jnzIns, jzIns};
+#define INSNUM 23
+enum insNo {nopIns, extractIns, assignIns, callIns, movIns, mulIns, divIns, plusIns, minusIns, negIns, scanIns, printIns, allocIns, releaseIns, ddIns, resdIns, cmpIns, jngIns, jngeIns, jnlIns, jnleIns, jnzIns, jzIns};
 
 extern const char * InsString[];
 
@@ -93,6 +93,7 @@ public:
     
     // The following 3 statements save the return value in stack, which can be accessed by the identifier pointer
     void AllocateStack();
+    void ReleaseStack();
     Identifier * FunctionCall(Identifier * func);
     Identifier * NumberConstant(int number);
     Identifier * CharacterConstant(char character);

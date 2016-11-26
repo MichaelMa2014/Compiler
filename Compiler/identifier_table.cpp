@@ -116,6 +116,32 @@ Identifier * IdentifierTable::Look(string name) {
     return table[name];
 }
 
+void IdentifierTable::ReturnStack() {
+    int count = 0;
+    for (Table::iterator it = table.begin(); it != table.end(); it++) {
+        if (it -> second == NULL) {
+            continue;
+        }
+        switch (it -> second -> Type()) {
+            case constId:
+            case varId:
+                count += 1;
+                break;
+            case matId:
+                if (it -> second -> Size() == 0) {
+                    ERR("FATAL. size is 0 in matrix identifier")
+                }
+                count += it -> second -> Size();
+                break;
+            default:
+                break;
+        }
+    }
+    for (int i = 0; i < count; i++) {
+        ge -> ReleaseStack();
+    }
+}
+
 Identifier * IdentifierTable::EnterConstant(string name, symbolNo type, int value) {
     if (table[name] != NULL) {
         error(DOUBLE_DECLARE);
@@ -139,14 +165,21 @@ Identifier * IdentifierTable::EnterVariable(string name, symbolNo type, int size
     Identifier * temp;
     if (size == 0) {
         temp = new Variable(name, type);
+        this -> offset += 4;
+        
+        ge -> AllocateStack();
     }
-    else temp = new Matrix(name, type, size);
+    else {
+        temp = new Matrix(name, type, size);
+        this -> offset += 4 * size;
+        
+        for (int i = 0; i < size; i++) {
+            ge -> AllocateStack();
+        }
+    }
     table[name] = temp;
     
-    ge -> AllocateStack();
-    
     temp -> offset = this -> offset;
-    this -> offset += 4;
     temp -> addr = "ebp - " + itoa(temp -> offset);
     
     return temp;

@@ -90,6 +90,8 @@ void GrammarDecoder::FuncDeclare(symbolNo type, string name) {
     
     LOG("Decoded a function declaration");
     
+    id -> ReturnStack();
+    
 //    delete id; FIXME
     id = NULL;
     
