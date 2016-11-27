@@ -328,6 +328,15 @@ void GrammarDecoder::ScanfStat() {
     else {
         string name = ld -> LastStr();
         ld -> NextWord();
+        
+        Identifier * dest = id -> Look(name);
+        if (dest == NULL) {
+            dest = gid -> Look(name);
+        }
+        if (dest == NULL) {
+            error(NO_DECLARE);
+        }
+        ge -> Scan(dest);
     }
     
     while (ld -> LastSymbol() == commaSym) {
@@ -340,6 +349,15 @@ void GrammarDecoder::ScanfStat() {
         else {
             string name = ld -> LastStr();
             ld -> NextWord();
+            
+            Identifier * dest = id -> Look(name);
+            if (dest == NULL) {
+                dest = gid -> Look(name);
+            }
+            if (dest == NULL) {
+                error(NO_DECLARE);
+            }
+            ge -> Scan(dest);
         }
     }
     

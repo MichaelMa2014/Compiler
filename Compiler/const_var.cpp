@@ -143,6 +143,8 @@ void GrammarDecoder::StaticVarDeclare(symbolNo type, string name) {
 void GrammarDecoder::StaticVarDefine(symbolNo type, string name) {
     if (ld -> LastSymbol() == semiSym) {
         ld -> NextWord();
+        
+        id -> EnterVariable(name, type, 0);
         return;
     }
     else if (ld -> LastSymbol() == lSquareSym) {
