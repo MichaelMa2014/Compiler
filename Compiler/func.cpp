@@ -26,7 +26,7 @@ Parameter * GrammarDecoder::Param() {
             string name = ld -> LastStr();
             ld -> NextWord();
             
-            id -> EnterVariable(name, type, 0);
+            id -> EnterParam(name, type);
             
             list -> push_back(type);
         
@@ -48,7 +48,7 @@ Parameter * GrammarDecoder::Param() {
                 string name = ld -> LastStr();
                 ld -> NextWord();
                 
-                id -> EnterVariable(name, type, 0);
+                id -> EnterParam(name, type);
                 
                 list -> push_back(type);
                 

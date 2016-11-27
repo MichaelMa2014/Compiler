@@ -100,6 +100,7 @@ IdentifierTable::IdentifierTable() {
     this -> table = Table();
     this -> table.clear();
     this -> offset = 4;
+    this -> param_offset = 8;
 }
 
 IdentifierTable::~IdentifierTable() {
@@ -140,6 +141,20 @@ void IdentifierTable::ReturnStack() {
     for (int i = 0; i < count; i++) {
         ge -> ReleaseStack();
     }
+}
+
+Identifier * IdentifierTable::EnterParam(string name, symbolNo type) {
+    if (table[name] != NULL) {
+        error(DOUBLE_DECLARE);
+    }
+    Identifier * temp = new Variable(name, type);
+    table[name] = temp;
+    
+    temp -> offset = this -> param_offset;
+    this -> param_offset += 4;
+    temp -> addr = "ebp + " + itoa(temp -> offset);
+    
+    return temp;
 }
 
 Identifier * IdentifierTable::EnterConstant(string name, symbolNo type, int value) {
@@ -192,6 +207,11 @@ Identifier * IdentifierTable::EnterFunction(string name, symbolNo type, Paramete
 
 Identifier * IdentifierTable::EnterString(string value) {
     ERR("Enter string in local IDT");
+    exit(-1);
+}
+
+Identifier * GIdentifierTable::EnterParam(string name, symbolNo type) {
+    ERR("Enter parameter in global IDT");
     exit(-1);
 }
 

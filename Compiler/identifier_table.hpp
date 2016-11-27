@@ -118,6 +118,7 @@ public:
 class IdentifierTable {
 private:
     int offset; // a multiple of 4
+    int param_offset;
 protected:
     Table table;
 public:
@@ -125,6 +126,7 @@ public:
     ~IdentifierTable();
     Identifier * Look(string name);
     void ReturnStack();
+    virtual Identifier * EnterParam(string name, symbolNo type);
     virtual Identifier * EnterConstant(string name, symbolNo type, int value);
     virtual Identifier * EnterVariable(string name, symbolNo type, int size);
     virtual Identifier * EnterFunction(string name, symbolNo type, Parameter * list, string entrance);
@@ -135,6 +137,7 @@ class GIdentifierTable : public IdentifierTable {
 private:
     int label_count;
 public:
+    virtual Identifier * EnterParam(string name, symbolNo type);
     virtual Identifier * EnterConstant(string name, symbolNo type, int value);
     virtual Identifier * EnterVariable(string name, symbolNo type, int size);
     virtual Identifier * EnterFunction(string name, symbolNo type, Parameter * list, string entrance);
