@@ -3,9 +3,19 @@ global _GetRDTSC
 section .text
 
 _GetRDTSC:
-    sub esp, 4
-    mov eax, [message + 1]
-    ret 2
+    call codelabel1
+    add eax, 1
+    ret
+
+codelabel1:
+    push ebp
+    mov ebp, esp
+    pusha
+    popa
+    mov eax, 1
+    pop ebp
+    ret
+
 
 section .data
 message:

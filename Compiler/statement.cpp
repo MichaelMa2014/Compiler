@@ -344,7 +344,7 @@ void GrammarDecoder::PrintfStat() {
 }
 
 void GrammarDecoder::ReturnStat() {
-    Identifier * value;
+    Identifier * value = NULL;
     if (ld -> LastSymbol() == lRoundSym) {
         ld -> NextWord();
         

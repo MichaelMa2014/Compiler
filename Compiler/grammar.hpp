@@ -23,11 +23,13 @@ private:
     IdentifierTable * id;
     IdentifierTable * gid;
     int label_count;
+    int param_count;
 public:
     GrammarDecoder(IdentifierTable * i, IdentifierTable * gi) {
         this -> id = i;
         this -> gid = gi;
         this -> label_count = 0;
+        this -> param_count = 1000;
     }
     void Program();
     void Main();
@@ -42,8 +44,8 @@ public:
     Parameter * Param();
     void FuncDeclare(symbolNo type, string name);
     void VoidFuncDeclare(string name);
-    void ValueParam();
-    void FuncCall(string name);
+    void ValueParam(Parameter * list);
+    Identifier * FuncCall(string name);
     void VoidFuncCall(string name);
     void AllFuncCall(string name);
     

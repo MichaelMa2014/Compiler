@@ -27,3 +27,4 @@ There are several error defined in the compiler.
 | 215  | Missing identifier in scanf statement | Shut down |
 | 300  | An identifier is declared twice | The second declaration is ignored |
 | 301  | An identifier is refered to before any declaration | The statement containing the reference is ignored |
+| 302  | Too few or too many parameters passed to a function | Shut down |

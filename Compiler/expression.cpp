@@ -81,11 +81,10 @@ Identifier * GrammarDecoder::Factor() {
         }
         else if (ld -> LastSymbol() == lRoundSym) {
             ld -> NextWord();
-            FuncCall(name);
-
+            
             LOG("Function call as factor");
             
-            return ge -> FunctionCall(gid -> Look(name));
+            return FuncCall(name);
         }
         else {
             LOG("Identifier as factor");

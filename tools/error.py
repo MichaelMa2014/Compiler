@@ -31,7 +31,8 @@ error2 = [
 
 error3 = [
           ['DOUBLE_DECLARE', 'An identifier is declared twice', 'The second declaration is ignored'],
-          ['NO_DECLARE', 'An identifier is refered to before any declaration', 'The statement containing the reference is ignored']
+          ['NO_DECLARE', 'An identifier is refered to before any declaration', 'The statement containing the reference is ignored'],
+          ['MISMATCH_PARAM', 'Too few or too many parameters passed to a function', 'Shut down']
 ]
 
 def pad(i):

@@ -16,7 +16,7 @@
 using namespace std;
 
 #define LOG(x) do {cerr << "***LOG " << x << endl;} while(0);
-#define ERR(x) do {cerr << "***ERR " << x << endl; exit(-1);} while(0);
+#define ERR(x) do {cerr << "***ERR " << x << endl; throw 0;} while(0);
 
 #define UNEXPECTED_END 000
 #define LINE_TOO_LONG 001
@@ -43,6 +43,7 @@ using namespace std;
 #define ILLEGAL_SCANF 215
 #define DOUBLE_DECLARE 300
 #define NO_DECLARE 301
+#define MISMATCH_PARAM 302
 
 
 void error(int errNo);

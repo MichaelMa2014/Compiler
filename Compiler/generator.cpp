@@ -16,28 +16,30 @@ Generator::Generator(IdentifierTable * i) {
     InsString[0] = "nop            ";
     InsString[1] = "extractIns     ";
     InsString[2] = "assignIns      ";
-    InsString[3] = "call           ";
-    InsString[4] = "mov            ";
-    InsString[5] = "mul            ";
-    InsString[6] = "div            ";
-    InsString[7] = "add            ";
-    InsString[8] = "sub            ";
-    InsString[9] = "neg            ";
-    InsString[10] = "scanIns        ";
-    InsString[11] = "printIns       ";
-    InsString[12] = "sub esp 4      ";
-    InsString[13] = "add esp 4      ";
-    InsString[14] = "dd             ";
-    InsString[15] = "resd           ";
-    InsString[16] = "cmp            ";
-    InsString[17] = "jng            ";
-    InsString[18] = "jnge           ";
-    InsString[19] = "jnl            ";
-    InsString[20] = "jnle           ";
-    InsString[21] = "jnz            ";
-    InsString[22] = "jz             ";
-    InsString[23] = "mov            ";
-    InsString[24] = "ret            ";
+    InsString[3] = "mov            ";
+    InsString[4] = "mul            ";
+    InsString[5] = "div            ";
+    InsString[6] = "add            ";
+    InsString[7] = "sub            ";
+    InsString[8] = "neg            ";
+    InsString[9] = "scanIns        ";
+    InsString[10] = "printIns       ";
+    InsString[11] = "sub esp 4      ";
+    InsString[12] = "add esp 4      ";
+    InsString[13] = "dd             ";
+    InsString[14] = "resd           ";
+    InsString[15] = "cmp            ";
+    InsString[16] = "jng            ";
+    InsString[17] = "jnge           ";
+    InsString[18] = "jnl            ";
+    InsString[19] = "jnle           ";
+    InsString[20] = "jnz            ";
+    InsString[21] = "jz             ";
+    InsString[22] = "call           ";
+    InsString[23] = "push ebp \nmov ebp, esp";
+    InsString[24] = "pop ebp \nret ";
+    InsString[25] = "mov            ";
+    InsString[26] = "mov            ";
     this -> id = i;
     this -> count = 100;
     this -> string_count = 0;
@@ -61,19 +63,6 @@ Identifier * Generator::MatrixMember(Identifier * matrix, Identifier * index) {
 void Generator::Assign(Identifier * value, Identifier * index, Identifier * dest) {
     Quaternary * temp = new Quaternary(assignIns, value, index, dest);
     table.push_back(temp);
-}
-
-Identifier * Generator::FunctionCall(Identifier *func) {
-    // Just pretend there has been a call
-    string name = itoa(count++);
-    
-    Identifier * dest = id -> EnterVariable(name, func -> Kind(), 0);
-    
-    // FIXME: value parameters should be passed in
-    Quaternary * temp = new Quaternary(callIns, func, NULL, dest);
-    table.push_back(temp);
-    
-    return dest;
 }
 
 Identifier * Generator::NumberConstant(int number) {
@@ -216,12 +205,30 @@ void Generator::Jump(symbolNo LogicOp, Identifier *source1, Identifier *source2,
     table.push_back(temp);
 }
 
+void Generator::Call(string label) {
+    Quaternary * temp = new Quaternary_label(callIns, label);
+    table.push_back(temp);
+}
+
+void Generator::FuncInit() {
+    Quaternary * temp = new Quaternary(funcInitIns, NULL, NULL, NULL);
+    table.push_back(temp);
+}
+
 void Generator::ReturnStatement(Identifier * value) {
-    Quaternary * temp = new Quaternary(returnIns, value, NULL, NULL);
+    if (value == NULL) {
+        return;
+    }
+    Quaternary * temp = new Quaternary(saveRetIns, value, NULL, NULL);
     table.push_back(temp);
 }
 
 void Generator::RET() {
-    Quaternary * temp = new Quaternary(retIns, NULL, NULL, NULL);
+    Quaternary * temp = new Quaternary(funcEndIns, NULL, NULL, NULL);
+    table.push_back(temp);
+}
+
+void Generator::GetResult(Identifier * dest) {
+    Quaternary * temp = new Quaternary(getRetIns, NULL, NULL, dest);
     table.push_back(temp);
 }

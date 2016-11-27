@@ -41,26 +41,41 @@ void Quaternary::Print() {
         case divIns:
         case plusIns:
         case minusIns:
-            cout << "[" << this -> source1 -> Addr() << "]" << " ";
-            cout << "[" << this -> source2 -> Addr() << "]" << " ";
+            cout << "[" << this -> source1 -> Addr() << "]" << ", ";
+            cout << "[" << this -> source2 -> Addr() << "]" << ", ";
             cout << "[" << this -> dest -> Addr() << "]";
             break;
         case cmpIns:
-            cout << "[" << this -> source1 -> Addr() << "]" << " ";
+            cout << "[" << this -> source1 -> Addr() << "]" << ", ";
             cout << "[" << this -> source2 -> Addr() << "]";
             break;
         case movIns:
-            cout << "[" << this -> dest -> Addr() << "]" << " ";
+            cout << "[" << this -> dest -> Addr() << "]" << ", ";
             cout << "[" << this -> source1 -> Addr() << "]";
             break;
         case extractIns:
-            cout << "[" << this -> source1 -> Addr() << "]" << " ";
-            cout << "[" << this -> source2 -> Addr() << "]" << " ";
+            cout << "[" << this -> source1 -> Addr() << "]" << ", ";
+            cout << "[" << this -> source2 -> Addr() << "]" << ", ";
             cout << "[" << this -> dest -> Addr() << "]";
             break;
-        case callIns:
-            cout << this -> source1 -> name << endl;
-            cout << "mov            " << "[" << this -> dest -> Addr() << "] eax";
+        case assignIns:
+            if (source2 != NULL) {
+                string a = dest -> Addr();
+                if (a[0] == 'e' && a[1] == 'b' && a[2] == 'p') {
+                    cout << "ebx, ebp" << endl;
+                    cout << "sub ebx, " << dest -> Offset() << endl;
+                    cout << "sub ebx, [" << source2 -> Addr() << "]" << endl;
+                    cout << "mov [ebx], [" << source1 << "]";
+                }
+                else {
+                    cout << "ebx, [" << dest -> Addr() << "]" << endl;
+                    cout << "add ebx, [" << source2 -> Addr() << "]" << endl;
+                    cout << "mov [ebx], [" << source1 -> Addr() << "]";
+                }
+            }
+            else {
+                cout << "[" << dest -> Addr() << "], [" << source1 -> Addr() << "]";
+            }
             break;
         case printIns:
             switch (this -> source1 -> Type()) {
@@ -75,12 +90,12 @@ void Quaternary::Print() {
                     break;
             }
             break;
-        case returnIns:
-            cout << "eax " << "[" << this -> source1 -> Addr() << "]";
+        case saveRetIns:
+            cout << "eax, [" << this -> source1 -> Addr() << "]";
             break;
-        case retIns:
+        case getRetIns:
+            cout << "[" << this -> dest -> Addr() << "], eax";
             break;
-
         default:
             break;
     }
@@ -92,7 +107,7 @@ Quaternary_immediate::Quaternary_immediate(insNo i, int num, Identifier * d) : Q
 }
 
 void Quaternary_immediate::Print() {
-    cout << InsString[this -> ins] << "[" << this -> dest -> Addr() << "] " << this -> immediate << endl;
+    cout << InsString[this -> ins] << "[" << this -> dest -> Addr() << "], " << this -> immediate << endl;
 }
 
 Quaternary_label::Quaternary_label(insNo i, string l) : Quaternary(i, NULL, NULL, NULL) {

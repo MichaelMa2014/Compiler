@@ -85,5 +85,8 @@ void error(int errNo) {
         case 301:
             ERR("301: An identifier is refered to before any declaration");
             break;
+        case 302:
+            ERR("302: Too few or too many parameters passed to a function");
+            break;
     }
 }

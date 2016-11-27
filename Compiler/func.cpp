@@ -81,6 +81,8 @@ void GrammarDecoder::FuncDeclare(symbolNo type, string name) {
     
     gid -> EnterFunction(name, type, list, label);
     
+    ge -> FuncInit();
+    
     Statements();
     
     if (ld -> LastSymbol() != rCurlySym) {
@@ -91,6 +93,7 @@ void GrammarDecoder::FuncDeclare(symbolNo type, string name) {
     LOG("Decoded a function declaration");
     
     id -> ReturnStack();
+    ge -> RET();
     
 //    delete id; FIXME
     id = NULL;
@@ -99,80 +102,73 @@ void GrammarDecoder::FuncDeclare(symbolNo type, string name) {
 }
 
 void GrammarDecoder::VoidFuncDeclare(string name) {
-    id = new IdentifierTable();
-    ge -> SetId(id);
-    
-    Parameter * list = Param();
-    
-    if (ld -> LastSymbol() != rRoundSym) {
-        error(ORPHAN_ROUND);
-    }
-    else ld -> NextWord();
-    
-    if (ld -> LastSymbol() != lCurlySym) {
-        error(MISSING_LEFT_CURLY);
-    }
-    else ld -> NextWord();
-    
-    string label = "code_label" + itoa(label_count++) + name;
-    ge -> LabelledNop(label);
-    
-    gid -> EnterFunction(name, voidSym, list, label);
-    
-    Statements();
-    
-    if (ld -> LastSymbol() != rCurlySym) {
-        error(ORPHAN_CURLY);
-    }
-    else ld -> NextWord();
-    
-    LOG("Decoded a void function declaration");
-    
-    id -> ReturnStack();
-    
-//    delete id;
-//    FIXME: Huge memory leak
-    id = NULL;
-    
-    ge -> SetId(gid);
+    FuncDeclare(voidSym, name);
 }
 
-void GrammarDecoder::ValueParam() {
+void GrammarDecoder::ValueParam(Parameter * list) {
     if (ld -> LastSymbol() == rRoundSym) {
         return;
         // FIXME: This is a trick becasue the last word is used but NextWord is not called
     }
     
-    Expression();
+    vector<Identifier *> vlist;
+    vlist.clear();
+    
+    vlist.push_back(Expression());
     LOG("Decoded a value parameter");
     
     while (ld -> LastSymbol() == commaSym) {
         ld -> NextWord();
-        Expression();
+        vlist.push_back(Expression());
         LOG("Decoded a value parameter");
+    }
+    
+    vector<symbolNo>::reverse_iterator it;
+    vector<Identifier *>::reverse_iterator vit;
+    
+    for (it = list -> rbegin(), vit = vlist.rbegin(); it != list -> rend(); it++, vit++) {
+        Identifier * temp = id -> EnterVariable("param" + itoa(this -> param_count++), (* vit) -> Kind(), 0);
+        ge -> Assign(* vit, NULL, temp);
+        if ((* vit) -> Kind() != (* it)) {
+            LOG("Warning: Mismatch param kind");
+        }
+    }
+    
+    if (vit != vlist.rend()) {
+        error(MISMATCH_PARAM);
     }
 }
 
-void GrammarDecoder::FuncCall(string name) {
-    ValueParam();
+Identifier * GrammarDecoder::FuncCall(string name) {
+    Identifier * func = gid -> Look(name);
+    Parameter * list = func -> Parameters();
+    ValueParam(list);
     if (ld -> LastSymbol() != rRoundSym) {
         error(ORPHAN_ROUND);
     }
     else ld -> NextWord();
+    
+    ge -> Call(func -> Addr());
+    
+    string temp_name = "result" + itoa(this -> label_count++);
+    Identifier * result = id -> EnterVariable(temp_name, func -> Kind(), 0);
+    ge -> GetResult(result);
+    
+    return result;
 }
 
 void GrammarDecoder::VoidFuncCall(string name) {
-    ValueParam();
+    Identifier * func = gid -> Look(name);
+    Parameter * list = func -> Parameters();
+    ValueParam(list);
     if (ld -> LastSymbol() != rRoundSym) {
         error(ORPHAN_ROUND);
     }
     else ld -> NextWord();
+    
+    ge -> Call(func -> Addr());
 }
 
 void GrammarDecoder::AllFuncCall(string name) {
-    ValueParam();
-    if (ld -> LastSymbol() != rRoundSym) {
-        error(ORPHAN_ROUND);
-    }
-    else ld -> NextWord();
+    VoidFuncCall(name);
 }

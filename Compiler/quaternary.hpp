@@ -14,8 +14,8 @@
 
 #include "identifier_table.hpp"
 
-#define INSNUM 25
-enum insNo {nopIns, extractIns, assignIns, callIns, movIns, mulIns, divIns, plusIns, minusIns, negIns, scanIns, printIns, allocIns, releaseIns, ddIns, resdIns, cmpIns, jngIns, jngeIns, jnlIns, jnleIns, jnzIns, jzIns, returnIns, retIns};
+#define INSNUM 27
+enum insNo {nopIns, extractIns, assignIns, movIns, mulIns, divIns, plusIns, minusIns, negIns, scanIns, printIns, allocIns, releaseIns, ddIns, resdIns, cmpIns, jngIns, jngeIns, jnlIns, jnleIns, jnzIns, jzIns, callIns, funcInitIns, funcEndIns, saveRetIns, getRetIns};
 
 extern const char * InsString[];
 
@@ -94,7 +94,6 @@ public:
     // The following 3 statements save the return value in stack, which can be accessed by the identifier pointer
     void AllocateStack();
     void ReleaseStack();
-    Identifier * FunctionCall(Identifier * func);
     Identifier * NumberConstant(int number);
     Identifier * CharacterConstant(char character);
     
@@ -112,8 +111,11 @@ public:
     void LabelledNop(string label);
     void Jump(symbolNo LogicOp, Identifier * source1, Identifier * source2, string label);
     
+    void Call(string label);
+    void FuncInit();
     void ReturnStatement(Identifier * value);
     void RET();
+    void GetResult(Identifier * dest);
 };
 
 #endif /* quarternary_hpp */
