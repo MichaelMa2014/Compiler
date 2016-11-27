@@ -37,6 +37,7 @@
 		<Unit filename="error.hpp" />
 		<Unit filename="expression.cpp" />
 		<Unit filename="func.cpp" />
+		<Unit filename="generator.cpp" />
 		<Unit filename="grammar.hpp" />
 		<Unit filename="identifier_table.cpp" />
 		<Unit filename="identifier_table.hpp" />
@@ -46,6 +47,8 @@
 		<Unit filename="lexical.hpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="program.cpp" />
+		<Unit filename="quaternary.cpp" />
+		<Unit filename="quaternary.hpp" />
 		<Unit filename="statement.cpp" />
 		<Extensions>
 			<code_completion />

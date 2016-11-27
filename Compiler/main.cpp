@@ -33,6 +33,7 @@ int main(int argc, const char * argv[]) {
     ld -> NextWord();
     gd -> Program();
     
+    cout << endl << "section .text" << endl;
     for (vector<Quaternary *>::iterator it = table.begin(); it != table.end(); it++) {
         (* it) -> Print();
     }

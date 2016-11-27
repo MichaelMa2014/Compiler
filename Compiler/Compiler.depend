@@ -1,0 +1,70 @@
+# depslib dependency file v1.0
+1480271326 source:c:\compiler\const_var.cpp
+	"grammar.hpp"
+
+1480256665 c:\compiler\grammar.hpp
+	"init.hpp"
+	"error.hpp"
+	"lexical.hpp"
+	"identifier_table.hpp"
+	"quaternary.hpp"
+
+1479867899 c:\compiler\init.hpp
+	<stdio.h>
+	<iostream>
+	<map>
+
+1480253814 c:\compiler\error.hpp
+	<cstdio>
+	<cstdlib>
+	<iostream>
+
+1479027691 c:\compiler\lexical.hpp
+	<fstream>
+	<cctype>
+	<cstdlib>
+	"init.hpp"
+	"error.hpp"
+
+1480265378 c:\compiler\identifier_table.hpp
+	<map>
+	<vector>
+	"init.hpp"
+	"error.hpp"
+
+1480270110 c:\compiler\quaternary.hpp
+	<iostream>
+	<sstream>
+	"identifier_table.hpp"
+
+1480233705 source:c:\compiler\error.cpp
+	"error.hpp"
+
+1480247435 source:c:\compiler\expression.cpp
+	"grammar.hpp"
+
+1480253832 source:c:\compiler\func.cpp
+	"grammar.hpp"
+
+1480265378 source:c:\compiler\identifier_table.cpp
+	"identifier_table.hpp"
+	"quaternary.hpp"
+
+1479273373 source:c:\compiler\init.cpp
+	"init.hpp"
+
+1479976317 source:c:\compiler\lexical.cpp
+	"lexical.hpp"
+
+1480269970 source:c:\compiler\main.cpp
+	<iostream>
+	"Lexical.hpp"
+	"grammar.hpp"
+	"identifier_table.hpp"
+
+1479714015 source:c:\compiler\program.cpp
+	"grammar.hpp"
+
+1480270879 source:c:\compiler\statement.cpp
+	"grammar.hpp"
+

@@ -11,6 +11,7 @@
 LexicalDecoder::LexicalDecoder() {
     cout << "Please input the full path to a file" << endl;
     cout << "Example: ~/Desktop/main.c" << endl;
+    cout << "Example: C:\\14231016_test.txt" << endl;
     char path[PATHLENGTH];
     cin >> path;
     
