@@ -13,34 +13,32 @@ const char * InsString[INSNUM];
 extern string itoa(int i);
 
 Generator::Generator(IdentifierTable * i) {
-    InsString[0] = "nop            ";
-    InsString[1] = "extractIns     ";
-    InsString[2] = "mov            ";
-    InsString[3] = "mov            ";
-    InsString[4] = "mul            ";
-    InsString[5] = "div            ";
-    InsString[6] = "add            ";
-    InsString[7] = "sub            ";
-    InsString[8] = "neg            ";
-    InsString[9] = "scanIns        ";
-    InsString[10] = "printIns       ";
-    InsString[11] = "sub esp 4      ";
-    InsString[12] = "add esp 4      ";
-    InsString[13] = "dd             ";
-    InsString[14] = "resd           ";
-    InsString[15] = "cmp            ";
-    InsString[16] = "jng            ";
-    InsString[17] = "jnge           ";
-    InsString[18] = "jnl            ";
-    InsString[19] = "jnle           ";
-    InsString[20] = "jnz            ";
-    InsString[21] = "jz             ";
-    InsString[22] = "jmp            ";
-    InsString[23] = "call           ";
-    InsString[24] = "push ebp \nmov ebp, esp";
-    InsString[25] = "pop ebp \nret  ";
-    InsString[26] = "mov            ";
-    InsString[27] = "mov            ";
+    InsString[0] = "nop ";
+    InsString[1] = "extractIns ";
+    InsString[2] = "mov ";
+    InsString[3] = "mul ";
+    InsString[4] = "div ";
+    InsString[5] = "add ";
+    InsString[6] = "sub ";
+    InsString[7] = "scanIns ";
+    InsString[8] = "printIns ";
+    InsString[9] = "sub esp, 4 ";
+    InsString[10] = "add esp, 4 ";
+    InsString[11] = "dd ";
+    InsString[12] = "resd ";
+    InsString[13] = "cmp ";
+    InsString[14] = "jng ";
+    InsString[15] = "jnge ";
+    InsString[16] = "jnl ";
+    InsString[17] = "jnle ";
+    InsString[18] = "jnz ";
+    InsString[19] = "jz ";
+    InsString[20] = "jmp ";
+    InsString[21] = "call ";
+    InsString[22] = "push ebp \nmov ebp, esp ";
+    InsString[23] = "pop ebp \nret ";
+    InsString[24] = "mov ";
+    InsString[25] = "mov ";
     this -> id = i;
     this -> count = 100;
     this -> string_count = 0;
@@ -71,7 +69,7 @@ Identifier * Generator::NumberConstant(int number) {
     
     Identifier * dest = id -> EnterVariable(name, intSym, 0);
     
-    Quaternary * temp = new Quaternary_immediate(movIns, number, dest);
+    Quaternary * temp = new Quaternary_immediate(assignIns, number, dest);
     table.push_back(temp);
     
     return dest;
@@ -82,7 +80,7 @@ Identifier * Generator::CharacterConstant(char character) {
     
     Identifier * dest = id -> EnterVariable(name, charSym, 0);
     
-    Quaternary * temp = new Quaternary_immediate(movIns, character, dest);
+    Quaternary * temp = new Quaternary_immediate(assignIns, character, dest);
     table.push_back(temp);
     
     return dest;
@@ -121,7 +119,7 @@ Identifier * Generator::Negative(Identifier * source) {
     Identifier * dest = id -> EnterVariable(name, intSym, 0);
     
     // Store 0 in zero
-    Quaternary * temp = new Quaternary_immediate(movIns, 0, zero);
+    Quaternary * temp = new Quaternary_immediate(assignIns, 0, zero);
     table.push_back(temp);
     
     temp = new Quaternary(minusIns, zero, source, dest);
@@ -157,7 +155,7 @@ void Generator::AllocateData(string label, int value) {
 
 void Generator::AllocateBss(string label) {
     Quaternary * temp = new Quaternary_bss(label);
-    data_table.push_back(temp);
+    bss_table.push_back(temp);
 }
 
 void Generator::PrintString(Identifier * source) {

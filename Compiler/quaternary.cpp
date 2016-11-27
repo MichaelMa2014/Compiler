@@ -34,72 +34,92 @@ void Quaternary::Print() {
     if (label_set) {
         cout << label << ":" << endl;
     }
-
-    cout << InsString[this -> ins];
+    
     switch (this -> ins) {
-        case mulIns:
-        case divIns:
-        case plusIns:
-        case minusIns:
-            cout << "[" << this -> source1 -> Addr() << "]" << ", ";
-            cout << "[" << this -> source2 -> Addr() << "]" << ", ";
-            cout << "[" << this -> dest -> Addr() << "]";
+        case nopIns:
+            cout << "nop" << endl;
             break;
-        case cmpIns:
-            cout << "[" << this -> source1 -> Addr() << "]" << ", ";
-            cout << "[" << this -> source2 -> Addr() << "]";
-            break;
-        case movIns:
-            cout << "[" << this -> dest -> Addr() << "]" << ", ";
-            cout << "[" << this -> source1 -> Addr() << "]";
-            break;
+            
         case extractIns:
-            cout << "[" << this -> source1 -> Addr() << "]" << ", ";
-            cout << "[" << this -> source2 -> Addr() << "]" << ", ";
-            cout << "[" << this -> dest -> Addr() << "]";
+            cout << "mov ebx, " << this -> source1 -> Addr() << endl;
+            cout << "add ebx, [" << this -> source2 -> Addr() << "]" << endl;
+            cout << "mov ecx, [ebx]" << endl;
+            cout << "mov [" << this -> dest -> Addr() << "], ecx" << endl;
             break;
+            
         case assignIns:
             if (source2 != NULL) {
                 string a = dest -> Addr();
                 if (a[0] == 'e' && a[1] == 'b' && a[2] == 'p') {
-                    cout << "ebx, ebp" << endl;
+                    cout << "mov ebx, ebp" << endl;
                     cout << "sub ebx, " << dest -> Offset() << endl;
                     cout << "sub ebx, [" << source2 -> Addr() << "]" << endl;
-                    cout << "mov [ebx], [" << source1 -> Addr() << "]";
+                    cout << "mov ecx, [" << source1 -> Addr() << "]" << endl;
+                    cout << "mov [ebx], ecx" << endl;
                 }
                 else {
-                    cout << "ebx, [" << dest -> Addr() << "]" << endl;
+                    cout << "mov ebx, [" << dest -> Addr() << "]" << endl;
                     cout << "add ebx, [" << source2 -> Addr() << "]" << endl;
-                    cout << "mov [ebx], [" << source1 -> Addr() << "]";
+                    cout << "mov ecx, [" << source1 -> Addr() << "]" << endl;
+                    cout << "mov [ebx], ecx" << endl;
                 }
             }
             else {
-                cout << "[" << dest -> Addr() << "], [" << source1 -> Addr() << "]";
+                cout << "mov ecx, [" << source1 -> Addr() << "]" << endl;
+                cout << "mov [" << dest -> Addr() << "], ecx" << endl;
             }
             break;
+            
+        case mulIns:
+        case divIns:
+        case plusIns:
+        case minusIns:
+            cout << "mov ecx, [" << this -> source1 -> Addr() << "]" << endl;
+            cout << InsString[this -> ins] << "ecx, [" << this -> source2 -> Addr() << "]" << endl;
+            cout << "mov [" << this -> dest -> Addr() << "], ecx" << endl;
+            break;
+            
+        case scanIns:
+            cout << InsString[this -> ins] << this -> dest -> name << endl;
+            break;
+            
         case printIns:
+            cout << InsString[this -> ins];
             switch (this -> source1 -> Type()) {
                 case stringId:
-                    cout << "[" << this -> source1 -> Addr() << "]";
+                    cout << "[" << this -> source1 -> Addr() << "]" << endl;
                     break;
                 case constId:
                 case varId:
-                    cout << this -> source1 -> Kind() << " [" << this -> source1 -> Addr() << "]";
+                    cout << this -> source1 -> Kind() << " [" << this -> source1 -> Addr() << "]" << endl;
                     break;
                 default:
                     break;
             }
             break;
+            
+        case cmpIns:
+            cout << "mov ebx, [" << this -> source1 -> Addr() << "]" << endl;
+            cout << "mov ecx, [" << this -> source2 -> Addr() << "]" << endl;
+            cout << "cmp ebx, ecx" << endl;
+            break;
+            
+        case callIns:
+            ERR("Wrong type of quaternary used.");
+        
         case saveRetIns:
-            cout << "eax, [" << this -> source1 -> Addr() << "]";
+            cout << InsString[this -> ins] << "eax, [" << this -> source1 -> Addr() << "]" << endl;
             break;
+            
         case getRetIns:
-            cout << "[" << this -> dest -> Addr() << "], eax";
+            cout << InsString[this -> ins] << "[" << this -> dest -> Addr() << "], eax" << endl;
             break;
+            
+            
         default:
+            cout << InsString[this -> ins] << endl;
             break;
     }
-    cout << endl;
 }
 
 Quaternary_immediate::Quaternary_immediate(insNo i, int num, Identifier * d) : Quaternary(i, NULL, NULL, d){

@@ -14,8 +14,8 @@
 
 #include "identifier_table.hpp"
 
-#define INSNUM 28
-enum insNo {nopIns, extractIns, assignIns, movIns, mulIns, divIns, plusIns, minusIns, negIns, scanIns, printIns, allocIns, releaseIns, ddIns, resdIns, cmpIns, jngIns, jngeIns, jnlIns, jnleIns, jnzIns, jzIns, jmpIns, callIns, funcInitIns, funcEndIns, saveRetIns, getRetIns};
+#define INSNUM 26
+enum insNo {nopIns, extractIns, assignIns, mulIns, divIns, plusIns, minusIns, scanIns, printIns, allocIns, releaseIns, ddIns, resdIns, cmpIns, jngIns, jngeIns, jnlIns, jnleIns, jnzIns, jzIns, jmpIns, callIns, funcInitIns, funcEndIns, saveRetIns, getRetIns};
 
 extern const char * InsString[];
 
@@ -35,6 +35,7 @@ public:
 
 extern vector<Quaternary *> table;
 extern vector<Quaternary *> data_table;
+extern vector<Quaternary *> bss_table;
 
 class Quaternary_immediate : public Quaternary {
 private:

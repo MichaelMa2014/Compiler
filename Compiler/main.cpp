@@ -18,6 +18,7 @@ LexicalDecoder * ld;
 Generator * ge;
 vector<Quaternary *> table;
 vector<Quaternary *> data_table;
+vector<Quaternary *> bss_table;
 
 int main(int argc, const char * argv[]) {
     init();
@@ -36,8 +37,13 @@ int main(int argc, const char * argv[]) {
         (* it) -> Print();
     }
     
-    cout << "section .data" << endl;
+    cout << endl << "section .data" << endl;
     for (vector<Quaternary *>::iterator it = data_table.begin(); it != data_table.end(); it++) {
+        (* it) -> Print();
+    }
+    
+    cout << endl << "section .bss" << endl;
+    for (vector<Quaternary *>::iterator it = bss_table.begin(); it != bss_table.end(); it++) {
         (* it) -> Print();
     }
     
