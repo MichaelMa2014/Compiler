@@ -117,6 +117,10 @@ Identifier * IdentifierTable::Look(string name) {
     return table[name];
 }
 
+int IdentifierTable::Offset() {
+    return this -> offset;
+}
+
 void IdentifierTable::ReturnStack() {
     int count = 0;
     for (Table::iterator it = table.begin(); it != table.end(); it++) {

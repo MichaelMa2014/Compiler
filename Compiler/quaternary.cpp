@@ -65,7 +65,7 @@ void Quaternary::Print() {
                     cout << "ebx, ebp" << endl;
                     cout << "sub ebx, " << dest -> Offset() << endl;
                     cout << "sub ebx, [" << source2 -> Addr() << "]" << endl;
-                    cout << "mov [ebx], [" << source1 << "]";
+                    cout << "mov [ebx], [" << source1 -> Addr() << "]";
                 }
                 else {
                     cout << "ebx, [" << dest -> Addr() << "]" << endl;

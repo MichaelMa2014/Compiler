@@ -15,7 +15,7 @@ extern string itoa(int i);
 Generator::Generator(IdentifierTable * i) {
     InsString[0] = "nop            ";
     InsString[1] = "extractIns     ";
-    InsString[2] = "assignIns      ";
+    InsString[2] = "mov            ";
     InsString[3] = "mov            ";
     InsString[4] = "mul            ";
     InsString[5] = "div            ";
@@ -35,11 +35,12 @@ Generator::Generator(IdentifierTable * i) {
     InsString[19] = "jnle           ";
     InsString[20] = "jnz            ";
     InsString[21] = "jz             ";
-    InsString[22] = "call           ";
-    InsString[23] = "push ebp \nmov ebp, esp";
-    InsString[24] = "pop ebp \nret ";
-    InsString[25] = "mov            ";
+    InsString[22] = "jmp            ";
+    InsString[23] = "call           ";
+    InsString[24] = "push ebp \nmov ebp, esp";
+    InsString[25] = "pop ebp \nret  ";
     InsString[26] = "mov            ";
+    InsString[27] = "mov            ";
     this -> id = i;
     this -> count = 100;
     this -> string_count = 0;
@@ -202,6 +203,11 @@ void Generator::Jump(symbolNo LogicOp, Identifier *source1, Identifier *source2,
     }
     
     temp = new Quaternary_label(ins, label);
+    table.push_back(temp);
+}
+
+void Generator::Jump(string label) {
+    Quaternary * temp = new Quaternary_label(jmpIns, label);
     table.push_back(temp);
 }
 

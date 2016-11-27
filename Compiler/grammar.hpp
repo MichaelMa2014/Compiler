@@ -55,8 +55,8 @@ public:
     void IfStat();
     void WhileStat();
     void SwitchStat();
-    void CaseStat();
-    void DefaultStat();
+    void CaseStat(Identifier * condition, string exit);
+    void DefaultStat(string exit);
     void AssignStat(string name);
     void ScanfStat();
     void PrintfStat();

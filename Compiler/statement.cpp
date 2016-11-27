@@ -162,13 +162,12 @@ void GrammarDecoder::IfStat() {
     }
     else ld -> NextWord();
     
-    string label = "code_label" + itoa(label_count++);
-
     if (condition2 == NULL) {
         condition2 = ge -> NumberConstant(0);
         logicOp = neqSym;
     }
     
+    string label = "code_label" + itoa(label_count++);
     ge -> Jump(logicOp, condition1, condition2, label);
     
     Statement();
@@ -179,18 +178,36 @@ void GrammarDecoder::IfStat() {
 }
 
 void GrammarDecoder::WhileStat() {
+    // FIXIT: This is a hot trick
+    int inito = id -> Offset();
+    
     if (ld -> LastSymbol() != lRoundSym) {
         error(MISSING_LEFT_ROUND);
     }
     else ld -> NextWord();
     
-    Expression();
-
+    string start = "while_label" + itoa(label_count++);
+    ge -> LabelledNop(start);
+    
+    Identifier * condition1 = Expression();
+    Identifier * condition2 = NULL;
+    
+    symbolNo logicOp = ndef;
     if (ld -> LastSymbol() == lessSym || ld -> LastSymbol() == leqSym || ld -> LastSymbol() == moreSym || ld -> LastSymbol() == meqSym || ld -> LastSymbol() == neqSym || ld -> LastSymbol() == equalSym) {
+        logicOp = ld -> LastSymbol();
+        
         ld -> NextWord();
         
-        Expression();
+        condition2 = Expression();
     }
+    
+    if (condition2 == NULL) {
+        condition2 = ge -> NumberConstant(0);
+        logicOp = neqSym;
+    }
+    
+    string end = "while_label" + itoa(label_count++);
+    ge -> Jump(logicOp, condition1, condition2, end);
     
     if (ld -> LastSymbol() != rRoundSym) {
         error(ORPHAN_ROUND);
@@ -198,6 +215,19 @@ void GrammarDecoder::WhileStat() {
     else ld -> NextWord();
     
     Statement();
+    
+    int endo = id -> Offset();
+    
+    for (int i = inito; i < endo; i += 4) {
+        ge -> ReleaseStack();
+    }
+    
+    ge -> Jump(start);
+    ge -> LabelledNop(end);
+    
+    for (int i = inito; i < endo; i += 4) {
+        ge -> AllocateStack();
+    }
     
     LOG("While statement decoded");
 }
@@ -208,7 +238,7 @@ void GrammarDecoder::SwitchStat() {
     }
     else ld -> NextWord();
     
-    Expression();
+    Identifier * condition = Expression();
     
     if (ld -> LastSymbol() != rRoundSym) {
         error(ORPHAN_ROUND);
@@ -220,14 +250,16 @@ void GrammarDecoder::SwitchStat() {
     }
     else ld -> NextWord();
     
+    string exit = "switch_label" + itoa(label_count++);
+    
     while (ld -> LastSymbol() == caseSym) {
         ld -> NextWord();
-        CaseStat();
+        CaseStat(condition, exit);
     }
     
     if (ld -> LastSymbol() == defaultSym) {
         ld -> NextWord();
-        DefaultStat();
+        DefaultStat(exit);
     }
     
     if (ld -> LastSymbol() != rCurlySym) {
@@ -235,16 +267,21 @@ void GrammarDecoder::SwitchStat() {
     }
     else ld -> NextWord();
     
+    ge -> LabelledNop(exit);
+    
     LOG("Switch statement decoded");
 }
 
-void GrammarDecoder::CaseStat() {
+void GrammarDecoder::CaseStat(Identifier * condition1, string e) {
+    Identifier * condition2;
     if (ld -> LastWordType() != numbers && ld -> LastWordType() != characters) {
         error(MISSING_CASE_VALUE);
         exit(MISSING_CASE_VALUE);
     }
     else {
         int value = ld -> LastWordType() == numbers ? ld -> LastNum() : ld -> LastChar();
+        condition2 = ge -> NumberConstant(value);
+        
         ld -> NextWord();
         LOG("Decoded a case");
     }
@@ -253,18 +290,27 @@ void GrammarDecoder::CaseStat() {
     }
     else ld -> NextWord();
     
+    string next = "case_label" + itoa(label_count++);
+    
+    ge -> Jump(equalSym, condition1, condition2, next);
+    
     Statement();
+    
+    ge -> Jump(e);
+    ge -> LabelledNop(next);
     
     LOG("Case statement decoded");
 }
 
-void GrammarDecoder::DefaultStat() {
+void GrammarDecoder::DefaultStat(string e) {
     if (ld -> LastSymbol() != colonSym) {
         error(MISSING_CASE_COLON);
     }
     else ld -> NextWord();
     
     Statement();
+    
+    ge -> Jump(e);
     
     LOG("Default statement decoded");
 }

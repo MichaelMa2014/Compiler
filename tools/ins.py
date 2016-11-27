@@ -2,16 +2,16 @@ Ins =  ['nopIns',
         'extractIns', 'assignIns', 'movIns',
         'mulIns', 'divIns', 'plusIns', 'minusIns', 'negIns',
         'scanIns', 'printIns', 'allocIns', 'releaseIns', 'ddIns', 'resdIns',
-        'cmpIns', 'jngIns', 'jngeIns', 'jnlIns', 'jnleIns', 'jnzIns', 'jzIns', 'callIns',
-        'funcInitIns', 'funcEndIns',
+        'cmpIns', 'jngIns', 'jngeIns', 'jnlIns', 'jnleIns', 'jnzIns', 'jzIns', 'jmpIns',
+        'callIns', 'funcInitIns', 'funcEndIns',
         'saveRetIns', 'getRetIns']
 
 InsString =    ['nop',
                 'extractIns', 'mov', 'mov',
                 'mul', 'div', 'add', 'sub', 'neg',
                 'scanIns', 'printIns', 'sub esp 4', 'add esp 4', 'dd', 'resd',
-                'cmp', 'jng', 'jnge', 'jnl', 'jnle', 'jnz', 'jz', 'call',
-                'push ebp \\nmov ebp, esp',
+                'cmp', 'jng', 'jnge', 'jnl', 'jnle', 'jnz', 'jz', 'jmp',
+                'call', 'push ebp \\nmov ebp, esp',
                 'pop ebp \\nret',
                 'mov', 'mov']
 
