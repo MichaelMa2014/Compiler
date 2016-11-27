@@ -36,6 +36,8 @@ Generator::Generator(IdentifierTable * i) {
     InsString[20] = "jnle           ";
     InsString[21] = "jnz            ";
     InsString[22] = "jz             ";
+    InsString[23] = "mov            ";
+    InsString[24] = "ret            ";
     this -> id = i;
     this -> count = 100;
     this -> string_count = 0;
@@ -211,5 +213,15 @@ void Generator::Jump(symbolNo LogicOp, Identifier *source1, Identifier *source2,
     }
     
     temp = new Quaternary_label(ins, label);
+    table.push_back(temp);
+}
+
+void Generator::ReturnStatement(Identifier * value) {
+    Quaternary * temp = new Quaternary(returnIns, value, NULL, NULL);
+    table.push_back(temp);
+}
+
+void Generator::RET() {
+    Quaternary * temp = new Quaternary(retIns, NULL, NULL, NULL);
     table.push_back(temp);
 }

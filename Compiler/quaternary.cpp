@@ -75,6 +75,11 @@ void Quaternary::Print() {
                     break;
             }
             break;
+        case returnIns:
+            cout << "eax " << "[" << this -> source1 -> Addr() << "]";
+            break;
+        case retIns:
+            break;
 
         default:
             break;
@@ -87,7 +92,7 @@ Quaternary_immediate::Quaternary_immediate(insNo i, int num, Identifier * d) : Q
 }
 
 void Quaternary_immediate::Print() {
-    cout << InsString[this -> ins] << " " << this -> dest -> Addr() << " " << this -> immediate << endl;
+    cout << InsString[this -> ins] << "[" << this -> dest -> Addr() << "] " << this -> immediate << endl;
 }
 
 Quaternary_label::Quaternary_label(insNo i, string l) : Quaternary(i, NULL, NULL, NULL) {
@@ -95,7 +100,7 @@ Quaternary_label::Quaternary_label(insNo i, string l) : Quaternary(i, NULL, NULL
 }
 
 void Quaternary_label::Print() {
-    cout << InsString[this -> ins] << " " << this -> label << endl;
+    cout << InsString[this -> ins] << this -> label << endl;
 }
 
 Quaternary_data::Quaternary_data(string l, int v) : Quaternary(ddIns, NULL, NULL, NULL) {

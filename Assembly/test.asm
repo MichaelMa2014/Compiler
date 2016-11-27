@@ -3,8 +3,9 @@ global _GetRDTSC
 section .text
 
 _GetRDTSC:
+    sub esp, 4
     mov eax, [message + 1]
-    ret
+    ret 2
 
 section .data
 message:

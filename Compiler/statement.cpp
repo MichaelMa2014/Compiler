@@ -344,10 +344,11 @@ void GrammarDecoder::PrintfStat() {
 }
 
 void GrammarDecoder::ReturnStat() {
+    Identifier * value;
     if (ld -> LastSymbol() == lRoundSym) {
         ld -> NextWord();
         
-        Expression();
+        value = Expression();
         
         if (ld -> LastSymbol() != rRoundSym) {
             error(ORPHAN_ROUND);
@@ -355,5 +356,8 @@ void GrammarDecoder::ReturnStat() {
         else ld -> NextWord();
     }
     
+    ge -> ReturnStatement(value);
+    id -> ReturnStack();
+    ge -> RET();
     LOG("Return statement decoded");
 }

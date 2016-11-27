@@ -128,6 +128,8 @@ void GrammarDecoder::VoidFuncDeclare(string name) {
     
     LOG("Decoded a void function declaration");
     
+    id -> ReturnStack();
+    
 //    delete id;
 //    FIXME: Huge memory leak
     id = NULL;

@@ -14,8 +14,8 @@
 
 #include "identifier_table.hpp"
 
-#define INSNUM 23
-enum insNo {nopIns, extractIns, assignIns, callIns, movIns, mulIns, divIns, plusIns, minusIns, negIns, scanIns, printIns, allocIns, releaseIns, ddIns, resdIns, cmpIns, jngIns, jngeIns, jnlIns, jnleIns, jnzIns, jzIns};
+#define INSNUM 25
+enum insNo {nopIns, extractIns, assignIns, callIns, movIns, mulIns, divIns, plusIns, minusIns, negIns, scanIns, printIns, allocIns, releaseIns, ddIns, resdIns, cmpIns, jngIns, jngeIns, jnlIns, jnleIns, jnzIns, jzIns, returnIns, retIns};
 
 extern const char * InsString[];
 
@@ -111,6 +111,9 @@ public:
     
     void LabelledNop(string label);
     void Jump(symbolNo LogicOp, Identifier * source1, Identifier * source2, string label);
+    
+    void ReturnStatement(Identifier * value);
+    void RET();
 };
 
 #endif /* quarternary_hpp */

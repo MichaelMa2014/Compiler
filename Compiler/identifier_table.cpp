@@ -186,12 +186,12 @@ Identifier * IdentifierTable::EnterVariable(string name, symbolNo type, int size
 }
 
 Identifier * IdentifierTable::EnterFunction(string name, symbolNo type, Parameter * list, string entrance) {
-    ERR("Log function in local IDT");
+    ERR("Enter function in local IDT");
     exit(-1);
 }
 
 Identifier * IdentifierTable::EnterString(string value) {
-    ERR("Log string in local IDT");
+    ERR("Enter string in local IDT");
     exit(-1);
 }
 
