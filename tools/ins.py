@@ -9,7 +9,7 @@ Ins =  ['nopIns',
 
 InsString =    ['nop',
                 'extractIns', 'mov',
-                'mul', 'div', 'add', 'sub',
+                'imul', 'idiv', 'add', 'sub',
                 'scanIns', 'printIns', 'sub esp, 4', 'add esp, 4', 'dd', 'resd 0',
                 'cmp', 'jng', 'jnge', 'jnl', 'jnle', 'jnz', 'jz', 'jmp',
                 'call', 'push ebp \\nmov ebp, esp',

@@ -10,15 +10,15 @@ charV1 = 'a'
 iFunc1() = 1
 iFunc2() = 1
 iFunc3() = 1
-a // charV1
+a
 iFunc4() = 0 // intV2[0]
 iFunc5() = 0
 iFunc6() = 2
 iFunc7() = -2
 iFunc8() = 1
 iFunc9() = -1
-iFunc10 = 0
-iFunc11 = 0
+iFunc10() = 0
+iFunc11() = 0
 vFunc1() called
 vFunc2() called
 param1 is 2

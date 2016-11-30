@@ -16,8 +16,8 @@ Generator::Generator(IdentifierTable * i) {
     InsString[0] = "nop ";
     InsString[1] = "extractIns ";
     InsString[2] = "mov dword ";
-    InsString[3] = "mul ";
-    InsString[4] = "div ";
+    InsString[3] = "imul ";
+    InsString[4] = "idiv ";
     InsString[5] = "add ";
     InsString[6] = "sub ";
     InsString[7] = "scanIns ";
