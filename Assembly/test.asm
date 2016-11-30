@@ -1,32 +1,27 @@
-global _GetRDTSC
+global _test
 
+extern _printf
 
 section .text
 
-_GetRDTSC:
-    push dword 4
-    push dword message
-    push dword 1
-    mov eax, 4
-    sub esp, 4
-    int 0x80
-
-    call codelabel1
-    add eax, 1
-    ret
-
-codelabel1:
+_test:
     push ebp
     mov ebp, esp
-    pusha
-    popa
-    mov eax, 1
+    push dword [integer]
+    push dword message
+    
+    call _printf
+    add esp, 8
+    mov eax, 0
     pop ebp
     ret
 
 
+
 section .data
-message:
-    dd "This is a message certainly longer than double words, which is 32 byte. Because if one character takes one byte, only 32 characters can take double words"
-integer1:
-    dd 1
+message: dd "This is a %x message certainly longer than double words, which is 32 byte. Because if one character takes one byte, only 32 characters can take double words."
+.len: equ $ - message
+
+integer: dd 0
+.len: equ $ - integer
+

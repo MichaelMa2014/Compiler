@@ -9,12 +9,10 @@
 #include <iostream>
 #include <stdio.h>
 
-extern "C" int GetRDTSC();
+extern "C" int test();
 
 int main(int, const char**)
 {
-    int RDTSC1 = GetRDTSC();
-    int RDTSC2 = GetRDTSC();
-    printf("Time-Stamp Counters: %x - %x\n", RDTSC1, RDTSC2);
+    test();
     return 0;
 }
