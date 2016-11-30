@@ -101,14 +101,16 @@ void main() {
     const int intC3 = 5;
     int intV5, intV6[6];
     int _intV7, i_ntV8, int_V9, intV10_, _____;
-    
+
+    intV2[0] = 0;
+    intV2[1] = 0;
     scanf(intV1);
     scanf(charV1);
 
-    printf("iFunc1() = ", iFunc1());
+    printf("iFunc1()= ", iFunc1());
     printf("iFunc2()= ", iFunc2());
-    printf(cFunc1());
     printf("iFunc3()= ", iFunc3());
+    printf(cFunc1());
     printf("iFunc4()= ", iFunc4());
     printf("iFunc5()= ", iFunc5());
     printf("iFunc6()= ", iFunc6());

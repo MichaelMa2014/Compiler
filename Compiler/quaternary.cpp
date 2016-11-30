@@ -59,7 +59,7 @@ void Quaternary::Print() {
                     cout << "mov [ebx], ecx" << endl;
                 }
                 else {
-                    cout << "mov ebx, [" << dest -> Addr() << "]" << endl;
+                    cout << "mov ebx, " << dest -> Addr() << endl;
                     cout << "add ebx, [" << source2 -> Addr() << "]" << endl;
                     cout << "mov ecx, [" << source1 -> Addr() << "]" << endl;
                     cout << "mov [ebx], ecx" << endl;
