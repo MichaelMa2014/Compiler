@@ -4,16 +4,18 @@ Ins =  ['nopIns',
         'scanIns', 'printIns', 'allocIns', 'releaseIns', 'ddIns', 'resdIns',
         'cmpIns', 'jngIns', 'jngeIns', 'jnlIns', 'jnleIns', 'jnzIns', 'jzIns', 'jmpIns',
         'callIns', 'funcInitIns', 'funcEndIns',
-        'saveRetIns', 'getRetIns']
+        'saveRetIns', 'getRetIns',
+        'mainIns']
 
 InsString =    ['nop',
                 'extractIns', 'mov',
                 'mul', 'div', 'add', 'sub',
-                'scanIns', 'printIns', 'sub esp, 4', 'add esp, 4', 'dd', 'resd',
+                'scanIns', 'printIns', 'sub esp, 4', 'add esp, 4', 'dd', 'resd 0',
                 'cmp', 'jng', 'jnge', 'jnl', 'jnle', 'jnz', 'jz', 'jmp',
                 'call', 'push ebp \\nmov ebp, esp',
-                'pop ebp \\nret',
-                'mov', 'mov']
+                'mov esp, ebp\\npop ebp \\nret',
+                'mov', 'mov',
+                '\\n_test:']
 
 def pad(ins):
     return ins + ' '

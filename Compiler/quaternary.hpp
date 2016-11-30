@@ -12,10 +12,12 @@
 #include <iostream>
 #include <sstream>
 
+using namespace std;
+
 #include "identifier_table.hpp"
 
-#define INSNUM 26
-enum insNo {nopIns, extractIns, assignIns, mulIns, divIns, plusIns, minusIns, scanIns, printIns, allocIns, releaseIns, ddIns, resdIns, cmpIns, jngIns, jngeIns, jnlIns, jnleIns, jnzIns, jzIns, jmpIns, callIns, funcInitIns, funcEndIns, saveRetIns, getRetIns};
+#define INSNUM 27
+enum insNo {nopIns, extractIns, assignIns, mulIns, divIns, plusIns, minusIns, scanIns, printIns, allocIns, releaseIns, ddIns, resdIns, cmpIns, jngIns, jngeIns, jnlIns, jnleIns, jnzIns, jzIns, jmpIns, callIns, funcInitIns, funcEndIns, saveRetIns, getRetIns, mainIns};
 
 extern const char * InsString[];
 

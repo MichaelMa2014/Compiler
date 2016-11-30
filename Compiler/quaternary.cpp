@@ -21,6 +21,7 @@ Quaternary::Quaternary(insNo i, Identifier * s1, Identifier * s2, Identifier * d
     this -> dest = d;
     this -> label_set = false;
     this -> label = "";
+    
 }
 
 void Quaternary::SetLabel(string l) {
@@ -72,6 +73,10 @@ void Quaternary::Print() {
             
         case mulIns:
         case divIns:
+            cout << "mov eax, [" << this -> source1 -> Addr() << "]" << endl;
+            cout << InsString[this -> ins] << "dword [" << this -> source2 -> Addr() << "]" << endl;
+            cout << "mov [" << this -> dest -> Addr() << "], eax" << endl;
+            break;
         case plusIns:
         case minusIns:
             cout << "mov ecx, [" << this -> source1 -> Addr() << "]" << endl;
@@ -80,22 +85,28 @@ void Quaternary::Print() {
             break;
             
         case scanIns:
-            cout << InsString[this -> ins] << this -> dest -> name << endl;
+//            cout << InsString[this -> ins] << this -> dest -> name << endl;
             break;
             
         case printIns:
-            cout << InsString[this -> ins];
+        cout << "mov eax, esp\nand eax, 0xf\nadd eax, 0x8\nsub esp, eax" << endl;
             switch (this -> source1 -> Type()) {
                 case stringId:
-                    cout << "[" << this -> source1 -> Addr() << "]" << endl;
+                    cout << "push dword 0" << endl;
+                    cout << "push dword " << this -> source1 -> Addr() << endl;
                     break;
                 case constId:
                 case varId:
-                    cout << this -> source1 -> Kind() << " [" << this -> source1 -> Addr() << "]" << endl;
+                    cout << "push dword [" << this -> source1 -> Addr() << "]" << endl;
+                    if (this -> source1 -> Kind() == intSym) {
+                        cout << "push dword command_int" << endl;
+                    }
+                    else cout << "push dword command_char" << endl;
                     break;
                 default:
                     break;
             }
+            cout << "call _printf" << endl;
             break;
             
         case cmpIns:
@@ -115,7 +126,7 @@ void Quaternary::Print() {
             cout << InsString[this -> ins] << "[" << this -> dest -> Addr() << "], eax" << endl;
             break;
             
-            
+        
         default:
             cout << InsString[this -> ins] << endl;
             break;
@@ -157,9 +168,10 @@ void Quaternary_bss::Print() {
 
 Quaternary_string::Quaternary_string(string l, string v) : Quaternary(ddIns, NULL, NULL, NULL) {
     this -> label = l;
-    this -> value = v;
+    this -> value = v + "\\n";
 }
 
 void Quaternary_string::Print() {
     cout << this -> label << ":" << endl << InsString[this -> ins] << "\"" << this -> value << "\"" << endl;
+//    cout << ".len: equ $ - " << this -> label << endl;
 }

@@ -15,7 +15,7 @@ extern string itoa(int i);
 Generator::Generator(IdentifierTable * i) {
     InsString[0] = "nop ";
     InsString[1] = "extractIns ";
-    InsString[2] = "mov ";
+    InsString[2] = "mov dword ";
     InsString[3] = "mul ";
     InsString[4] = "div ";
     InsString[5] = "add ";
@@ -25,7 +25,7 @@ Generator::Generator(IdentifierTable * i) {
     InsString[9] = "sub esp, 4 ";
     InsString[10] = "add esp, 4 ";
     InsString[11] = "dd ";
-    InsString[12] = "resd ";
+    InsString[12] = "resd 0";
     InsString[13] = "cmp ";
     InsString[14] = "jng ";
     InsString[15] = "jnge ";
@@ -36,12 +36,18 @@ Generator::Generator(IdentifierTable * i) {
     InsString[20] = "jmp ";
     InsString[21] = "call ";
     InsString[22] = "push ebp \nmov ebp, esp ";
-    InsString[23] = "pop ebp \nret ";
-    InsString[24] = "mov ";
-    InsString[25] = "mov ";
+    InsString[23] = "mov esp, ebp\npop ebp \nret ";
+    InsString[24] = "mov dword ";
+    InsString[25] = "mov dword ";
+    InsString[26] = "\n_test:\npush ebp\nmov ebp, esp\n";
     this -> id = i;
     this -> count = 100;
     this -> string_count = 0;
+    
+    Quaternary * temp = new Quaternary_string("command_int", "%d\\n");
+    data_table.push_back(temp);
+    temp = new Quaternary_string("command_char", "%c\\n");
+    data_table.push_back(temp);
 }
 
 void Generator::SetId(IdentifierTable * i) {
