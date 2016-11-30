@@ -34,7 +34,7 @@ int main(int argc, const char * argv[]) {
     gd -> Program();
     
     
-    cout << "global _test\nextern _printf\n";
+    cout << "global _test\nextern _printf\nextern _scanf\n";
     
     cout << endl << "section .text" << endl;
     for (vector<Quaternary *>::iterator it = table.begin(); it != table.end(); it++) {

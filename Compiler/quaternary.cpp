@@ -85,7 +85,14 @@ void Quaternary::Print() {
             break;
             
         case scanIns:
-//            cout << InsString[this -> ins] << this -> dest -> name << endl;
+            cout << "mov eax, esp\nand eax, 0xf\nadd eax, 0x8\nsub esp, eax" << endl;
+            cout << "push dword " << this -> dest -> Addr() << endl;
+            if (this -> dest -> Kind() == intSym) {
+                cout << "push dword command_int" << endl;
+            }
+            else cout << "push dword command_char" << endl;
+            cout << "call _scanf" << endl;
+            
             break;
             
         case printIns:
@@ -168,10 +175,10 @@ void Quaternary_bss::Print() {
 
 Quaternary_string::Quaternary_string(string l, string v) : Quaternary(ddIns, NULL, NULL, NULL) {
     this -> label = l;
-    this -> value = v + "\\n";
+    this -> value = v + "\\n\\0";
 }
 
 void Quaternary_string::Print() {
-    cout << this -> label << ":" << endl << InsString[this -> ins] << "\"" << this -> value << "\"" << endl;
+    cout << this -> label << ":" << endl << InsString[this -> ins] << "`" << this -> value << "`" << endl;
 //    cout << ".len: equ $ - " << this -> label << endl;
 }

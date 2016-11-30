@@ -44,9 +44,9 @@ Generator::Generator(IdentifierTable * i) {
     this -> count = 100;
     this -> string_count = 0;
     
-    Quaternary * temp = new Quaternary_string("command_int", "%d\\n");
+    Quaternary * temp = new Quaternary_string("command_int", "%d");
     data_table.push_back(temp);
-    temp = new Quaternary_string("command_char", "%c\\n");
+    temp = new Quaternary_string("command_char", "%c");
     data_table.push_back(temp);
 }
 
