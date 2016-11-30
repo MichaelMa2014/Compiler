@@ -85,14 +85,14 @@ void Quaternary::Print() {
             break;
             
         case scanIns:
-            cout << "mov dword eax, esp\nand eax, 0xf\nadd eax, 0x8\nsub esp, eax" << endl;
+            cout << "mov dword ebx, esp\nand ebx, 0xf\nadd ebx, 0x8\nsub esp, ebx" << endl;
             cout << "push dword " << this -> dest -> Addr() << endl;
             if (this -> dest -> Kind() == intSym) {
                 cout << "push dword command_int" << endl;
             }
             else cout << "push dword command_char" << endl;
             cout << "call _scanf" << endl;
-            
+            cout << "add esp, 8\nadd esp, ebx" << endl;
             break;
             
         case printIns:
