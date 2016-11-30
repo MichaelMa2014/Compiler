@@ -99,7 +99,7 @@ string String::StringValue() {
 IdentifierTable::IdentifierTable() {
     this -> table = Table();
     this -> table.clear();
-    this -> offset = 4;
+    this -> offset = 0;
     this -> param_offset = 8;
 }
 
