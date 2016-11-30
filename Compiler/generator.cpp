@@ -25,7 +25,7 @@ Generator::Generator(IdentifierTable * i) {
     InsString[9] = "sub esp, 4 ";
     InsString[10] = "add esp, 4 ";
     InsString[11] = "dd ";
-    InsString[12] = "resd 0";
+    InsString[12] = "resd";
     InsString[13] = "cmp ";
     InsString[14] = "jng ";
     InsString[15] = "jnge ";
@@ -159,8 +159,8 @@ void Generator::AllocateData(string label, int value) {
     data_table.push_back(temp);
 }
 
-void Generator::AllocateBss(string label) {
-    Quaternary * temp = new Quaternary_bss(label);
+void Generator::AllocateBss(string label, int size) {
+    Quaternary * temp = new Quaternary_bss(label, size);
     bss_table.push_back(temp);
 }
 

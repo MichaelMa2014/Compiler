@@ -68,8 +68,9 @@ public:
 class Quaternary_bss : public Quaternary {
 private:
     string label;
+    int size;
 public:
-    Quaternary_bss(string label);
+    Quaternary_bss(string label, int size);
     virtual void Print();
 };
 
@@ -108,7 +109,7 @@ public:
     void Print(Identifier * source);
     
     void AllocateData(string label, int value);
-    void AllocateBss(string label);
+    void AllocateBss(string label, int size);
     void PrintString(Identifier * source);
     
     void LabelledNop(string label);

@@ -250,7 +250,12 @@ Identifier * GIdentifierTable::EnterVariable(string name, symbolNo type, int siz
     temp -> addr = label;
     temp -> offset = 0;
     
-    ge -> AllocateBss(label);
+    if (size == 0) {
+        size = 4;
+    }
+    else size *= 4;
+    
+    ge -> AllocateBss(label, size);
     
     return temp;
 }

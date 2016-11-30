@@ -165,12 +165,13 @@ void Quaternary_data::Print() {
     cout << this -> label << ":" << endl << InsString[this -> ins] << this -> value << endl;
 }
 
-Quaternary_bss::Quaternary_bss(string l) : Quaternary(resdIns, NULL, NULL, NULL) {
+Quaternary_bss::Quaternary_bss(string l, int s) : Quaternary(resdIns, NULL, NULL, NULL) {
     this -> label = l;
+    this -> size = s;
 }
 
 void Quaternary_bss::Print() {
-    cout << this -> label << ":" << endl << InsString[this -> ins] << endl;
+    cout << this -> label << ":" << endl << InsString[this -> ins] << " " << this -> size << endl;
 }
 
 Quaternary_string::Quaternary_string(string l, string v) : Quaternary(ddIns, NULL, NULL, NULL) {
