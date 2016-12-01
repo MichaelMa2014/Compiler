@@ -11,10 +11,13 @@
 
 #include <iostream>
 #include <sstream>
+#include <fstream>
 
 using namespace std;
 
 #include "identifier_table.hpp"
+
+extern ofstream output;
 
 #define INSNUM 27
 enum insNo {nopIns, extractIns, assignIns, mulIns, divIns, plusIns, minusIns, scanIns, printIns, allocIns, releaseIns, ddIns, resdIns, cmpIns, jngIns, jngeIns, jnlIns, jnleIns, jnzIns, jzIns, jmpIns, callIns, funcInitIns, funcEndIns, saveRetIns, getRetIns, mainIns};

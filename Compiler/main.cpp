@@ -7,12 +7,14 @@
 //
 
 #include <iostream>
-
+#include <fstream>
 
 #include "Lexical.hpp"
 #include "grammar.hpp"
 #include "identifier_table.hpp"
+#include "quaternary.hpp"
 
+#define DEBUG 1
 
 LexicalDecoder * ld;
 Generator * ge;
@@ -20,7 +22,19 @@ vector<Quaternary *> table;
 vector<Quaternary *> data_table;
 vector<Quaternary *> bss_table;
 
+ofstream output;
+
 int main(int argc, const char * argv[]) {
+    string output_path = "/Users/MichaelMa/Dropbox/Xcode/Compiler/Assembly/test.asm";
+    
+    if (!DEBUG) {
+        cout << "Please input the full path to the output file" << endl;
+        cout << "Example: C:\\Assembly\\test.asm" << endl;
+        cin >> output_path;
+    }
+    
+    output.open(output_path.c_str());
+    
     init();
     
     ld = new LexicalDecoder();
@@ -34,19 +48,19 @@ int main(int argc, const char * argv[]) {
     gd -> Program();
     
     
-    cout << "global _test\nextern _printf\nextern _scanf\n";
+    output << "global _test\nextern _printf\nextern _scanf\n";
     
-    cout << endl << "section .text" << endl;
+    output << endl << "section .text" << endl;
     for (vector<Quaternary *>::iterator it = table.begin(); it != table.end(); it++) {
         (* it) -> Print();
     }
     
-    cout << endl << "section .data" << endl;
+    output << endl << "section .data" << endl;
     for (vector<Quaternary *>::iterator it = data_table.begin(); it != data_table.end(); it++) {
         (* it) -> Print();
     }
     
-    cout << endl << "section .bss" << endl;
+    output << endl << "section .bss" << endl;
     for (vector<Quaternary *>::iterator it = bss_table.begin(); it != bss_table.end(); it++) {
         (* it) -> Print();
     }

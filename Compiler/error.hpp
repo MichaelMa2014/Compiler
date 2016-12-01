@@ -15,8 +15,8 @@
 
 using namespace std;
 
-//#define LOG(x) do {cerr << "***LOG " << x << endl;} while(0);
-#define LOG(x) do {;} while(0);
+#define LOG(x) do {cerr << "***LOG " << x << endl;} while(0);
+//#define LOG(x) do {;} while(0);
 #define ERR(x) do {cerr << "***ERR " << x << endl; throw 0;} while(0);
 
 #define UNEXPECTED_END 000

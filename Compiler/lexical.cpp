@@ -9,25 +9,27 @@
 #include "lexical.hpp"
 
 LexicalDecoder::LexicalDecoder() {
-    cout << "Please input the full path to a file" << endl;
-    cout << "Example: ~/Desktop/main.c" << endl;
-    cout << "Example: C:\\14231016_test.txt" << endl;
-    char path[PATHLENGTH];
-    cin >> path;
+    string path = "/Users/MichaelMa/Dropbox/Xcode/Compiler/test/14231016_test.txt";
+    
+    if (!DEBUG) {
+        cout << "Please input the full path to the source file" << endl;
+        cout << "Example: C:\\14231016_test.txt" << endl;
+        cin >> path;
+    }
     
     source = new ifstream();
-    source -> open(path);
+    source -> open(path.c_str());
     
     while (!source -> good()) {
         cout << "The path you entered is " << path << endl;
         cout << "This file cannot be open, please input the full path to a file" << endl;
         cin >> path;
-        source->open(path);
+        source->open(path.c_str());
     }
     
     source -> getline(lastLine, LINELENGTH); // no \n, has \0
     
-    cout << "Succeed. The first line of the file is" << endl << lastLine << endl;
+    cout << "The first line of the source file is" << endl << lastLine << endl;
     
     pointer = 0;
     
