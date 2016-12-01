@@ -14,8 +14,6 @@
 #include "identifier_table.hpp"
 #include "quaternary.hpp"
 
-#define DEBUG 1
-
 LexicalDecoder * ld;
 Generator * ge;
 vector<Quaternary *> table;

@@ -8,11 +8,15 @@
 
 #include <iostream>
 #include <stdio.h>
+#include "init.hpp"
 
 extern "C" int test();
 
 int main(int, const char**)
 {
     test();
+    while (!DEBUG) {
+        ;
+    }
     return 0;
 }

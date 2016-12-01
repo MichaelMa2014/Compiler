@@ -17,6 +17,8 @@ using namespace std;
 
 #define BYTE 4
 
+#define DEBUG 1
+
 #define WORDNUM 36
 enum symbolNo {ndef, voidSym, constSym, intSym, charSym, switchSym, caseSym, defaultSym, ifSym, whileSym, mainSym, scanfSym, printfSym, returnSym, plusSym, minusSym, multiSym, divideSym, lRoundSym, rRoundSym, lSquareSym, rSquareSym, lCurlySym, rCurlySym, lessSym, leqSym, moreSym, meqSym, neqSym, equalSym, becomeSym, singleQSym, doubleQSym, semiSym, colonSym, commaSym};
 
