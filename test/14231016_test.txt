@@ -27,7 +27,6 @@ int iFunc5() {
     return ((0));
 }
 
-
 int iFunc6() {
     return (1 * 2);
 }
@@ -35,7 +34,6 @@ int iFunc6() {
 int iFunc7() {
     return (1 * 2 / (-1));
 }
-
 
 int iFunc8() {
     return (+1);
@@ -53,6 +51,13 @@ int iFunc11() {
     return (iFunc8() + iFunc9() + iFunc10());
 }
 
+int iFunc12() {
+    return (iFunc8() * iFunc9());
+}
+
+int iFunc13() {
+    return (iFunc8() / iFunc9() / iFunc12());
+}
 
 void vFunc1() {
     printf("vFunc1() called");
@@ -96,18 +101,19 @@ int gcd(int a , int b){
     }
 }
 
-
 void main() {
     const int intC3 = 5;
     int intV5, intV6[6];
     int _intV7, i_ntV8, int_V9, intV10_, _____;
+    int intV20, intV21;
 
     intV2[0] = 0;
     intV2[1] = 0;
+
     scanf(intV1);
-    printf(intV1);
+    printf("You entered ", intV1);
     scanf(charV1);
-    printf(charV1);
+    printf("You entered ", charV1);
 
     printf("iFunc1()= ", iFunc1());
     printf("iFunc2()= ", iFunc2());
@@ -121,6 +127,8 @@ void main() {
     printf("iFunc9()= ", iFunc9());
     printf("iFunc10()= ", iFunc10());
     printf("iFunc11()= ", iFunc11());
+    printf("iFunc12()= ", iFunc12());
+    printf("iFunc13()= ", iFunc13());
 
     vFunc1();
     vFunc2(2);
@@ -161,8 +169,24 @@ void main() {
             printf("intV2[0] is neither 0 nor 1");
     }
 
-    intV5 = intC3;
-    intV6[0] = intV5;
+    intV5 = 0;
+    _intV7 = 0;
+    while (intV5 < 6) {
+        intV6[intV5] = intV5 * intV5;
+        _intV7 = _intV7 + intV6[intV5];
+        intV5 = intV5 + 1;
+    }
+    printf("0*0+1*1+2*2+3*3+4*4+5*5 = ", _intV7);
+    printf("0*0+1*1+2*2+3*3+4*4+5*5 = ", 0*0+1*1+2*2+3*3+4*4+5*5);
 
-    printf(gcd(intV2[0], intV2[1]));
+    scanf(i_ntV8, int_V9);
+    printf("The sum of the 2 numbers you entered is ", i_ntV8 + int_V9);
+
+    scanf(int_V9, intV10_, _____);
+    printf("The product of the 3 numbers you entered is ", int_V9 * intV10_ * _____);
+
+    scanf(intV20, intV21);
+    intV2[0 + 0] = intV20;
+    intV2[1 * 1] = intV21;
+    printf("The gcd of the 2 numbers you entered is ", gcd(intV2[0 + 0 + 0], intV2[1 * 1 * 1]));
 }
