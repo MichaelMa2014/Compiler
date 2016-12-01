@@ -9,7 +9,7 @@
 #include "lexical.hpp"
 
 LexicalDecoder::LexicalDecoder() {
-    string path = "/Users/MichaelMa/Dropbox/Xcode/Compiler/test/test.txt";
+    string path = "/Users/MichaelMa/Dropbox/Xcode/Compiler/test/test.c";
     
     if (!DEBUG) {
         cout << "Please input the full path to the source file" << endl;
