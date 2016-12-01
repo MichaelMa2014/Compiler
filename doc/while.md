@@ -15,6 +15,7 @@ Assume `i` is stored in `[ebp - 8]`
 
 ```Assembly
 begin:
+    nop
     sub esp, 4
     mov [ebp - 12], 1
     mov ecx, [ebp - 8]
@@ -58,7 +59,7 @@ else {
 
 The assembly code looks like the following, assuming `i` is stored in `[ebp - 8]`. Pay attention to the two `sub esp, 4` instructions that would not be executed. Those are where the disparity comes from.
 
-```assembly
+```Assembly
     mov ebx, [ebp - 8]
     sub esp, 4
     mov [ebp - 12], 5
@@ -74,11 +75,12 @@ The assembly code looks like the following, assuming `i` is stored in `[ebp - 8]
     mov ecx, [esp - 20]
     mov [ebp - 8], ecx
 label:
-	mov ebx, ebp
-	sub ebx, esp			; ebx = ebp - esp = 12
-	mov ecx, 20				; 20 is the offset stored in IDT
-	sub ecx, ebx			; ecx = 20 - 12
-	sub esp, ecx			; make up the disparity, which is exactly 8
+    nop               ; just to save label
+    mov ebx, ebp
+    sub ebx, esp			; ebx = ebp - esp = 12
+    mov ecx, 20				; 20 is the offset stored in IDT
+    sub ecx, ebx			; ecx = 20 - 12
+    sub esp, ecx			; make up the disparity, which is exactly 8
     sub esp, 4
     mov [esp - 24], 1
     mov ecx, [esp - 8]
@@ -87,8 +89,4 @@ label:
     mov [esp - 28], ecx
     mov ecx, [esp - 28]
     mov [ebp - 8], ecx
-
 ```
-
-
-
