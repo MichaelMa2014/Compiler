@@ -16,8 +16,8 @@
 #include "init.hpp"
 #include "error.hpp"
 
-#define LINELENGTH 80
-#define PATHLENGTH 80
+#define LINELENGTH 120
+#define PATHLENGTH 120
 #define NUMBERLENGTH 9
 
 using namespace std;
