@@ -180,9 +180,6 @@ void GrammarDecoder::IfStat() {
 }
 
 void GrammarDecoder::WhileStat() {
-    // FIXIT: This is a hot trick
-    int inito = id -> Offset();
-    
     if (ld -> LastSymbol() != lRoundSym) {
         error(MISSING_LEFT_ROUND);
     }
@@ -207,6 +204,9 @@ void GrammarDecoder::WhileStat() {
         condition2 = ge -> NumberConstant(0);
         logicOp = neqSym;
     }
+    
+    // FIXIT: This is a hot trick
+    int inito = id -> Offset();
     
     string end = "while_label" + itoa(label_count++);
     ge -> Jump(logicOp, condition1, condition2, end);
