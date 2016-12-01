@@ -121,6 +121,8 @@ public:
     void ReturnStatement(Identifier * value);
     void RET();
     void GetResult(Identifier * dest);
+    
+    void Align(int offset);
 };
 
 #endif /* quarternary_hpp */

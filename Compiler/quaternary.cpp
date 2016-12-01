@@ -146,7 +146,13 @@ Quaternary_immediate::Quaternary_immediate(insNo i, int num, Identifier * d) : Q
 }
 
 void Quaternary_immediate::Print() {
-    cout << InsString[this -> ins] << "[" << this -> dest -> Addr() << "], " << this -> immediate << endl;
+    if (this -> dest != NULL) {
+        cout << InsString[this -> ins] << "[" << this -> dest -> Addr() << "], " << this -> immediate << endl;
+    }
+    else {
+        cout << "mov ebx, ebp\nsub ebx, esp\nmov ecx, " << this -> immediate << endl;
+        cout << "sub ecx, ebx\nsub esp, ecx" << endl;
+    }
 }
 
 Quaternary_label::Quaternary_label(insNo i, string l) : Quaternary(i, NULL, NULL, NULL) {

@@ -242,3 +242,8 @@ void Generator::GetResult(Identifier * dest) {
     Quaternary * temp = new Quaternary(getRetIns, NULL, NULL, dest);
     table.push_back(temp);
 }
+
+void Generator::Align(int offset) {
+    Quaternary * temp = new Quaternary_immediate(nopIns, offset, NULL);
+    table.push_back(temp);
+}

@@ -174,6 +174,8 @@ void GrammarDecoder::IfStat() {
     
     ge -> LabelledNop(label);
     
+    ge -> Align(id -> Offset());
+    
     LOG("If statement decoded");
 }
 
@@ -298,6 +300,8 @@ void GrammarDecoder::CaseStat(Identifier * condition1, string e) {
     
     ge -> Jump(e);
     ge -> LabelledNop(next);
+    
+    ge -> Align(id -> Offset());
     
     LOG("Case statement decoded");
 }
