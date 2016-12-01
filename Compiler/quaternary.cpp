@@ -45,15 +45,15 @@ void Quaternary::Print() {
         case extractIns:
             a = source1 -> Addr();
             if (a[0] == 'e' && a[1] == 'b' && a[2] == 'p') {
-                output << "mov dword ebx, ebp" << endl;
-                output << "sub ebx, " << source1 -> Offset() << endl;
-                output << "sub ebx, [" << source2 -> Addr() << "]" << endl;
+                output << "mov dword edx, ebp" << endl;
+                output << "sub edx, " << source1 -> Offset() << endl;
+                output << "sub edx, [" << source2 -> Addr() << "]" << endl;
             }
             else {
-                output << "mov dword ebx, " << source1 -> Addr() << endl;
-                output << "add ebx, [" << source2 -> Addr() << "]" << endl;
+                output << "mov dword edx, " << source1 -> Addr() << endl;
+                output << "add edx, [" << source2 -> Addr() << "]" << endl;
             }
-            output << "mov dword ecx, [ebx]" << endl;
+            output << "mov dword ecx, [edx]" << endl;
             output << "mov dword [" << this -> dest -> Addr() << "], ecx" << endl;
             break;
             
@@ -61,17 +61,17 @@ void Quaternary::Print() {
             if (source2 != NULL) {
                 a = dest -> Addr();
                 if (a[0] == 'e' && a[1] == 'b' && a[2] == 'p') {
-                    output << "mov dword ebx, ebp" << endl;
-                    output << "sub ebx, " << dest -> Offset() << endl;
-                    output << "sub ebx, [" << source2 -> Addr() << "]" << endl;
+                    output << "mov dword edx, ebp" << endl;
+                    output << "sub edx, " << dest -> Offset() << endl;
+                    output << "sub edx, [" << source2 -> Addr() << "]" << endl;
                     output << "mov dword ecx, [" << source1 -> Addr() << "]" << endl;
-                    output << "mov dword [ebx], ecx" << endl;
+                    output << "mov dword [edx], ecx" << endl;
                 }
                 else {
-                    output << "mov dword ebx, " << dest -> Addr() << endl;
-                    output << "add ebx, [" << source2 -> Addr() << "]" << endl;
+                    output << "mov dword edx, " << dest -> Addr() << endl;
+                    output << "add edx, [" << source2 -> Addr() << "]" << endl;
                     output << "mov dword ecx, [" << source1 -> Addr() << "]" << endl;
-                    output << "mov dword [ebx], ecx" << endl;
+                    output << "mov dword [edx], ecx" << endl;
                 }
             }
             else {
@@ -94,26 +94,26 @@ void Quaternary::Print() {
             break;
             
         case scanIns:
-            output << "mov dword edx, esp\nand edx, 0xf\nadd edx, 0x8\nsub esp, edx" << endl;
+            output << "mov dword ebx, esp\nand ebx, 0xf\nadd ebx, 0x8\nsub esp, ebx" << endl;
             a = dest -> Addr();
             if (a[0] == 'e' && a[1] == 'b' && a[2] == 'p') {
-                output << "mov dword ebx, ebp" << endl;
-                output << "sub ebx, " << dest -> Offset() << endl;
+                output << "mov dword edx, ebp" << endl;
+                output << "sub edx, " << dest -> Offset() << endl;
             }
             else {
-                output << "mov dword ebx, " << dest -> Addr() << endl;
+                output << "mov dword edx, " << dest -> Addr() << endl;
             }
-            output << "push dword ebx" << endl;
+            output << "push dword edx" << endl;
             if (this -> dest -> Kind() == intSym) {
                 output << "push dword command_int" << endl;
             }
             else output << "push dword command_char" << endl;
             output << "call _scanf" << endl;
-            output << "add esp, 8\nadd esp, edx" << endl;
+            output << "add esp, 8\nadd esp, ebx" << endl;
             break;
             
         case printIns:
-            output << "mov dword edx, esp\nand edx, 0xf\nadd edx, 0x8\nsub esp, edx" << endl;
+            output << "mov dword ebx, esp\nand ebx, 0xf\nadd ebx, 0x8\nsub esp, ebx" << endl;
             switch (this -> source1 -> Type()) {
                 case stringId:
                     output << "push dword 0" << endl;
@@ -131,13 +131,13 @@ void Quaternary::Print() {
                     break;
             }
             output << "call _printf" << endl;
-            output << "add esp, 8\nadd esp, edx" << endl;
+            output << "add esp, 8\nadd esp, ebx" << endl;
             break;
             
         case cmpIns:
-            output << "mov dword ebx, [" << this -> source1 -> Addr() << "]" << endl;
+            output << "mov dword edx, [" << this -> source1 -> Addr() << "]" << endl;
             output << "mov dword ecx, [" << this -> source2 -> Addr() << "]" << endl;
-            output << "cmp ebx, ecx" << endl;
+            output << "cmp edx, ecx" << endl;
             break;
             
         case callIns:
@@ -167,8 +167,8 @@ void Quaternary_immediate::Print() {
         output << InsString[this -> ins] << "[" << this -> dest -> Addr() << "], " << this -> immediate << endl;
     }
     else {
-        output << "mov ebx, ebp\nsub ebx, esp\nmov ecx, " << this -> immediate << endl;
-        output << "sub ecx, ebx\nsub esp, ecx" << endl;
+        output << "mov edx, ebp\nsub edx, esp\nmov ecx, " << this -> immediate << endl;
+        output << "sub ecx, edx\nsub esp, ecx" << endl;
     }
 }
 
