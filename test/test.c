@@ -90,6 +90,8 @@ void vFunc4() {
 }
 
 int gcd(int a , int b){
+  printf("gcd a = ", a);
+  printf("gcd b = ", b);
     if (a == b) {
         return (a);
     }
@@ -107,13 +109,73 @@ void main() {
     int _intV7, i_ntV8, int_V9, intV10_, _____;
     int intV20, intV21;
 
-    intV5 = 1;
+    intV2[0] = 0;
+    intV2[1] = 0;
+
+    scanf(intV1);
+    printf("You entered ", intV1);
+    scanf(charV1);
+    printf("You entered ", charV1);
+
+    printf("iFunc1()= ", iFunc1());
+    printf("iFunc2()= ", iFunc2());
+    printf("iFunc3()= ", iFunc3());
+    printf(cFunc1());
+    printf("iFunc4()= ", iFunc4());
+    printf("iFunc5()= ", iFunc5());
+    printf("iFunc6()= ", iFunc6());
+    printf("iFunc7()= ", iFunc7());
+    printf("iFunc8()= ", iFunc8());
+    printf("iFunc9()= ", iFunc9());
+    printf("iFunc10()= ", iFunc10());
+    printf("iFunc11()= ", iFunc11());
+    printf("iFunc12()= ", iFunc12());
+    printf("iFunc13()= ", iFunc13());
+
+    vFunc1();
+    vFunc2(2);
+    vFunc3(3, 'c');
+    vFunc4();
+
+    if (intV1 == 0) printf("intV1 == 0");
+    if (intV1 != 0) printf("intV1 != 0");
+    if (intV1 >  0) printf("intV1 >  0");
+    if (intV1 <  0) printf("intV1 <  0");
+    if (intV1 >= 0) printf("intV1 >= 0");
+    if (intV1 <= 0) printf("intV1 <= 0");
+    if (intV1) printf("intV1 is true");
+
+    while (intV1 < 5) {
+        intV1 = intV1 + 1;
+        printf("intV1 becomes ", intV1);
+    }
+
+    switch (intV2[0]) {
+        case 0:
+            printf("intV2[0] is 0");
+    }
+
+    switch (intV2[0]) {
+        case 0:
+            printf("intV2[0] is 0");
+        case 1:
+            printf("intV2[0] is 1");
+    }
+
+    switch (intV2[0]) {
+        case 0:
+            printf("intV2[0] is 0");
+        case 1:
+            printf("intV2[0] is 1");
+        default:
+            printf("intV2[0] is neither 0 nor 1");
+    }
+
+    intV5 = 0;
     _intV7 = 0;
-    printf("_intV7 originally is ", _intV7);
     while (intV5 < 6) {
         intV6[intV5] = intV5 * intV5;
         _intV7 = _intV7 + intV6[intV5];
-        printf("_intV7 becomes ", _intV7);
         intV5 = intV5 + 1;
     }
     printf("0*0+1*1+2*2+3*3+4*4+5*5 = ", _intV7);

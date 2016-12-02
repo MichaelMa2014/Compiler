@@ -43,7 +43,6 @@ end:
     nop
     sub esp, 4
     sub esp, 4
-    sub esp, 4
 ```
 
 Similar tricks are used with If Statement. Consider the following example
@@ -75,7 +74,7 @@ The assembly code looks like the following, assuming `i` is stored in `[ebp - 8]
     mov ecx, [esp - 20]
     mov [ebp - 8], ecx
 label:
-    nop               ; just to save label
+    nop                     ; just to save label
     mov ebx, ebp
     sub ebx, esp			; ebx = ebp - esp = 12
     mov ecx, 20				; 20 is the offset stored in IDT

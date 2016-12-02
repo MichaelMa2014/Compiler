@@ -188,6 +188,8 @@ void GrammarDecoder::WhileStat() {
     string start = "while_label" + itoa(label_count++);
     ge -> LabelledNop(start);
     
+    int inito1 = id -> Offset();
+    
     Identifier * condition1 = Expression();
     Identifier * condition2 = NULL;
     
@@ -205,11 +207,11 @@ void GrammarDecoder::WhileStat() {
         logicOp = neqSym;
     }
     
-    // FIXIT: This is a hot trick
-    int inito = id -> Offset();
-    
     string end = "while_label" + itoa(label_count++);
     ge -> Jump(logicOp, condition1, condition2, end);
+    
+    // FIXIT: This is a hot trick
+    int inito2 = id -> Offset();
     
     if (ld -> LastSymbol() != rRoundSym) {
         error(ORPHAN_ROUND);
@@ -220,14 +222,14 @@ void GrammarDecoder::WhileStat() {
     
     int endo = id -> Offset();
     
-    for (int i = inito; i < endo; i += 4) {
+    for (int i = inito1; i < endo; i += 4) {
         ge -> ReleaseStack();
     }
     
     ge -> Jump(start);
     ge -> LabelledNop(end);
     
-    for (int i = inito; i < endo; i += 4) {
+    for (int i = inito2; i < endo; i += 4) {
         ge -> AllocateStack();
     }
     
@@ -270,6 +272,7 @@ void GrammarDecoder::SwitchStat() {
     else ld -> NextWord();
     
     ge -> LabelledNop(exit);
+    ge -> Align(id -> Offset());
     
     LOG("Switch statement decoded");
 }

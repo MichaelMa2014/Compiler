@@ -55,6 +55,9 @@ void Quaternary::Print() {
             else {
                 output << "mov dword edx, " << source1 -> Addr() << endl;
                 output << "add edx, [" << source2 -> Addr() << "]" << endl;
+                output << "add edx, [" << source2 -> Addr() << "]" << endl;
+                output << "add edx, [" << source2 -> Addr() << "]" << endl;
+                output << "add edx, [" << source2 -> Addr() << "]" << endl;
             }
             output << "mov dword ecx, [edx]" << endl;
             output << "mov dword [" << this -> dest -> Addr() << "], ecx" << endl;
@@ -75,6 +78,9 @@ void Quaternary::Print() {
                 }
                 else {
                     output << "mov dword edx, " << dest -> Addr() << endl;
+                    output << "add edx, [" << source2 -> Addr() << "]" << endl;
+                    output << "add edx, [" << source2 -> Addr() << "]" << endl;
+                    output << "add edx, [" << source2 -> Addr() << "]" << endl;
                     output << "add edx, [" << source2 -> Addr() << "]" << endl;
                     output << "mov dword ecx, [" << source1 -> Addr() << "]" << endl;
                     output << "mov dword [edx], ecx" << endl;

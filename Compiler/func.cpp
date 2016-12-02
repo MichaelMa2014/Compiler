@@ -141,6 +141,9 @@ void GrammarDecoder::ValueParam(Parameter * list) {
 
 Identifier * GrammarDecoder::FuncCall(string name) {
     Identifier * func = gid -> Look(name);
+    if (func == NULL) {
+        error(NO_DECLARE);
+    }
     Parameter * list = func -> Parameters();
     ValueParam(list);
     if (ld -> LastSymbol() != rRoundSym) {
@@ -159,6 +162,9 @@ Identifier * GrammarDecoder::FuncCall(string name) {
 
 void GrammarDecoder::VoidFuncCall(string name) {
     Identifier * func = gid -> Look(name);
+    if (func == NULL) {
+        error(NO_DECLARE);
+    }
     Parameter * list = func -> Parameters();
     ValueParam(list);
     if (ld -> LastSymbol() != rRoundSym) {
