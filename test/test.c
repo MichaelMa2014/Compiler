@@ -107,19 +107,13 @@ void main() {
     int _intV7, i_ntV8, int_V9, intV10_, _____;
     int intV20, intV21;
 
-    intV2[0] = 0;
-    intV2[1] = 0;
-
-    scanf(intV1);
-    printf("You entered ", intV1);
-    scanf(charV1);
-    printf("You entered ", charV1);
-
-    intV5 = 0;
+    intV5 = 1;
     _intV7 = 0;
+    printf("_intV7 originally is ", _intV7);
     while (intV5 < 6) {
         intV6[intV5] = intV5 * intV5;
         _intV7 = _intV7 + intV6[intV5];
+        printf("_intV7 becomes ", _intV7);
         intV5 = intV5 + 1;
     }
     printf("0*0+1*1+2*2+3*3+4*4+5*5 = ", _intV7);

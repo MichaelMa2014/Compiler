@@ -192,13 +192,11 @@ Identifier * IdentifierTable::EnterVariable(string name, symbolNo type, int size
     Identifier * temp;
     if (size == 0) {
         temp = new Variable(name, type);
-        this -> offset += 4;
         
         ge -> AllocateStack();
     }
     else {
         temp = new Matrix(name, type, size);
-        this -> offset += 4 * size;
         
         for (int i = 0; i < size; i++) {
             ge -> AllocateStack();
@@ -206,8 +204,13 @@ Identifier * IdentifierTable::EnterVariable(string name, symbolNo type, int size
     }
     table[name] = temp;
     
+    this -> offset += 4;
     temp -> offset = this -> offset;
     temp -> addr = "ebp - " + itoa(temp -> offset);
+    
+    if (size != 0) {
+        this -> offset += 4 * (size - 1);
+    }
     
     return temp;
 }

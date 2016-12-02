@@ -48,6 +48,9 @@ void Quaternary::Print() {
                 output << "mov dword edx, ebp" << endl;
                 output << "sub edx, " << source1 -> Offset() << endl;
                 output << "sub edx, [" << source2 -> Addr() << "]" << endl;
+                output << "sub edx, [" << source2 -> Addr() << "]" << endl;
+                output << "sub edx, [" << source2 -> Addr() << "]" << endl;
+                output << "sub edx, [" << source2 -> Addr() << "]" << endl;
             }
             else {
                 output << "mov dword edx, " << source1 -> Addr() << endl;
@@ -63,6 +66,9 @@ void Quaternary::Print() {
                 if (a[0] == 'e' && a[1] == 'b' && a[2] == 'p') {
                     output << "mov dword edx, ebp" << endl;
                     output << "sub edx, " << dest -> Offset() << endl;
+                    output << "sub edx, [" << source2 -> Addr() << "]" << endl;
+                    output << "sub edx, [" << source2 -> Addr() << "]" << endl;
+                    output << "sub edx, [" << source2 -> Addr() << "]" << endl;
                     output << "sub edx, [" << source2 -> Addr() << "]" << endl;
                     output << "mov dword ecx, [" << source1 -> Addr() << "]" << endl;
                     output << "mov dword [edx], ecx" << endl;
