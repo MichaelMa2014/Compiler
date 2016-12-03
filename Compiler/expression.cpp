@@ -31,7 +31,8 @@ Identifier * GrammarDecoder::Expression() {
     }
     
     if (negative) {
-        return ge -> Negative(source1);
+        Identifier * temp = ge -> NumberConstant(0);
+        return ge -> PlusMinus(minusSym, temp, source1);
     }
     else return source1;
 }
