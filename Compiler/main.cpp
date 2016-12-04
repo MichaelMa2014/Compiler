@@ -23,19 +23,19 @@ vector<Quaternary *> bss_table;
 ofstream output;
 
 int main(int argc, const char * argv[]) {
+    init();
+    
+    ld = new LexicalDecoder();
+    
     string output_path = "/Users/MichaelMa/Dropbox/Xcode/Compiler/Assembly/test.asm";
     
-    if (!DEBUG) {
+    if (!MYDEBUG) {
         cout << "Please input the full path to the output file" << endl;
         cout << "Example: C:\\Assembly\\test.asm" << endl;
         cin >> output_path;
     }
     
     output.open(output_path.c_str());
-    
-    init();
-    
-    ld = new LexicalDecoder();
     
     GIdentifierTable * id = new GIdentifierTable();
     GrammarDecoder * gd = new GrammarDecoder(id, id);

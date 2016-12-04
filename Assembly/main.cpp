@@ -15,7 +15,7 @@ extern "C" int test();
 int main(int, const char**)
 {
     test();
-    while (!DEBUG) {
+    while (!MYDEBUG) {
         ;
     }
     return 0;

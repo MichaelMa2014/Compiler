@@ -11,7 +11,7 @@
 LexicalDecoder::LexicalDecoder() {
     string path = "/Users/MichaelMa/Dropbox/Xcode/Compiler/test/test.c";
     
-    if (!DEBUG) {
+    if (!MYDEBUG) {
         cout << "Please input the full path to the source file" << endl;
         cout << "Example: C:\\14231016_test.txt" << endl;
         cin >> path;
