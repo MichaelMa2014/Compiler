@@ -316,6 +316,20 @@ void GrammarDecoder::SwitchStat() {
 
 void GrammarDecoder::CaseStat(Identifier * condition1, string e) {
     Identifier * condition2;
+    
+    int value = 1;
+    if (ld -> LastSymbol() == plusSym || ld -> LastSymbol() == minusSym) {
+        if (ld -> LastSymbol() == minusSym) {
+            value = -1;
+        }
+        ld -> NextWord();
+        
+        if (ld -> LastWordType() != numbers) {
+            error(MISSING_CASE_VALUE);
+            exit(MISSING_CASE_VALUE);
+        }
+    }
+    
     if (ld -> LastWordType() != numbers && ld -> LastWordType() != characters) {
         error(MISSING_CASE_VALUE);
         exit(MISSING_CASE_VALUE);

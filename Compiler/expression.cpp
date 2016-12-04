@@ -120,6 +120,24 @@ Identifier * GrammarDecoder::Factor() {
         
         return ge -> CharacterConstant(character);
     }
+    else if (ld -> LastSymbol() == plusSym || ld -> LastSymbol() == minusSym) {
+        symbolNo type = ld -> LastSymbol();
+        ld -> NextWord();
+        
+        if (ld -> LastWordType() == numbers) {
+            int number = ld -> LastNum();
+            ld -> NextWord();
+            
+            LOG("Numbers as factor");
+            
+            return ge -> NumberConstant(type == plusSym ? number : 0 - number);
+        }
+        else {
+            cout << symbolString[ld -> LastSymbol()];
+            error(ILLEGAL_FACTOR);
+            exit(ILLEGAL_FACTOR);
+        }
+    }
     else {
         cout << symbolString[ld -> LastSymbol()];
         error(ILLEGAL_FACTOR);
