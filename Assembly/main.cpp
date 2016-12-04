@@ -8,7 +8,8 @@
 
 #include <iostream>
 #include <stdio.h>
-#include "init.hpp"
+
+#define MYDEBUG 0
 
 extern "C" int test();
 
