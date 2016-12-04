@@ -61,6 +61,8 @@ Parameter * GrammarDecoder::Param() {
 }
 
 void GrammarDecoder::FuncDeclare(symbolNo type, string name) {
+    bool returned = type == voidSym;
+    
     id = new IdentifierTable();
     ge -> SetId(id);
     
@@ -83,7 +85,11 @@ void GrammarDecoder::FuncDeclare(symbolNo type, string name) {
     
     ge -> FuncInit();
     
-    Statements();
+    try {
+        Statements();
+    } catch (bool hasReturn) {
+        returned = true;
+    }
     
     if (ld -> LastSymbol() != rCurlySym) {
         error(ORPHAN_CURLY);
@@ -99,6 +105,10 @@ void GrammarDecoder::FuncDeclare(symbolNo type, string name) {
     id = NULL;
     
     ge -> SetId(gid);
+    
+    if (!returned) {
+        error(NO_RETURN);
+    }
 }
 
 void GrammarDecoder::VoidFuncDeclare(string name) {

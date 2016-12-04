@@ -88,5 +88,8 @@ void error(int errNo) {
         case 302:
             ERR("302: Too few or too many parameters passed to a function");
             break;
+        case 303:
+            ERR("303: Control reached end of non-void function");
+            break;
     }
 }

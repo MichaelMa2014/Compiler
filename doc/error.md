@@ -28,3 +28,4 @@ There are several error defined in the compiler.
 | 300  | An identifier is declared twice | The second declaration is ignored |
 | 301  | An identifier is refered to before any declaration | The statement containing the reference is ignored |
 | 302  | Too few or too many parameters passed to a function | Shut down |
+| 303  | Control reached end of non-void function | Shut down |

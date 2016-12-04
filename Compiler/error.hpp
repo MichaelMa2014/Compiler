@@ -13,11 +13,13 @@
 #include <cstdlib>
 #include <iostream>
 
+#include "init.hpp"
+
 using namespace std;
 
 #define LOG(x) do {cerr << "***LOG " << x << endl;} while(0);
 //#define LOG(x) do {;} while(0);
-#define ERR(x) do {cerr << "***ERR " << x << endl; throw 0;} while(0);
+#define ERR(x) do {cerr << "***ERR " << x << endl; if (MYDEBUG) throw 0;} while(0);
 
 #define UNEXPECTED_END 000
 #define LINE_TOO_LONG 001
@@ -45,7 +47,7 @@ using namespace std;
 #define DOUBLE_DECLARE 300
 #define NO_DECLARE 301
 #define MISMATCH_PARAM 302
-
+#define NO_RETURN 303
 
 void error(int errNo);
 

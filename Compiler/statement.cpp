@@ -23,10 +23,16 @@ void GrammarDecoder::Statements() {
 }
 
 void GrammarDecoder::StatementBlock() {
+    bool hasReturn = 0;
     while (ld -> LastSymbol() != rCurlySym) {
         // FIXME NextWord is not called
-        Statement();
+        try {
+            Statement();
+        } catch (bool isReturn) {
+            hasReturn = true;
+        }
     }
+    throw hasReturn;
 }
 
 void GrammarDecoder::Statement() {
@@ -95,6 +101,9 @@ void GrammarDecoder::Statement() {
             error(MISSING_SEMI);
         }
         else ld -> NextWord();
+        
+        bool isReturn = true;
+        throw isReturn;
     }
     else if (ld -> LastSymbol() == lCurlySym){
         ld -> NextWord();
