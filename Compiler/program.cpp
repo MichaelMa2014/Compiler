@@ -89,7 +89,11 @@ void GrammarDecoder::Main() {
     }
     else ld -> NextWord();
     
-    Statements();
+    try {
+        Statements();
+    } catch (bool returned) {
+        ;
+    }
     
     if (ld -> LastSymbol() != rCurlySym) {
         error(ORPHAN_CURLY);

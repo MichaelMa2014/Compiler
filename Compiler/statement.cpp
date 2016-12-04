@@ -19,25 +19,29 @@ void GrammarDecoder::Statements() {
         
         VarDeclare();
     }
+    
     StatementBlock();
 }
 
 void GrammarDecoder::StatementBlock() {
-    bool hasReturn = 0;
+    bool returned = false;
     while (ld -> LastSymbol() != rCurlySym) {
         // FIXME NextWord is not called
         try {
             Statement();
-        } catch (bool isReturn) {
-            hasReturn = true;
+        } catch (bool hasReturn) {
+            returned = true;
         }
     }
-    throw hasReturn;
+    if (returned) throw returned;
 }
 
 void GrammarDecoder::Statement() {
+    if (ld -> LastSymbol() == semiSym) {
+        ld -> NextWord();
+    }
     // Become statement, Func call
-    if (ld -> LastWordType() == identifiers) {
+    else if (ld -> LastWordType() == identifiers) {
         string name = ld -> LastStr();
         ld -> NextWord();
         
@@ -107,12 +111,20 @@ void GrammarDecoder::Statement() {
     }
     else if (ld -> LastSymbol() == lCurlySym){
         ld -> NextWord();
-        StatementBlock();
+        bool returned = false;
+        
+        try {
+            StatementBlock();
+        } catch (bool hasReturn) {
+            returned = true;
+        }
         
         if (ld -> LastSymbol() != rCurlySym) {
             error(ORPHAN_CURLY);
         }
         else ld -> NextWord();
+        
+        if (returned) throw returned;
     }
 }
 
@@ -179,13 +191,20 @@ void GrammarDecoder::IfStat() {
     string label = "code_label" + itoa(label_count++);
     ge -> Jump(logicOp, condition1, condition2, label);
     
-    Statement();
+    bool returned = false;
+    try {
+        Statement();
+    } catch (bool hasReturn) {
+        returned = true;
+    }
     
     ge -> LabelledNop(label);
     
     ge -> Align(id -> Offset());
     
     LOG("If statement decoded");
+    
+    if (returned) throw returned;
 }
 
 void GrammarDecoder::WhileStat() {
@@ -227,7 +246,12 @@ void GrammarDecoder::WhileStat() {
     }
     else ld -> NextWord();
     
-    Statement();
+    bool returned = false;
+    try {
+        Statement();
+    } catch (bool hasReturn) {
+        returned = true;
+    }
     
     int endo = id -> Offset();
     
@@ -243,6 +267,10 @@ void GrammarDecoder::WhileStat() {
     }
     
     LOG("While statement decoded");
+    
+    if (returned) {
+        throw returned;
+    }
 }
 
 void GrammarDecoder::SwitchStat() {
@@ -293,7 +321,7 @@ void GrammarDecoder::CaseStat(Identifier * condition1, string e) {
         exit(MISSING_CASE_VALUE);
     }
     else {
-        int value = ld -> LastWordType() == numbers ? ld -> LastNum() : ld -> LastChar();
+        value = ld -> LastWordType() == numbers ? value * ld -> LastNum() : ld -> LastChar();
         condition2 = ge -> NumberConstant(value);
         
         ld -> NextWord();
@@ -308,7 +336,12 @@ void GrammarDecoder::CaseStat(Identifier * condition1, string e) {
     
     ge -> Jump(equalSym, condition1, condition2, next);
     
-    Statement();
+    bool returned = false;
+    try {
+        Statement();
+    } catch (bool hasReturn) {
+        returned = true;
+    }
     
     ge -> Jump(e);
     ge -> LabelledNop(next);
@@ -316,6 +349,10 @@ void GrammarDecoder::CaseStat(Identifier * condition1, string e) {
     ge -> Align(id -> Offset());
     
     LOG("Case statement decoded");
+    
+    if (returned) {
+        throw returned;
+    }
 }
 
 void GrammarDecoder::DefaultStat(string e) {
@@ -324,11 +361,20 @@ void GrammarDecoder::DefaultStat(string e) {
     }
     else ld -> NextWord();
     
-    Statement();
+    bool returned = false;
+    try {
+        Statement();
+    } catch (bool hasReturn) {
+        returned = true;
+    }
     
     ge -> Jump(e);
     
     LOG("Default statement decoded");
+    
+    if (returned) {
+        throw returned;
+    }
 }
 
 void GrammarDecoder::ScanfStat() {
