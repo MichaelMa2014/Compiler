@@ -44,12 +44,18 @@ void GrammarDecoder::ConstDefine() {
         }
         else ld -> NextWord();
         
+        int value = 1;
+        if (ld -> LastSymbol() == minusSym) {
+            ld -> NextWord();
+            value = -1;
+        }
+        
         if (ld -> LastWordType() != numbers && ld -> LastWordType() != characters) {
             error(MISSING_VALUE);
             exit(MISSING_VALUE);
         }
         
-        int value = ld -> LastNum();
+        value = value * ld -> LastNum();
         
         id -> EnterConstant(name, type, value);
         
@@ -137,12 +143,18 @@ void GrammarDecoder::StaticVarDeclare(symbolNo type, string name) {
         }
         
         StaticVarDefine(type, name);
+        
+        if (ld -> LastSymbol() != semiSym) {
+            error(MISSING_SEMI);
+        }
+        else ld -> NextWord();
     }
 }
 
 void GrammarDecoder::StaticVarDefine(symbolNo type, string name) {
     if (ld -> LastSymbol() == semiSym) {
-        ld -> NextWord();
+        // ld -> NextWord();
+        // FIXME: semiSym is used later
         
         id -> EnterVariable(name, type, 0);
         return;

@@ -27,6 +27,8 @@ void GrammarDecoder::Program() {
         
         if (ld -> LastSymbol() == lRoundSym) {
             LOG("Call FuncDeclare")
+            ld -> NextWord();
+            
             FuncDeclare(type, name);
         }
         else {
@@ -60,6 +62,7 @@ void GrammarDecoder::Program() {
                 break;
             case voidSym:
                 VoidFuncDeclare(name);
+                break;
             default:
                 break;
         }
