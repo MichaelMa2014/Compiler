@@ -1,0 +1,116 @@
+const int cint1 = 1;
+const char Cch1 = 'a';
+const int cint2 = 2, cint3 = 3;
+const char cch1 = 'b', cch4 = 'c';
+
+
+int gint,ginta[2];
+char gchar;
+
+int fibbonacci(int n)
+{
+    int s;
+    if(n == 1)
+    {
+        return (1);
+    }
+    if(n == 0)
+    {
+        return (1);
+     }
+
+     s = fibbonacci(n - 1) + fibbonacci(n - 2);
+
+    return (s);
+}
+
+int mul(int a, int b)
+{
+    return (a * b);
+}
+
+void print_test()
+{
+    const int aa = 3;
+    int a;
+    int b, c;
+    b = 3;
+    c = 4;
+    gint = 55;
+    gchar = 'k';
+    a = b / c + fibbonacci(3 + 1);
+    printf("##start print test!");
+    printf("globle const1",Cch1);
+    printf(cch1);
+    if( a != 4 )
+        printf(a * b);
+    printf("test over!");
+    return;
+
+}
+
+void main()
+{
+    char a[3], b;
+    int c[3], d, e;
+    int i, j, t;
+    int n;
+    int f;
+
+    scanf(t, e);
+    scanf(n);
+    printf(fibbonacci(n));
+
+    print_test();
+
+    printf("globle var test!");
+    printf(gint);
+    printf(gchar);
+    a[0] = t;
+    c[0] = 1;
+    c[1] = 2;
+    c[2] = 3;
+
+    d = -c[1]*c[2] + c[0];
+    i = +mul(c[0], c[2]);
+    j = -mul(2, c[2]);
+    printf("branch test!");
+    printf(i);
+    printf(j);
+    printf(d);
+    if (d < 0)
+        b = '_';
+    while(i - 1)
+    {
+        i = i - 1;
+        a[i] = 'a';
+    }
+    if (d <= j)
+        printf("wrong if");
+    if (a[2] != 'a')
+        printf("wrong while maybe");
+    if (e == b)
+        printf("right if and right scanf if you input _");
+    printf("char2int test!");
+    j = a[1] * c[1];
+    printf(a[1]);
+    printf(c[1]);
+    printf(j + 1);
+    a[2] = 79;
+    printf(a[2]);
+    printf("switch test!");
+    switch(a[0])
+    {
+        case 'b': printf("input b");
+        case 1:
+            {
+                printf("input c");
+                c[2] = cint3;
+                printf("check const expression", c[2]);
+            }
+        default: printf("test default");
+
+    }
+    printf("end test!");
+    return ;
+    }
