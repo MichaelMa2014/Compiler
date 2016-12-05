@@ -25,8 +25,9 @@ enum insNo {nopIns, extractIns, assignIns, mulIns, divIns, plusIns, minusIns, sc
 extern const char * InsString[];
 
 class Quaternary {
-    friend class Optimizer;
+    friend class Node;
     friend class Dag;
+    friend class Optimizer;
 protected:
     bool label_set;
     string label;
