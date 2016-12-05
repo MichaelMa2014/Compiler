@@ -95,7 +95,7 @@ void Quaternary::Print() {
         case mulIns:
         case divIns:
             output << "mov dword eax, [" << this -> source1 -> Addr() << "]" << endl;
-            output << "mov edx, eax\nand edx, 0x80000000\nsar edx, 31" << endl;
+            output << "cdq" << endl;
             output << InsString[this -> ins] << "dword [" << this -> source2 -> Addr() << "]" << endl;
             output << "mov dword [" << this -> dest -> Addr() << "], eax" << endl;
             break;
