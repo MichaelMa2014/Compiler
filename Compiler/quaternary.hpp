@@ -26,6 +26,7 @@ extern const char * InsString[];
 
 class Quaternary {
     friend class Optimizer;
+    friend class Dag;
 protected:
     bool label_set;
     string label;
