@@ -33,7 +33,9 @@ error3 = [
           ['DOUBLE_DECLARE', 'An identifier is declared twice', 'The second declaration is ignored'],
           ['NO_DECLARE', 'An identifier is refered to before any declaration', 'The statement containing the reference is ignored'],
           ['MISMATCH_PARAM', 'Too few or too many parameters passed to a function', 'Shut down'],
-          ['NO_RETURN', 'Control reached end of non-void function', 'Shut down']
+          ['NO_RETURN', 'Control reached end of non-void function', 'Shut down'],
+          ['ASSIGN_CONST', 'Assign to constants', 'Shut down'],
+          ['ASSIGN_FUNC', 'Assign to functions', 'Shut down']
 ]
 
 def pad(i):

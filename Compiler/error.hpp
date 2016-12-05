@@ -48,6 +48,8 @@ using namespace std;
 #define NO_DECLARE 301
 #define MISMATCH_PARAM 302
 #define NO_RETURN 303
+#define ASSIGN_CONST 304
+#define ASSIGN_FUNC 305
 
 void error(int errNo);
 

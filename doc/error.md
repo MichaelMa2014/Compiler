@@ -29,3 +29,5 @@ There are several error defined in the compiler.
 | 301  | An identifier is refered to before any declaration | The statement containing the reference is ignored |
 | 302  | Too few or too many parameters passed to a function | Shut down |
 | 303  | Control reached end of non-void function | Shut down |
+| 304  | Assign to constants | Shut down |
+| 305  | Assign to functions | Shut down |

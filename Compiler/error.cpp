@@ -91,5 +91,11 @@ void error(int errNo) {
         case 303:
             ERR("303: Control reached end of non-void function");
             break;
+        case 304:
+            ERR("304: Assign to constants");
+            break;
+        case 305:
+            ERR("305: Assign to functions");
+            break;
     }
 }

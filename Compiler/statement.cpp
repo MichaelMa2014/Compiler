@@ -139,6 +139,16 @@ void GrammarDecoder::AssignStat(string name) {
         error(NO_DECLARE);
     }
     
+    if (dest -> Type() == constId) {
+        error(ASSIGN_CONST);
+        exit(ASSIGN_CONST);
+    }
+    
+    if (dest -> Type() == funcId) {
+        error(ASSIGN_FUNC);
+        exit(ASSIGN_FUNC);
+    }
+    
     if (ld -> LastSymbol() == lSquareSym) {
         ld -> NextWord();
         
