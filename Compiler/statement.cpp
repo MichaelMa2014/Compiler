@@ -160,6 +160,11 @@ void GrammarDecoder::AssignStat(string name) {
         else ld -> NextWord();
     }
     
+    if (dest -> Type() == matId && index == NULL) {
+        error(ASSIGN_MATRIX);
+        exit(ASSIGN_MATRIX);
+    }
+    
     if (ld -> LastSymbol() != becomeSym) {
         error(MISSING_BECOME);
     }

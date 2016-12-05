@@ -50,6 +50,7 @@ using namespace std;
 #define NO_RETURN 303
 #define ASSIGN_CONST 304
 #define ASSIGN_FUNC 305
+#define ASSIGN_MATRIX 306
 
 void error(int errNo);
 

@@ -97,5 +97,8 @@ void error(int errNo) {
         case 305:
             ERR("305: Assign to functions");
             break;
+        case 306:
+            ERR("306: Assign to matrices");
+            break;
     }
 }

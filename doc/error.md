@@ -31,3 +31,4 @@ There are several error defined in the compiler.
 | 303  | Control reached end of non-void function | Shut down |
 | 304  | Assign to constants | Shut down |
 | 305  | Assign to functions | Shut down |
+| 306  | Assign to matrices | Shut down |

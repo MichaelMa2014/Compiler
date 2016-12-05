@@ -35,7 +35,8 @@ error3 = [
           ['MISMATCH_PARAM', 'Too few or too many parameters passed to a function', 'Shut down'],
           ['NO_RETURN', 'Control reached end of non-void function', 'Shut down'],
           ['ASSIGN_CONST', 'Assign to constants', 'Shut down'],
-          ['ASSIGN_FUNC', 'Assign to functions', 'Shut down']
+          ['ASSIGN_FUNC', 'Assign to functions', 'Shut down'],
+          ['ASSIGN_MATRIX', 'Assign to matrices', 'Shut down']
 ]
 
 def pad(i):
