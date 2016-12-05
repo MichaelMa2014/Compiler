@@ -213,6 +213,12 @@ void Quaternary_bss::Print() {
 
 Quaternary_string::Quaternary_string(string l, string v) : Quaternary(ddIns, NULL, NULL, NULL) {
     this -> label = l;
+    
+    string::size_type index = v.find('\\', 0);
+    while (index != string::npos) {
+        v.insert(index, 1, '\\');
+        index = v.find('\\', index + 2);
+    }
     this -> value = v + "\\n\\0";
 }
 

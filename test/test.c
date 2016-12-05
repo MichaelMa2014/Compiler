@@ -113,7 +113,7 @@ void main() {
     intV2[1] = 0;
 
     scanf(intV1);
-    printf("You entered ", intV1);
+    printf("\\You entered ", intV1);
     scanf(charV1);
     printf("You entered ", charV1);
 
