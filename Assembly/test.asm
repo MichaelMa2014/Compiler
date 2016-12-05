@@ -110,9 +110,7 @@ sub esp, 4
 mov dword [ebp - 8], 2
 sub esp, 4 
 mov dword eax, [ebp - 4]
-mov edx, eax
-and edx, 0x80000000
-sar edx, 31
+cdq
 imul dword [ebp - 8]
 mov dword [ebp - 12], eax
 mov dword eax, [ebp - 12]
@@ -138,9 +136,7 @@ sub esp, 4
 mov dword [ebp - 8], 2
 sub esp, 4 
 mov dword eax, [ebp - 4]
-mov edx, eax
-and edx, 0x80000000
-sar edx, 31
+cdq
 imul dword [ebp - 8]
 mov dword [ebp - 12], eax
 sub esp, 4 
@@ -153,9 +149,7 @@ sub ecx, [ebp - 16]
 mov dword [ebp - 24], ecx
 sub esp, 4 
 mov dword eax, [ebp - 12]
-mov edx, eax
-and edx, 0x80000000
-sar edx, 31
+cdq
 idiv dword [ebp - 24]
 mov dword [ebp - 28], eax
 mov dword eax, [ebp - 28]
@@ -296,9 +290,7 @@ sub esp, 4
 mov dword [ebp - 8], eax
 sub esp, 4 
 mov dword eax, [ebp - 4]
-mov edx, eax
-and edx, 0x80000000
-sar edx, 31
+cdq
 imul dword [ebp - 8]
 mov dword [ebp - 12], eax
 mov dword eax, [ebp - 12]
@@ -326,9 +318,7 @@ sub esp, 4
 mov dword [ebp - 8], eax
 sub esp, 4 
 mov dword eax, [ebp - 4]
-mov edx, eax
-and edx, 0x80000000
-sar edx, 31
+cdq
 idiv dword [ebp - 8]
 mov dword [ebp - 12], eax
 call code_label18iFunc12
@@ -336,9 +326,7 @@ sub esp, 4
 mov dword [ebp - 16], eax
 sub esp, 4 
 mov dword eax, [ebp - 12]
-mov edx, eax
-and edx, 0x80000000
-sar edx, 31
+cdq
 idiv dword [ebp - 16]
 mov dword [ebp - 20], eax
 mov dword eax, [ebp - 20]
@@ -1508,9 +1496,7 @@ cmp edx, ecx
 jnl while_label67
 sub esp, 4 
 mov dword eax, [ebp - 12]
-mov edx, eax
-and edx, 0x80000000
-sar edx, 31
+cdq
 imul dword [ebp - 12]
 mov dword [ebp - 260], eax
 mov dword edx, ebp
@@ -1591,9 +1577,7 @@ sub esp, 4
 mov dword [ebp - 284], 0
 sub esp, 4 
 mov dword eax, [ebp - 280]
-mov edx, eax
-and edx, 0x80000000
-sar edx, 31
+cdq
 imul dword [ebp - 284]
 mov dword [ebp - 288], eax
 sub esp, 4 
@@ -1602,9 +1586,7 @@ sub esp, 4
 mov dword [ebp - 296], 1
 sub esp, 4 
 mov dword eax, [ebp - 292]
-mov edx, eax
-and edx, 0x80000000
-sar edx, 31
+cdq
 imul dword [ebp - 296]
 mov dword [ebp - 300], eax
 sub esp, 4 
@@ -1617,9 +1599,7 @@ sub esp, 4
 mov dword [ebp - 312], 2
 sub esp, 4 
 mov dword eax, [ebp - 308]
-mov edx, eax
-and edx, 0x80000000
-sar edx, 31
+cdq
 imul dword [ebp - 312]
 mov dword [ebp - 316], eax
 sub esp, 4 
@@ -1632,9 +1612,7 @@ sub esp, 4
 mov dword [ebp - 328], 3
 sub esp, 4 
 mov dword eax, [ebp - 324]
-mov edx, eax
-and edx, 0x80000000
-sar edx, 31
+cdq
 imul dword [ebp - 328]
 mov dword [ebp - 332], eax
 sub esp, 4 
@@ -1647,9 +1625,7 @@ sub esp, 4
 mov dword [ebp - 344], 4
 sub esp, 4 
 mov dword eax, [ebp - 340]
-mov edx, eax
-and edx, 0x80000000
-sar edx, 31
+cdq
 imul dword [ebp - 344]
 mov dword [ebp - 348], eax
 sub esp, 4 
@@ -1662,9 +1638,7 @@ sub esp, 4
 mov dword [ebp - 360], 5
 sub esp, 4 
 mov dword eax, [ebp - 356]
-mov edx, eax
-and edx, 0x80000000
-sar edx, 31
+cdq
 imul dword [ebp - 360]
 mov dword [ebp - 364], eax
 sub esp, 4 
@@ -1768,16 +1742,12 @@ add esp, 8
 add esp, ebx
 sub esp, 4 
 mov dword eax, [ebp - 48]
-mov edx, eax
-and edx, 0x80000000
-sar edx, 31
+cdq
 imul dword [ebp - 52]
 mov dword [ebp - 376], eax
 sub esp, 4 
 mov dword eax, [ebp - 376]
-mov edx, eax
-and edx, 0x80000000
-sar edx, 31
+cdq
 imul dword [ebp - 56]
 mov dword [ebp - 380], eax
 mov dword ebx, esp
@@ -1832,9 +1802,7 @@ sub esp, 4
 mov dword [ebp - 400], 1
 sub esp, 4 
 mov dword eax, [ebp - 396]
-mov edx, eax
-and edx, 0x80000000
-sar edx, 31
+cdq
 imul dword [ebp - 400]
 mov dword [ebp - 404], eax
 mov dword edx, label4
@@ -1881,18 +1849,14 @@ sub esp, 4
 mov dword [ebp - 436], 1
 sub esp, 4 
 mov dword eax, [ebp - 432]
-mov edx, eax
-and edx, 0x80000000
-sar edx, 31
+cdq
 imul dword [ebp - 436]
 mov dword [ebp - 440], eax
 sub esp, 4 
 mov dword [ebp - 444], 1
 sub esp, 4 
 mov dword eax, [ebp - 440]
-mov edx, eax
-and edx, 0x80000000
-sar edx, 31
+cdq
 imul dword [ebp - 444]
 mov dword [ebp - 448], eax
 sub esp, 4 
