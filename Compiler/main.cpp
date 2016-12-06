@@ -13,6 +13,7 @@
 #include "grammar.hpp"
 #include "identifier_table.hpp"
 #include "quaternary.hpp"
+#include "optimizer.hpp"
 
 LexicalDecoder * ld;
 Generator * ge;
@@ -49,6 +50,8 @@ int main(int argc, const char * argv[]) {
     output << "global _test\nextern _printf\nextern _scanf\n";
     
     output << endl << "section .text" << endl;
+    Optimizer op(table);
+    table = op.Execute();
     for (vector<Quaternary *>::iterator it = table.begin(); it != table.end(); it++) {
         (* it) -> Print();
     }

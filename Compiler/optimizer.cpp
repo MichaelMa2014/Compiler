@@ -10,8 +10,8 @@
 
 bool Node::operator==(Quaternary * quaternary) {
     return this -> ins == quaternary -> ins &&
-            find(left -> names.begin(), left -> names.end(), quaternary -> source1 -> name) != left -> names.end() &&
-            find(right -> names.begin(), right -> names.end(), quaternary -> source2 -> name) != right -> names.end();
+            left -> contains(quaternary -> source1 -> name) &&
+            right -> contains(quaternary -> source2 -> name);
 }
 
 bool Node::contains(string name) {
@@ -19,7 +19,72 @@ bool Node::contains(string name) {
 }
 
 Dag::Dag() {
-    table.clear();
+    node_table.clear();
+}
+
+Dag::~Dag() {
+    // How can I possibly find all the nodes...
+}
+
+bool Dag::AllParentsInStack(Node * node) {
+    for (auto it = node -> parents.begin(); it != node -> parents.end(); it++) {
+        if (find(stack.begin(), stack.end(), * it) == stack.end()) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void Dag::Execute(InsTable & o_table) {
+    // Repeat until every node is deleted (source nodes) or moved to stack (dest nodes)
+    while (!node_table.empty()) {
+        for (auto it = node_table.rbegin(); it != node_table.rend(); it++) {
+            Node * temp = * it;
+            
+            // Some parents haven't entered, wait until next pass
+            if (!AllParentsInStack(temp)) {
+                continue;
+            }
+            
+            auto index = find(node_table.begin(), node_table.end(), temp);
+            node_table.erase(index);
+            
+            // Source nodes do not enter stack
+            if (temp -> left == NULL) {
+                continue;
+            }
+            
+            stack.push_back(temp);
+            
+            while (temp -> left != NULL) {
+                if (AllParentsInStack(temp -> left)) {
+                    stack.push_back(temp -> left);
+                    
+                    index = find(node_table.begin(), node_table.end(), temp -> left);
+                    node_table.erase(index);
+                    
+                    temp = temp -> left;
+                }
+                else {
+                    break;
+                }
+            }
+        }
+    }
+    for (auto it = stack.rbegin(); it != stack.rend(); it++) {
+        Node * temp = * it;
+        
+        auto range = node_map.equal_range(temp);
+        auto first = range.first;
+        auto last = range.second;
+        
+        Identifier * dest_id = first -> second;
+        o_table.push_back(new Quaternary(temp -> ins, node_map[temp -> left], node_map[temp -> right], dest_id));
+        
+        for (auto it2 = first; it2 != last; it2++) {
+            o_table.push_back(new Quaternary(assignIns, dest_id, NULL, it2 -> second));
+        }
+    }
 }
 
 void Dag::AddNode(Quaternary * quaternary) {
@@ -66,13 +131,24 @@ void Dag::AddNode(Quaternary * quaternary) {
         Node * temp = new Node();
         temp -> names.push_back(quaternary -> dest -> name);
         temp -> left = temp_left;
+        temp_left -> parents.push_back(temp);
         temp -> right = temp_right;
+        temp_right -> parents.push_back(temp);
         node_table.push_back(temp);
     }
 }
 
+Optimizer::Optimizer(InsTable t) {
+    this -> table = t;
+}
+
+InsTable Optimizer::Execute() {
+    DagPass();
+    return table;
+}
 
 void Optimizer::DagPass() {
+    InsTable o_table;
     o_table.clear();
     for (auto it = table.begin(); it != table.end(); it++) {
         switch ((* it) -> ins) {
@@ -88,7 +164,7 @@ void Optimizer::DagPass() {
                 
             default:
                 if (dag != NULL) {
-                    dag -> Execute();
+                    dag -> Execute(o_table);
                     delete dag;
                     dag = NULL;
                 }

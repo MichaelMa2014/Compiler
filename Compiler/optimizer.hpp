@@ -10,9 +10,16 @@
 #define optimizer_hpp
 
 #include <algorithm>
+#include <map>
 
 #include "init.hpp"
 #include "quaternary.hpp"
+
+typedef vector<Quaternary *> InsTable;
+
+class Node;
+typedef vector<Node *> NodeV;
+typedef map<Node *, Identifier *> NodeMap;
 
 class Node {
 public:
@@ -20,24 +27,30 @@ public:
     insNo ins;
     Node * left;
     Node * right;
+    NodeV parents;
     bool operator== (Quaternary * quaternary);
-    bool Node::contains(string name);
+    bool contains(string name);
 };
 
 class Dag {
-    vector<Node *> node_table;
+    NodeV node_table;
+    NodeMap node_map;
+    NodeV stack;
 public:
     Dag();
+    ~Dag();
+    bool AllParentsInStack(Node * node);
+    void Execute(InsTable & otable);
     void AddNode(Quaternary * quaternary);
-    void Execute();
 };
 
 class Optimizer {
 private:
-    vector<Quaternary *> table;
-    vector<Quaternary *> o_table;
+    InsTable table;
     Dag * dag;
 public:
+    Optimizer(InsTable table);
+    InsTable Execute();
     void DagPass();
 };
 
