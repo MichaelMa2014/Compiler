@@ -19,7 +19,7 @@ typedef vector<Quaternary *> InsTable;
 
 class Node;
 typedef vector<Node *> NodeV;
-typedef map<Node *, Identifier *> NodeMap;
+typedef multimap<Node *, Identifier *> NodeMap;
 
 class Node {
 public:

@@ -87,7 +87,7 @@ void Dag::Execute(InsTable & o_table) {
         auto last = range.second;
         
         Identifier * dest_id = first -> second;
-        o_table.push_back(new Quaternary(temp -> ins, node_map[temp -> left], node_map[temp -> right], dest_id));
+        o_table.push_back(new Quaternary(temp -> ins, node_map.find(temp -> left) -> second, node_map.find(temp -> right) -> second, dest_id));
         
         for (first++; first != last; first++) {
             o_table.push_back(new Quaternary(assignIns, dest_id, NULL, first -> second));
@@ -100,6 +100,7 @@ void Dag::AddNode(Quaternary * quaternary) {
     for (auto it = node_table.begin(); it != node_table.end(); it++) {
         if (*(* it) == quaternary) {
             (* it) -> names.push_back(quaternary -> dest -> name);
+            node_map.insert(pair<Node *, Identifier *>(* it, quaternary -> dest));
             found = true;
             break;
         }
@@ -159,6 +160,19 @@ void Optimizer::DagPass() {
                     dag = new Dag();
                 }
                 dag -> AddNode(* it);
+                break;
+                
+//            case assignIns:
+//                if (dag != NULL && dynamic_cast<Quaternary_immediate *>(* it) == NULL) {
+//                    dag -> Execute(o_table);
+//                    delete dag;
+//                    dag = NULL;
+//                }
+//                o_table.push_back(* it);
+//                break;
+                
+            case allocIns:
+                o_table.push_back(* it);
                 break;
                 
             default:
