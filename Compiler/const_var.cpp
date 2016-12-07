@@ -57,7 +57,10 @@ void GrammarDecoder::ConstDefine() {
         
         value = value * ld -> LastNum();
         
-        id -> EnterConstant(name, type, value);
+        if (type == intSym) {
+            ge -> NumberConstant(name, value);
+        }
+        else ge -> CharacterConstant(name, value);
         
         ld -> NextWord();
     

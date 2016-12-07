@@ -70,10 +70,8 @@ void Generator::Assign(Identifier * value, Identifier * index, Identifier * dest
     table.push_back(temp);
 }
 
-Identifier * Generator::NumberConstant(int number) {
-    string name = itoa(count++);
-    
-    Identifier * dest = id -> EnterVariable(name, intSym, 0);
+Identifier * Generator::NumberConstant(string name, int number) {
+    Identifier * dest = id -> EnterConstant(name, intSym, number);
     
     Quaternary * temp = new Quaternary_immediate(assignIns, number, dest);
     table.push_back(temp);
@@ -81,15 +79,38 @@ Identifier * Generator::NumberConstant(int number) {
     return dest;
 }
 
-Identifier * Generator::CharacterConstant(char character) {
-    string name = itoa(count++);
-    
-    Identifier * dest = id -> EnterVariable(name, charSym, 0);
+Identifier * Generator::CharacterConstant(string name, char character) {
+    Identifier * dest = id -> EnterConstant(name, charSym, character);
     
     Quaternary * temp = new Quaternary_immediate(assignIns, character, dest);
     table.push_back(temp);
     
     return dest;
+}
+
+Identifier * Generator::NumberConstant(int number) {
+    Identifier * prev = id -> LookNumber(number);
+    if (prev != NULL) {
+        Quaternary * temp = new Quaternary_immediate(assignIns, number, prev);
+        table.push_back(temp);
+        return prev;
+    }
+    
+    string name = itoa(count++);
+    
+    return NumberConstant(name, number);
+}
+
+Identifier * Generator::CharacterConstant(char character) {
+    Identifier * prev = id -> LookCharacter(character);
+    if (prev != NULL) {
+        Quaternary * temp = new Quaternary_immediate(assignIns, character, prev);
+        table.push_back(temp);
+        return prev;
+    }
+    string name = itoa(count++);
+    
+    return CharacterConstant(name, character);
 }
 
 Identifier * Generator::MultiplyDivide(symbolNo type, Identifier *source1, Identifier *source2) {

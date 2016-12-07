@@ -125,6 +125,8 @@ public:
     IdentifierTable();
     ~IdentifierTable();
     Identifier * Look(string name);
+    Identifier * LookNumber(int number);
+    Identifier * LookCharacter(char character);
     int Offset();
     void ReturnStack();
     virtual Identifier * EnterParam(string name, symbolNo type);

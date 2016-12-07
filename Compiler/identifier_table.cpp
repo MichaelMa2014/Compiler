@@ -117,6 +117,26 @@ Identifier * IdentifierTable::Look(string name) {
     return table[name];
 }
 
+Identifier * IdentifierTable::LookNumber(int number) {
+    for (auto it = table.begin(); it != table.end(); it++) {
+        Identifier * temp = it -> second;
+        if (temp != NULL && temp -> Type() == constId && temp -> Kind() == intSym && temp -> Value() == number) {
+            return temp;
+        }
+    }
+    return NULL;
+}
+
+Identifier * IdentifierTable::LookCharacter(char character) {
+    for (auto it = table.begin(); it != table.end(); it++) {
+        Identifier * temp = it -> second;
+        if (temp != NULL && temp -> Type() == constId && temp -> Kind() == charSym && temp -> Value() == character) {
+            return temp;
+        }
+    }
+    return NULL;
+}
+
 int IdentifierTable::Offset() {
     return this -> offset;
 }
@@ -173,14 +193,6 @@ Identifier * IdentifierTable::EnterConstant(string name, symbolNo type, int valu
     this -> offset += 4;
     temp -> offset = this -> offset;
     temp -> addr = "ebp - " + itoa(temp -> offset);
-    
-    Identifier * v;
-    if (type == intSym) {
-        v = ge -> NumberConstant(value);
-    }
-    else v = ge -> CharacterConstant(value);
-    
-    ge -> Assign(v, NULL, temp);
     
     return temp;
 }
