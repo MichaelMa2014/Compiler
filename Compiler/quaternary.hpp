@@ -106,6 +106,8 @@ public:
     void ReleaseStack();
     Identifier * NumberConstant(int number);
     Identifier * CharacterConstant(char character);
+    Identifier * NumberConstant(string name, int number);
+    Identifier * CharacterConstant(string name, char character);
     
     Identifier * MultiplyDivide(symbolNo type, Identifier * source1, Identifier * source2);
     Identifier * PlusMinus(symbolNo type, Identifier * source1, Identifier * source2);

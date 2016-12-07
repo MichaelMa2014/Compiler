@@ -174,14 +174,6 @@ Identifier * IdentifierTable::EnterConstant(string name, symbolNo type, int valu
     temp -> offset = this -> offset;
     temp -> addr = "ebp - " + itoa(temp -> offset);
     
-    Identifier * v;
-    if (type == intSym) {
-        v = ge -> NumberConstant(value);
-    }
-    else v = ge -> CharacterConstant(value);
-    
-    ge -> Assign(v, NULL, temp);
-    
     return temp;
 }
 
