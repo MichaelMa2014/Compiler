@@ -89,11 +89,21 @@ Identifier * Generator::CharacterConstant(string name, char character) {
 }
 
 Identifier * Generator::NumberConstant(int number) {
+    Identifier * prev = id -> LookNumber(number);
+    if (prev != NULL) {
+        return prev;
+    }
+    
     string name = itoa(count++);
     
     return NumberConstant(name, number);
 }
+
 Identifier * Generator::CharacterConstant(char character) {
+    Identifier * prev = id -> LookCharacter(character);
+    if (prev != NULL) {
+        return prev;
+    }
     string name = itoa(count++);
     
     return CharacterConstant(name, character);
