@@ -8,6 +8,13 @@
 
 #include "optimizer.hpp"
 
+Node::Node() {
+    ins = nopIns;
+    left = right = NULL;
+    names.clear();
+    parents.clear();
+}
+
 bool Node::operator==(Quaternary * quaternary) {
     return this -> ins == quaternary -> ins &&
             left -> contains(quaternary -> source1 -> name) &&
@@ -55,6 +62,7 @@ void Dag::Execute(InsTable & o_table) {
             }
             
             stack.push_back(temp);
+            temp = temp -> left;
             
             while (temp -> left != NULL) {
                 if (AllParentsInStack(temp -> left)) {
@@ -81,8 +89,8 @@ void Dag::Execute(InsTable & o_table) {
         Identifier * dest_id = first -> second;
         o_table.push_back(new Quaternary(temp -> ins, node_map[temp -> left], node_map[temp -> right], dest_id));
         
-        for (auto it2 = first; it2 != last; it2++) {
-            o_table.push_back(new Quaternary(assignIns, dest_id, NULL, it2 -> second));
+        for (first++; first != last; first++) {
+            o_table.push_back(new Quaternary(assignIns, dest_id, NULL, first -> second));
         }
     }
 }
@@ -107,29 +115,19 @@ void Dag::AddNode(Quaternary * quaternary) {
             }
         }
         if (temp_left == NULL) {
-            for (auto it = node_table.begin(); it != node_table.end(); it++) {
-                if ((* it) -> contains(quaternary -> source1 -> name + "0")) {
-                    temp_left = * it;
-                }
-            }
-        }
-        if (temp_right == NULL) {
-            for (auto it = node_table.begin(); it != node_table.end(); it++) {
-                if ((* it) -> contains(quaternary -> source2 -> name + "0")) {
-                    temp_right = * it;
-                }
-            }
-        }
-        if (temp_left == NULL) {
             temp_left = new Node();
-            temp_left -> names.push_back(quaternary -> source1 -> name + "0");
+            temp_left -> names.push_back(quaternary -> source1 -> name);
+            node_map.insert(pair<Node *, Identifier *>(temp_left, quaternary -> source1));
         }
         if (temp_right == NULL) {
             temp_right = new Node();
-            temp_right -> names.push_back(quaternary -> source2 -> name + "0");
+            temp_right -> names.push_back(quaternary -> source2 -> name);
+            node_map.insert(pair<Node *, Identifier *>(temp_right, quaternary -> source2));
         }
         Node * temp = new Node();
+        temp -> ins = quaternary -> ins;
         temp -> names.push_back(quaternary -> dest -> name);
+        node_map.insert(pair<Node *, Identifier *>(temp, quaternary -> dest));
         temp -> left = temp_left;
         temp_left -> parents.push_back(temp);
         temp -> right = temp_right;
@@ -139,6 +137,7 @@ void Dag::AddNode(Quaternary * quaternary) {
 }
 
 Optimizer::Optimizer(InsTable t) {
+    dag = NULL;
     this -> table = t;
 }
 

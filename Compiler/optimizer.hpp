@@ -23,10 +23,11 @@ typedef map<Node *, Identifier *> NodeMap;
 
 class Node {
 public:
-    vector<string> names;
+    Node();
     insNo ins;
     Node * left;
     Node * right;
+    vector<string> names;
     NodeV parents;
     bool operator== (Quaternary * quaternary);
     bool contains(string name);
