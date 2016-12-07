@@ -91,6 +91,8 @@ Identifier * Generator::CharacterConstant(string name, char character) {
 Identifier * Generator::NumberConstant(int number) {
     Identifier * prev = id -> LookNumber(number);
     if (prev != NULL) {
+        Quaternary * temp = new Quaternary_immediate(assignIns, number, prev);
+        table.push_back(temp);
         return prev;
     }
     
@@ -102,6 +104,8 @@ Identifier * Generator::NumberConstant(int number) {
 Identifier * Generator::CharacterConstant(char character) {
     Identifier * prev = id -> LookCharacter(character);
     if (prev != NULL) {
+        Quaternary * temp = new Quaternary_immediate(assignIns, character, prev);
+        table.push_back(temp);
         return prev;
     }
     string name = itoa(count++);
