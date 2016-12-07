@@ -162,14 +162,14 @@ void Optimizer::DagPass() {
                 dag -> AddNode(* it);
                 break;
                 
-//            case assignIns:
-//                if (dag != NULL && dynamic_cast<Quaternary_immediate *>(* it) == NULL) {
-//                    dag -> Execute(o_table);
-//                    delete dag;
-//                    dag = NULL;
-//                }
-//                o_table.push_back(* it);
-//                break;
+            case assignIns:
+                if (dag != NULL && dynamic_cast<Quaternary_immediate *>(* it) == NULL) {
+                    dag -> Execute(o_table);
+                    delete dag;
+                    dag = NULL;
+                }
+                o_table.push_back(* it);
+                break;
                 
             case allocIns:
                 o_table.push_back(* it);
