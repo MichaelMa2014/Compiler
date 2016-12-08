@@ -8,7 +8,10 @@
 
 #include "error.hpp"
 
+extern LexicalDecoder * ld;
+
 void error(int errNo) {
+    cout << ld -> LineNum();
     switch (errNo) {
         case 000:
             ERR("000: Unexpected end of source file");
