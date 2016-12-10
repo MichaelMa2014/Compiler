@@ -194,8 +194,7 @@ void Generator::PrintString(Identifier * source) {
 }
 
 void Generator::LabelledNop(string label) {
-    Quaternary * temp = new Quaternary(nopIns, NULL, NULL, NULL);
-    temp -> SetLabel(label);
+    Quaternary * temp = new Quaternary_label(nopIns, label);
     code_table.push_back(temp);
 }
 

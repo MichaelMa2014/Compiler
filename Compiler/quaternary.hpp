@@ -29,7 +29,6 @@ class Quaternary {
     friend class Dag;
     friend class Optimizer;
 protected:
-    bool label_set;
     string label;
     insNo ins;
     Identifier * source1;
@@ -37,7 +36,6 @@ protected:
     Identifier * dest;
 public:
     Quaternary(insNo ins, Identifier * source1, Identifier * source2, Identifier * dest);
-    void SetLabel(string label);
     virtual void Print();
 };
 

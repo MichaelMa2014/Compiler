@@ -19,27 +19,16 @@ Quaternary::Quaternary(insNo i, Identifier * s1, Identifier * s2, Identifier * d
     this -> source1 = s1;
     this -> source2 = s2;
     this -> dest = d;
-    this -> label_set = false;
     this -> label = "";
     
-}
-
-void Quaternary::SetLabel(string l) {
-    this -> label_set = true;
-    this -> label = l;
 }
 
 void Quaternary::Print() {
     // FIXME: Should we use this large function to translate from Quaternary to x86?
 
-    if (label_set) {
-        output << label << ":" << endl;
-    }
-    
     string a;
     switch (this -> ins) {
         case nopIns:
-            output << "nop" << endl;
             break;
             
         case extractIns:
@@ -190,7 +179,13 @@ Quaternary_label::Quaternary_label(insNo i, string l) : Quaternary(i, NULL, NULL
 }
 
 void Quaternary_label::Print() {
-    output << InsString[this -> ins] << this -> label << endl;
+    if (this -> ins == nopIns) {
+        output << label << ": ";
+        output << "nop" << endl;
+    }
+    else {
+        output << InsString[this -> ins] << this -> label << endl;
+    }
 }
 
 Quaternary_data::Quaternary_data(string l, int v) : Quaternary(ddIns, NULL, NULL, NULL) {
