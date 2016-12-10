@@ -97,14 +97,14 @@ string String::StringValue() {
 }
 
 IdentifierTable::IdentifierTable() {
-    this -> table = Table();
+    this -> table = IdTable();
     this -> table.clear();
     this -> offset = 0;
     this -> param_offset = 8;
 }
 
 IdentifierTable::~IdentifierTable() {
-    for (Table::iterator it = table.begin(); it != table.end(); it++) {
+    for (IdTable::iterator it = table.begin(); it != table.end(); it++) {
         delete it -> second;
         it -> second = NULL;
     }
@@ -143,7 +143,7 @@ int IdentifierTable::Offset() {
 
 void IdentifierTable::ReturnStack() {
     int count = 0;
-    for (Table::iterator it = table.begin(); it != table.end(); it++) {
+    for (IdTable::iterator it = table.begin(); it != table.end(); it++) {
         if (it -> second == NULL) {
             continue;
         }

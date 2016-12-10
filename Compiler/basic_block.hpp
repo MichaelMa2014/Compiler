@@ -15,8 +15,8 @@
 
 class Block {
 private:
-    Table::iterator start;
-    Table::iterator end;
+    vector<Quaternary *>::iterator begin;
+    vector<Quaternary *>::iterator end;
 };
 
 #endif /* basic_block_hpp */
