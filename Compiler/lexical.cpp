@@ -38,6 +38,8 @@ LexicalDecoder::LexicalDecoder() {
     lastStr = "";
     lastNum = 0;
     lastChar = '\0';
+    
+    lineNum = 1;
 }
 
 LexicalDecoder::~LexicalDecoder() {
@@ -61,6 +63,7 @@ void LexicalDecoder::NextLine() {
         }
     }
     pointer = 0;
+    lineNum++;
 }
 void LexicalDecoder::NextWord() {
     //  Encountered end of line
@@ -366,4 +369,8 @@ int LexicalDecoder::LastNum() {
 
 char LexicalDecoder::LastChar() {
     return this -> lastChar;
+}
+
+int LexicalDecoder::LineNum() {
+    return this -> lineNum;
 }

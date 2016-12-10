@@ -38,6 +38,8 @@ private:
     string lastStr;
     int lastNum;
     char lastChar;
+    
+    int lineNum;
 public:
     LexicalDecoder();
     ~LexicalDecoder();
@@ -49,6 +51,8 @@ public:
     string LastStr();
     int LastNum();
     char LastChar();
+    
+    int LineNum();
 };
 
 #endif /* Lexical_hpp */

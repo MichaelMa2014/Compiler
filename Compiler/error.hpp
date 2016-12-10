@@ -14,6 +14,7 @@
 #include <iostream>
 
 #include "init.hpp"
+#include "lexical.hpp"
 
 using namespace std;
 
