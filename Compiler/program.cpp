@@ -71,7 +71,7 @@ void GrammarDecoder::Program() {
 
 void GrammarDecoder::Main() {
     Quaternary * temp = new Quaternary(mainIns, NULL, NULL, NULL);
-    table.push_back(temp);
+    code_table.push_back(temp);
     
     id = new IdentifierTable();
     ge -> SetId(id);

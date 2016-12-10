@@ -41,9 +41,10 @@ public:
     virtual void Print();
 };
 
-extern vector<Quaternary *> table;
-extern vector<Quaternary *> data_table;
-extern vector<Quaternary *> bss_table;
+typedef vector<Quaternary *> QTable;
+extern QTable code_table;
+extern QTable data_table;
+extern QTable bss_table;
 
 class Quaternary_immediate : public Quaternary {
 private:

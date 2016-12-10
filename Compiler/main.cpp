@@ -16,9 +16,9 @@
 
 LexicalDecoder * ld;
 Generator * ge;
-vector<Quaternary *> table;
-vector<Quaternary *> data_table;
-vector<Quaternary *> bss_table;
+QTable code_table;
+QTable data_table;
+QTable bss_table;
 
 ofstream output;
 
@@ -49,17 +49,17 @@ int main(int argc, const char * argv[]) {
     output << "global _test\nextern _printf\nextern _scanf\n";
     
     output << endl << "section .text" << endl;
-    for (vector<Quaternary *>::iterator it = table.begin(); it != table.end(); it++) {
+    for (QTable::iterator it = code_table.begin(); it != code_table.end(); it++) {
         (* it) -> Print();
     }
     
     output << endl << "section .data" << endl;
-    for (vector<Quaternary *>::iterator it = data_table.begin(); it != data_table.end(); it++) {
+    for (QTable::iterator it = data_table.begin(); it != data_table.end(); it++) {
         (* it) -> Print();
     }
     
     output << endl << "section .bss" << endl;
-    for (vector<Quaternary *>::iterator it = bss_table.begin(); it != bss_table.end(); it++) {
+    for (QTable::iterator it = bss_table.begin(); it != bss_table.end(); it++) {
         (* it) -> Print();
     }
     

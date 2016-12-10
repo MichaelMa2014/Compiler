@@ -7,3 +7,8 @@
 //
 
 #include "basic_block.hpp"
+
+void BlockGraph::Construct(const QTable table) {
+    
+}
+

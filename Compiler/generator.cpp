@@ -60,21 +60,21 @@ Identifier * Generator::MatrixMember(Identifier * matrix, Identifier * index) {
     Identifier * dest = id -> EnterVariable(name, matrix -> Kind(), 0);
     
     Quaternary * temp = new Quaternary(extractIns, matrix, index, dest);
-    table.push_back(temp);
+    code_table.push_back(temp);
     
     return dest;
 }
 
 void Generator::Assign(Identifier * value, Identifier * index, Identifier * dest) {
     Quaternary * temp = new Quaternary(assignIns, value, index, dest);
-    table.push_back(temp);
+    code_table.push_back(temp);
 }
 
 Identifier * Generator::NumberConstant(string name, int number) {
     Identifier * dest = id -> EnterConstant(name, intSym, number);
     
     Quaternary * temp = new Quaternary_immediate(assignIns, number, dest);
-    table.push_back(temp);
+    code_table.push_back(temp);
     
     return dest;
 }
@@ -83,7 +83,7 @@ Identifier * Generator::CharacterConstant(string name, char character) {
     Identifier * dest = id -> EnterConstant(name, charSym, character);
     
     Quaternary * temp = new Quaternary_immediate(assignIns, character, dest);
-    table.push_back(temp);
+    code_table.push_back(temp);
     
     return dest;
 }
@@ -92,7 +92,7 @@ Identifier * Generator::NumberConstant(int number) {
     Identifier * prev = id -> LookNumber(number);
     if (prev != NULL) {
         Quaternary * temp = new Quaternary_immediate(assignIns, number, prev);
-        table.push_back(temp);
+        code_table.push_back(temp);
         return prev;
     }
     
@@ -105,7 +105,7 @@ Identifier * Generator::CharacterConstant(char character) {
     Identifier * prev = id -> LookCharacter(character);
     if (prev != NULL) {
         Quaternary * temp = new Quaternary_immediate(assignIns, character, prev);
-        table.push_back(temp);
+        code_table.push_back(temp);
         return prev;
     }
     string name = itoa(count++);
@@ -119,7 +119,7 @@ Identifier * Generator::MultiplyDivide(symbolNo type, Identifier *source1, Ident
     Identifier * dest = id -> EnterVariable(name, intSym, 0);
     
     Quaternary * temp = new Quaternary((type == multiSym ? mulIns : divIns), source1, source2, dest);
-    table.push_back(temp);
+    code_table.push_back(temp);
     
     return dest;
 }
@@ -130,7 +130,7 @@ Identifier * Generator::PlusMinus(symbolNo type, Identifier *source1, Identifier
     Identifier * dest = id -> EnterVariable(name, intSym, 0);
     
     Quaternary * temp = new Quaternary((type == plusSym ? plusIns : minusIns), source1, source2, dest);
-    table.push_back(temp);
+    code_table.push_back(temp);
     
     return dest;
 }
@@ -147,32 +147,32 @@ Identifier * Generator::Negative(Identifier * source) {
     
     // Store 0 in zero
     Quaternary * temp = new Quaternary_immediate(assignIns, 0, zero);
-    table.push_back(temp);
+    code_table.push_back(temp);
     
     temp = new Quaternary(minusIns, zero, source, dest);
-    table.push_back(temp);
+    code_table.push_back(temp);
     
     return dest;
 }
 
 void Generator::Scan(Identifier * dest) {
     Quaternary * temp = new Quaternary(scanIns, NULL, NULL, dest);
-    table.push_back(temp);
+    code_table.push_back(temp);
 }
 
 void Generator::Print(Identifier * source) {
     Quaternary * temp = new Quaternary(printIns, source, NULL, NULL);
-    table.push_back(temp);
+    code_table.push_back(temp);
 }
 
 void Generator::AllocateStack() {
     Quaternary * temp = new Quaternary(allocIns, NULL, NULL, NULL);
-    table.push_back(temp);
+    code_table.push_back(temp);
 }
 
 void Generator::ReleaseStack() {
     Quaternary * temp = new Quaternary(releaseIns, NULL, NULL, NULL);
-    table.push_back(temp);
+    code_table.push_back(temp);
 }
 
 void Generator::AllocateData(string label, int value) {
@@ -187,7 +187,7 @@ void Generator::AllocateBss(string label, int size) {
 
 void Generator::PrintString(Identifier * source) {
     Quaternary * temp = new Quaternary(printIns, source, NULL, NULL);
-    table.push_back(temp);
+    code_table.push_back(temp);
     
     temp = new Quaternary_string(source -> Addr(), source -> StringValue());
     data_table.push_back(temp);
@@ -196,12 +196,12 @@ void Generator::PrintString(Identifier * source) {
 void Generator::LabelledNop(string label) {
     Quaternary * temp = new Quaternary(nopIns, NULL, NULL, NULL);
     temp -> SetLabel(label);
-    table.push_back(temp);
+    code_table.push_back(temp);
 }
 
 void Generator::Jump(symbolNo LogicOp, Identifier *source1, Identifier *source2, string label) {
     Quaternary * temp = new Quaternary(cmpIns, source1, source2, NULL);
-    table.push_back(temp);
+    code_table.push_back(temp);
     
     insNo ins;
     switch (LogicOp) {
@@ -228,22 +228,22 @@ void Generator::Jump(symbolNo LogicOp, Identifier *source1, Identifier *source2,
     }
     
     temp = new Quaternary_label(ins, label);
-    table.push_back(temp);
+    code_table.push_back(temp);
 }
 
 void Generator::Jump(string label) {
     Quaternary * temp = new Quaternary_label(jmpIns, label);
-    table.push_back(temp);
+    code_table.push_back(temp);
 }
 
 void Generator::Call(string label) {
     Quaternary * temp = new Quaternary_label(callIns, label);
-    table.push_back(temp);
+    code_table.push_back(temp);
 }
 
 void Generator::FuncInit() {
     Quaternary * temp = new Quaternary(funcInitIns, NULL, NULL, NULL);
-    table.push_back(temp);
+    code_table.push_back(temp);
 }
 
 void Generator::ReturnStatement(Identifier * value) {
@@ -251,20 +251,20 @@ void Generator::ReturnStatement(Identifier * value) {
         return;
     }
     Quaternary * temp = new Quaternary(saveRetIns, value, NULL, NULL);
-    table.push_back(temp);
+    code_table.push_back(temp);
 }
 
 void Generator::RET() {
     Quaternary * temp = new Quaternary(funcEndIns, NULL, NULL, NULL);
-    table.push_back(temp);
+    code_table.push_back(temp);
 }
 
 void Generator::GetResult(Identifier * dest) {
     Quaternary * temp = new Quaternary(getRetIns, NULL, NULL, dest);
-    table.push_back(temp);
+    code_table.push_back(temp);
 }
 
 void Generator::Align(int offset) {
     Quaternary * temp = new Quaternary_immediate(nopIns, offset, NULL);
-    table.push_back(temp);
+    code_table.push_back(temp);
 }

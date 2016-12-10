@@ -15,8 +15,16 @@
 
 class Block {
 private:
-    vector<Quaternary *>::iterator begin;
-    vector<Quaternary *>::iterator end;
+    QTable::iterator begin;
+    QTable::iterator end;
+    vector<Block *> predecessors;
+    vector<Block *> successors;
+};
+
+class BlockGraph {
+private:
+    vector<QTable> blocktable;
+    void Construct(const QTable table);
 };
 
 #endif /* basic_block_hpp */
