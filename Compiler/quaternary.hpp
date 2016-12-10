@@ -28,6 +28,7 @@ class Quaternary {
     friend class Node;
     friend class Dag;
     friend class Optimizer;
+    friend class BlockGraph;
 protected:
     bool label_set;
     string label;

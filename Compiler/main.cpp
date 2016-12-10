@@ -13,6 +13,7 @@
 #include "grammar.hpp"
 #include "identifier_table.hpp"
 #include "quaternary.hpp"
+#include "basic_block.hpp"
 
 LexicalDecoder * ld;
 Generator * ge;
@@ -47,6 +48,9 @@ int main(int argc, const char * argv[]) {
     
     
     output << "global _test\nextern _printf\nextern _scanf\n";
+    
+    BlockGraph bg;
+    bg.Construct(code_table);
     
     output << endl << "section .text" << endl;
     for (QTable::iterator it = code_table.begin(); it != code_table.end(); it++) {

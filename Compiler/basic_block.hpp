@@ -24,6 +24,7 @@ private:
 class BlockGraph {
 private:
     vector<QTable> blocktable;
+public:
     void Construct(const QTable table);
 };
 
