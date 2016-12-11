@@ -118,7 +118,7 @@ Identifier * IdentifierTable::Look(string name) {
 }
 
 Identifier * IdentifierTable::LookNumber(int number) {
-    for (auto it = table.begin(); it != table.end(); it++) {
+    for (IdTable::iterator it = table.begin(); it != table.end(); it++) {
         Identifier * temp = it -> second;
         if (temp != NULL && temp -> Type() == constId && temp -> Kind() == intSym && temp -> Value() == number) {
             return temp;
@@ -128,7 +128,7 @@ Identifier * IdentifierTable::LookNumber(int number) {
 }
 
 Identifier * IdentifierTable::LookCharacter(char character) {
-    for (auto it = table.begin(); it != table.end(); it++) {
+    for (IdTable::iterator it = table.begin(); it != table.end(); it++) {
         Identifier * temp = it -> second;
         if (temp != NULL && temp -> Type() == constId && temp -> Kind() == charSym && temp -> Value() == character) {
             return temp;
