@@ -14,9 +14,10 @@
 #include "quaternary.hpp"
 
 class Block {
+    friend class BlockGraph;
 private:
-    QTable::iterator begin;
-    QTable::iterator end;
+    QTable::const_iterator begin;
+    QTable::const_iterator end;
     vector<Block *> predecessors;
     vector<Block *> successors;
 };
