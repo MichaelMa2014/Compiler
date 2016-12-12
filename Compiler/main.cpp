@@ -54,6 +54,8 @@ int main(int argc, const char * argv[]) {
     }
     
     output << endl << "section .data" << endl;
+    output << "command_int: dd `%d\\n\\0`" << endl;
+    output << "command_char: dd `%c\\n\\0`" << endl;
     for (QTable::iterator it = data_table.begin(); it != data_table.end(); it++) {
         (* it) -> Print();
     }

@@ -724,24 +724,26 @@ sub esp, 4
 sub esp, 4 
 sub esp, 4 
 sub esp, 4 
-mov dword [ebp - 64], 0
-mov dword [ebp - 64], 0
+sub esp, 4 
+sub esp, 4 
+mov dword [ebp - 72], 0
+mov dword [ebp - 72], 0
 mov dword edx, label4
-add edx, [ebp - 64]
-add edx, [ebp - 64]
-add edx, [ebp - 64]
-add edx, [ebp - 64]
-mov dword ecx, [ebp - 64]
+add edx, [ebp - 72]
+add edx, [ebp - 72]
+add edx, [ebp - 72]
+add edx, [ebp - 72]
+mov dword ecx, [ebp - 72]
 mov dword [edx], ecx
 sub esp, 4 
-mov dword [ebp - 68], 1
-mov dword [ebp - 64], 0
+mov dword [ebp - 76], 1
+mov dword [ebp - 72], 0
 mov dword edx, label4
-add edx, [ebp - 68]
-add edx, [ebp - 68]
-add edx, [ebp - 68]
-add edx, [ebp - 68]
-mov dword ecx, [ebp - 64]
+add edx, [ebp - 76]
+add edx, [ebp - 76]
+add edx, [ebp - 76]
+add edx, [ebp - 76]
+mov dword ecx, [ebp - 72]
 mov dword [edx], ecx
 mov dword ebx, esp
 and ebx, 0xf
@@ -819,12 +821,12 @@ add esp, 8
 add esp, ebx
 call code_label0iFunc1
 sub esp, 4 
-mov dword [ebp - 72], eax
+mov dword [ebp - 80], eax
 mov dword ebx, esp
 and ebx, 0xf
 add ebx, 0x8
 sub esp, ebx
-push dword [ebp - 72]
+push dword [ebp - 80]
 push dword command_int
 call _printf
 add esp, 8
@@ -840,12 +842,12 @@ add esp, 8
 add esp, ebx
 call code_label1iFunc2
 sub esp, 4 
-mov dword [ebp - 76], eax
+mov dword [ebp - 84], eax
 mov dword ebx, esp
 and ebx, 0xf
 add ebx, 0x8
 sub esp, ebx
-push dword [ebp - 76]
+push dword [ebp - 84]
 push dword command_int
 call _printf
 add esp, 8
@@ -861,24 +863,24 @@ add esp, 8
 add esp, ebx
 call code_label4iFunc3
 sub esp, 4 
-mov dword [ebp - 80], eax
+mov dword [ebp - 88], eax
 mov dword ebx, esp
 and ebx, 0xf
 add ebx, 0x8
 sub esp, ebx
-push dword [ebp - 80]
+push dword [ebp - 88]
 push dword command_int
 call _printf
 add esp, 8
 add esp, ebx
 call code_label3cFunc1
 sub esp, 4 
-mov dword [ebp - 84], eax
+mov dword [ebp - 92], eax
 mov dword ebx, esp
 and ebx, 0xf
 add ebx, 0x8
 sub esp, ebx
-push dword [ebp - 84]
+push dword [ebp - 92]
 push dword command_char
 call _printf
 add esp, 8
@@ -893,48 +895,6 @@ call _printf
 add esp, 8
 add esp, ebx
 call code_label5iFunc4
-sub esp, 4 
-mov dword [ebp - 88], eax
-mov dword ebx, esp
-and ebx, 0xf
-add ebx, 0x8
-sub esp, ebx
-push dword [ebp - 88]
-push dword command_int
-call _printf
-add esp, 8
-add esp, ebx
-mov dword ebx, esp
-and ebx, 0xf
-add ebx, 0x8
-sub esp, ebx
-push dword 0
-push dword label27
-call _printf
-add esp, 8
-add esp, ebx
-call code_label6iFunc5
-sub esp, 4 
-mov dword [ebp - 92], eax
-mov dword ebx, esp
-and ebx, 0xf
-add ebx, 0x8
-sub esp, ebx
-push dword [ebp - 92]
-push dword command_int
-call _printf
-add esp, 8
-add esp, ebx
-mov dword ebx, esp
-and ebx, 0xf
-add ebx, 0x8
-sub esp, ebx
-push dword 0
-push dword label28
-call _printf
-add esp, 8
-add esp, ebx
-call code_label7iFunc6
 sub esp, 4 
 mov dword [ebp - 96], eax
 mov dword ebx, esp
@@ -951,11 +911,11 @@ and ebx, 0xf
 add ebx, 0x8
 sub esp, ebx
 push dword 0
-push dword label29
+push dword label27
 call _printf
 add esp, 8
 add esp, ebx
-call code_label8iFunc7
+call code_label6iFunc5
 sub esp, 4 
 mov dword [ebp - 100], eax
 mov dword ebx, esp
@@ -972,11 +932,11 @@ and ebx, 0xf
 add ebx, 0x8
 sub esp, ebx
 push dword 0
-push dword label30
+push dword label28
 call _printf
 add esp, 8
 add esp, ebx
-call code_label9iFunc8
+call code_label7iFunc6
 sub esp, 4 
 mov dword [ebp - 104], eax
 mov dword ebx, esp
@@ -993,11 +953,11 @@ and ebx, 0xf
 add ebx, 0x8
 sub esp, ebx
 push dword 0
-push dword label31
+push dword label29
 call _printf
 add esp, 8
 add esp, ebx
-call code_label10iFunc9
+call code_label8iFunc7
 sub esp, 4 
 mov dword [ebp - 108], eax
 mov dword ebx, esp
@@ -1014,11 +974,11 @@ and ebx, 0xf
 add ebx, 0x8
 sub esp, ebx
 push dword 0
-push dword label32
+push dword label30
 call _printf
 add esp, 8
 add esp, ebx
-call code_label11iFunc10
+call code_label9iFunc8
 sub esp, 4 
 mov dword [ebp - 112], eax
 mov dword ebx, esp
@@ -1035,11 +995,11 @@ and ebx, 0xf
 add ebx, 0x8
 sub esp, ebx
 push dword 0
-push dword label33
+push dword label31
 call _printf
 add esp, 8
 add esp, ebx
-call code_label14iFunc11
+call code_label10iFunc9
 sub esp, 4 
 mov dword [ebp - 116], eax
 mov dword ebx, esp
@@ -1056,11 +1016,11 @@ and ebx, 0xf
 add ebx, 0x8
 sub esp, ebx
 push dword 0
-push dword label34
+push dword label32
 call _printf
 add esp, 8
 add esp, ebx
-call code_label18iFunc12
+call code_label11iFunc10
 sub esp, 4 
 mov dword [ebp - 120], eax
 mov dword ebx, esp
@@ -1077,11 +1037,11 @@ and ebx, 0xf
 add ebx, 0x8
 sub esp, ebx
 push dword 0
-push dword label35
+push dword label33
 call _printf
 add esp, 8
 add esp, ebx
-call code_label21iFunc13
+call code_label14iFunc11
 sub esp, 4 
 mov dword [ebp - 124], eax
 mov dword ebx, esp
@@ -1093,28 +1053,70 @@ push dword command_int
 call _printf
 add esp, 8
 add esp, ebx
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword 0
+push dword label34
+call _printf
+add esp, 8
+add esp, ebx
+call code_label18iFunc12
+sub esp, 4 
+mov dword [ebp - 128], eax
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword [ebp - 128]
+push dword command_int
+call _printf
+add esp, 8
+add esp, ebx
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword 0
+push dword label35
+call _printf
+add esp, 8
+add esp, ebx
+call code_label21iFunc13
+sub esp, 4 
+mov dword [ebp - 132], eax
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword [ebp - 132]
+push dword command_int
+call _printf
+add esp, 8
+add esp, ebx
 call code_label25vFunc1
 sub esp, 4 
-mov dword [ebp - 128], 2
-sub esp, 4 
-mov dword ecx, [ebp - 128]
-mov dword [ebp - 132], ecx
-call code_label26vFunc2
-sub esp, 4 
-mov dword [ebp - 136], 3
-sub esp, 4 
-mov dword [ebp - 140], 99
-sub esp, 4 
-mov dword ecx, [ebp - 140]
-mov dword [ebp - 144], ecx
+mov dword [ebp - 136], 2
 sub esp, 4 
 mov dword ecx, [ebp - 136]
-mov dword [ebp - 148], ecx
+mov dword [ebp - 140], ecx
+call code_label26vFunc2
+sub esp, 4 
+mov dword [ebp - 144], 3
+sub esp, 4 
+mov dword [ebp - 148], 99
+sub esp, 4 
+mov dword ecx, [ebp - 148]
+mov dword [ebp - 152], ecx
+sub esp, 4 
+mov dword ecx, [ebp - 144]
+mov dword [ebp - 156], ecx
 call code_label27vFunc3
 call code_label28vFunc4
-mov dword [ebp - 64], 0
+mov dword [ebp - 72], 0
 mov dword edx, [label3]
-mov dword ecx, [ebp - 64]
+mov dword ecx, [ebp - 72]
 cmp edx, ecx
 jnz code_label49
 mov dword ebx, esp
@@ -1129,12 +1131,12 @@ add esp, ebx
 code_label49: nop
 mov edx, ebp
 sub edx, esp
-mov ecx, 148
+mov ecx, 156
 sub ecx, edx
 sub esp, ecx
-mov dword [ebp - 64], 0
+mov dword [ebp - 72], 0
 mov dword edx, [label3]
-mov dword ecx, [ebp - 64]
+mov dword ecx, [ebp - 72]
 cmp edx, ecx
 jz code_label50
 mov dword ebx, esp
@@ -1149,12 +1151,12 @@ add esp, ebx
 code_label50: nop
 mov edx, ebp
 sub edx, esp
-mov ecx, 148
+mov ecx, 156
 sub ecx, edx
 sub esp, ecx
-mov dword [ebp - 64], 0
+mov dword [ebp - 72], 0
 mov dword edx, [label3]
-mov dword ecx, [ebp - 64]
+mov dword ecx, [ebp - 72]
 cmp edx, ecx
 jng code_label51
 mov dword ebx, esp
@@ -1169,12 +1171,12 @@ add esp, ebx
 code_label51: nop
 mov edx, ebp
 sub edx, esp
-mov ecx, 148
+mov ecx, 156
 sub ecx, edx
 sub esp, ecx
-mov dword [ebp - 64], 0
+mov dword [ebp - 72], 0
 mov dword edx, [label3]
-mov dword ecx, [ebp - 64]
+mov dword ecx, [ebp - 72]
 cmp edx, ecx
 jnl code_label52
 mov dword ebx, esp
@@ -1189,12 +1191,12 @@ add esp, ebx
 code_label52: nop
 mov edx, ebp
 sub edx, esp
-mov ecx, 148
+mov ecx, 156
 sub ecx, edx
 sub esp, ecx
-mov dword [ebp - 64], 0
+mov dword [ebp - 72], 0
 mov dword edx, [label3]
-mov dword ecx, [ebp - 64]
+mov dword ecx, [ebp - 72]
 cmp edx, ecx
 jnge code_label53
 mov dword ebx, esp
@@ -1209,12 +1211,12 @@ add esp, ebx
 code_label53: nop
 mov edx, ebp
 sub edx, esp
-mov ecx, 148
+mov ecx, 156
 sub ecx, edx
 sub esp, ecx
-mov dword [ebp - 64], 0
+mov dword [ebp - 72], 0
 mov dword edx, [label3]
-mov dword ecx, [ebp - 64]
+mov dword ecx, [ebp - 72]
 cmp edx, ecx
 jnle code_label54
 mov dword ebx, esp
@@ -1229,12 +1231,12 @@ add esp, ebx
 code_label54: nop
 mov edx, ebp
 sub edx, esp
-mov ecx, 148
+mov ecx, 156
 sub ecx, edx
 sub esp, ecx
-mov dword [ebp - 64], 0
+mov dword [ebp - 72], 0
 mov dword edx, [label3]
-mov dword ecx, [ebp - 64]
+mov dword ecx, [ebp - 72]
 cmp edx, ecx
 jz code_label55
 mov dword ebx, esp
@@ -1249,7 +1251,7 @@ add esp, ebx
 code_label55: nop
 mov edx, ebp
 sub edx, esp
-mov ecx, 148
+mov ecx, 156
 sub ecx, edx
 sub esp, ecx
 while_label56: nop
@@ -1258,12 +1260,12 @@ mov dword edx, [label3]
 mov dword ecx, [ebp - 4]
 cmp edx, ecx
 jnl while_label57
-mov dword [ebp - 68], 1
+mov dword [ebp - 76], 1
 sub esp, 4 
 mov dword ecx, [label3]
-add ecx, [ebp - 68]
-mov dword [ebp - 152], ecx
-mov dword ecx, [ebp - 152]
+add ecx, [ebp - 76]
+mov dword [ebp - 160], ecx
+mov dword ecx, [ebp - 160]
 mov dword [label3], ecx
 mov dword ebx, esp
 and ebx, 0xf
@@ -1287,18 +1289,18 @@ add esp, 4
 jmp while_label56
 while_label57: nop
 sub esp, 4 
-mov dword [ebp - 64], 0
+mov dword [ebp - 72], 0
 sub esp, 4 
 mov dword edx, label4
-add edx, [ebp - 64]
-add edx, [ebp - 64]
-add edx, [ebp - 64]
-add edx, [ebp - 64]
+add edx, [ebp - 72]
+add edx, [ebp - 72]
+add edx, [ebp - 72]
+add edx, [ebp - 72]
 mov dword ecx, [edx]
-mov dword [ebp - 156], ecx
-mov dword [ebp - 64], 0
-mov dword edx, [ebp - 156]
-mov dword ecx, [ebp - 64]
+mov dword [ebp - 164], ecx
+mov dword [ebp - 72], 0
+mov dword edx, [ebp - 164]
+mov dword ecx, [ebp - 72]
 cmp edx, ecx
 jnz case_label59
 mov dword ebx, esp
@@ -1314,27 +1316,27 @@ jmp switch_label58
 case_label59: nop
 mov edx, ebp
 sub edx, esp
-mov ecx, 156
+mov ecx, 164
 sub ecx, edx
 sub esp, ecx
 switch_label58: nop
 mov edx, ebp
 sub edx, esp
-mov ecx, 156
+mov ecx, 164
 sub ecx, edx
 sub esp, ecx
-mov dword [ebp - 64], 0
+mov dword [ebp - 72], 0
 sub esp, 4 
 mov dword edx, label4
-add edx, [ebp - 64]
-add edx, [ebp - 64]
-add edx, [ebp - 64]
-add edx, [ebp - 64]
+add edx, [ebp - 72]
+add edx, [ebp - 72]
+add edx, [ebp - 72]
+add edx, [ebp - 72]
 mov dword ecx, [edx]
-mov dword [ebp - 160], ecx
-mov dword [ebp - 64], 0
-mov dword edx, [ebp - 160]
-mov dword ecx, [ebp - 64]
+mov dword [ebp - 168], ecx
+mov dword [ebp - 72], 0
+mov dword edx, [ebp - 168]
+mov dword ecx, [ebp - 72]
 cmp edx, ecx
 jnz case_label61
 mov dword ebx, esp
@@ -1350,12 +1352,12 @@ jmp switch_label60
 case_label61: nop
 mov edx, ebp
 sub edx, esp
-mov ecx, 160
+mov ecx, 168
 sub ecx, edx
 sub esp, ecx
-mov dword [ebp - 68], 1
-mov dword edx, [ebp - 160]
-mov dword ecx, [ebp - 68]
+mov dword [ebp - 76], 1
+mov dword edx, [ebp - 168]
+mov dword ecx, [ebp - 76]
 cmp edx, ecx
 jnz case_label62
 mov dword ebx, esp
@@ -1371,27 +1373,27 @@ jmp switch_label60
 case_label62: nop
 mov edx, ebp
 sub edx, esp
-mov ecx, 160
+mov ecx, 168
 sub ecx, edx
 sub esp, ecx
 switch_label60: nop
 mov edx, ebp
 sub edx, esp
-mov ecx, 160
+mov ecx, 168
 sub ecx, edx
 sub esp, ecx
-mov dword [ebp - 64], 0
+mov dword [ebp - 72], 0
 sub esp, 4 
 mov dword edx, label4
-add edx, [ebp - 64]
-add edx, [ebp - 64]
-add edx, [ebp - 64]
-add edx, [ebp - 64]
+add edx, [ebp - 72]
+add edx, [ebp - 72]
+add edx, [ebp - 72]
+add edx, [ebp - 72]
 mov dword ecx, [edx]
-mov dword [ebp - 164], ecx
-mov dword [ebp - 64], 0
-mov dword edx, [ebp - 164]
-mov dword ecx, [ebp - 64]
+mov dword [ebp - 172], ecx
+mov dword [ebp - 72], 0
+mov dword edx, [ebp - 172]
+mov dword ecx, [ebp - 72]
 cmp edx, ecx
 jnz case_label64
 mov dword ebx, esp
@@ -1407,12 +1409,12 @@ jmp switch_label63
 case_label64: nop
 mov edx, ebp
 sub edx, esp
-mov ecx, 164
+mov ecx, 172
 sub ecx, edx
 sub esp, ecx
-mov dword [ebp - 68], 1
-mov dword edx, [ebp - 164]
-mov dword ecx, [ebp - 68]
+mov dword [ebp - 76], 1
+mov dword edx, [ebp - 172]
+mov dword ecx, [ebp - 76]
 cmp edx, ecx
 jnz case_label65
 mov dword ebx, esp
@@ -1428,7 +1430,7 @@ jmp switch_label63
 case_label65: nop
 mov edx, ebp
 sub edx, esp
-mov ecx, 164
+mov ecx, 172
 sub ecx, edx
 sub esp, ecx
 mov dword ebx, esp
@@ -1444,34 +1446,34 @@ jmp switch_label63
 switch_label63: nop
 mov edx, ebp
 sub edx, esp
-mov ecx, 164
+mov ecx, 172
 sub ecx, edx
 sub esp, ecx
-mov dword [ebp - 64], 0
-mov dword ecx, [ebp - 64]
+mov dword [ebp - 72], 0
+mov dword ecx, [ebp - 72]
 mov dword [ebp - 8], ecx
-mov dword [ebp - 64], 0
-mov dword ecx, [ebp - 64]
+mov dword [ebp - 72], 0
+mov dword ecx, [ebp - 72]
 mov dword [ebp - 36], ecx
 while_label66: nop
 sub esp, 4 
-mov dword [ebp - 168], 6
+mov dword [ebp - 176], 6
 mov dword edx, [ebp - 8]
-mov dword ecx, [ebp - 168]
+mov dword ecx, [ebp - 176]
 cmp edx, ecx
 jnl while_label67
 sub esp, 4 
 mov dword eax, [ebp - 8]
 cdq
 imul dword [ebp - 8]
-mov dword [ebp - 172], eax
+mov dword [ebp - 180], eax
 mov dword edx, ebp
 sub edx, 12
 sub edx, [ebp - 8]
 sub edx, [ebp - 8]
 sub edx, [ebp - 8]
 sub edx, [ebp - 8]
-mov dword ecx, [ebp - 172]
+mov dword ecx, [ebp - 180]
 mov dword [edx], ecx
 sub esp, 4 
 mov dword edx, ebp
@@ -1481,19 +1483,19 @@ sub edx, [ebp - 8]
 sub edx, [ebp - 8]
 sub edx, [ebp - 8]
 mov dword ecx, [edx]
-mov dword [ebp - 176], ecx
+mov dword [ebp - 184], ecx
 sub esp, 4 
 mov dword ecx, [ebp - 36]
-add ecx, [ebp - 176]
-mov dword [ebp - 180], ecx
-mov dword ecx, [ebp - 180]
+add ecx, [ebp - 184]
+mov dword [ebp - 188], ecx
+mov dword ecx, [ebp - 188]
 mov dword [ebp - 36], ecx
-mov dword [ebp - 68], 1
+mov dword [ebp - 76], 1
 sub esp, 4 
 mov dword ecx, [ebp - 8]
-add ecx, [ebp - 68]
-mov dword [ebp - 184], ecx
-mov dword ecx, [ebp - 184]
+add ecx, [ebp - 76]
+mov dword [ebp - 192], ecx
+mov dword ecx, [ebp - 192]
 mov dword [ebp - 8], ecx
 add esp, 4 
 add esp, 4 
@@ -1533,37 +1535,26 @@ push dword label51
 call _printf
 add esp, 8
 add esp, ebx
-mov dword [ebp - 64], 0
-mov dword [ebp - 64], 0
+mov dword [ebp - 72], 0
+mov dword [ebp - 72], 0
 sub esp, 4 
-mov dword eax, [ebp - 64]
+mov dword eax, [ebp - 72]
 cdq
-imul dword [ebp - 64]
-mov dword [ebp - 188], eax
-mov dword [ebp - 68], 1
-mov dword [ebp - 68], 1
+imul dword [ebp - 72]
+mov dword [ebp - 196], eax
+mov dword [ebp - 76], 1
+mov dword [ebp - 76], 1
 sub esp, 4 
-mov dword eax, [ebp - 68]
+mov dword eax, [ebp - 76]
 cdq
-imul dword [ebp - 68]
-mov dword [ebp - 192], eax
-sub esp, 4 
-mov dword ecx, [ebp - 188]
-add ecx, [ebp - 192]
-mov dword [ebp - 196], ecx
-mov dword [ebp - 128], 2
-mov dword [ebp - 128], 2
-sub esp, 4 
-mov dword eax, [ebp - 128]
-cdq
-imul dword [ebp - 128]
+imul dword [ebp - 76]
 mov dword [ebp - 200], eax
 sub esp, 4 
 mov dword ecx, [ebp - 196]
 add ecx, [ebp - 200]
 mov dword [ebp - 204], ecx
-mov dword [ebp - 136], 3
-mov dword [ebp - 136], 3
+mov dword [ebp - 136], 2
+mov dword [ebp - 136], 2
 sub esp, 4 
 mov dword eax, [ebp - 136]
 cdq
@@ -1573,34 +1564,45 @@ sub esp, 4
 mov dword ecx, [ebp - 204]
 add ecx, [ebp - 208]
 mov dword [ebp - 212], ecx
+mov dword [ebp - 144], 3
+mov dword [ebp - 144], 3
 sub esp, 4 
-mov dword [ebp - 216], 4
-mov dword [ebp - 216], 4
-sub esp, 4 
-mov dword eax, [ebp - 216]
+mov dword eax, [ebp - 144]
 cdq
-imul dword [ebp - 216]
-mov dword [ebp - 220], eax
+imul dword [ebp - 144]
+mov dword [ebp - 216], eax
 sub esp, 4 
 mov dword ecx, [ebp - 212]
-add ecx, [ebp - 220]
-mov dword [ebp - 224], ecx
+add ecx, [ebp - 216]
+mov dword [ebp - 220], ecx
+sub esp, 4 
+mov dword [ebp - 224], 4
+mov dword [ebp - 224], 4
+sub esp, 4 
+mov dword eax, [ebp - 224]
+cdq
+imul dword [ebp - 224]
+mov dword [ebp - 228], eax
+sub esp, 4 
+mov dword ecx, [ebp - 220]
+add ecx, [ebp - 228]
+mov dword [ebp - 232], ecx
 mov dword [ebp - 4], 5
 mov dword [ebp - 4], 5
 sub esp, 4 
 mov dword eax, [ebp - 4]
 cdq
 imul dword [ebp - 4]
-mov dword [ebp - 228], eax
+mov dword [ebp - 236], eax
 sub esp, 4 
-mov dword ecx, [ebp - 224]
-add ecx, [ebp - 228]
-mov dword [ebp - 232], ecx
+mov dword ecx, [ebp - 232]
+add ecx, [ebp - 236]
+mov dword [ebp - 240], ecx
 mov dword ebx, esp
 and ebx, 0xf
 add ebx, 0x8
 sub esp, ebx
-push dword [ebp - 232]
+push dword [ebp - 240]
 push dword command_int
 call _printf
 add esp, 8
@@ -1639,12 +1641,12 @@ add esp, ebx
 sub esp, 4 
 mov dword ecx, [ebp - 40]
 add ecx, [ebp - 44]
-mov dword [ebp - 236], ecx
+mov dword [ebp - 244], ecx
 mov dword ebx, esp
 and ebx, 0xf
 add ebx, 0x8
 sub esp, ebx
-push dword [ebp - 236]
+push dword [ebp - 244]
 push dword command_int
 call _printf
 add esp, 8
@@ -1695,17 +1697,17 @@ sub esp, 4
 mov dword eax, [ebp - 44]
 cdq
 imul dword [ebp - 48]
-mov dword [ebp - 240], eax
+mov dword [ebp - 248], eax
 sub esp, 4 
-mov dword eax, [ebp - 240]
+mov dword eax, [ebp - 248]
 cdq
 imul dword [ebp - 52]
-mov dword [ebp - 244], eax
+mov dword [ebp - 252], eax
 mov dword ebx, esp
 and ebx, 0xf
 add ebx, 0x8
 sub esp, ebx
-push dword [ebp - 244]
+push dword [ebp - 252]
 push dword command_int
 call _printf
 add esp, 8
@@ -1732,31 +1734,31 @@ push dword command_int
 call _scanf
 add esp, 8
 add esp, ebx
-mov dword [ebp - 64], 0
-mov dword [ebp - 64], 0
+mov dword [ebp - 72], 0
+mov dword [ebp - 72], 0
 sub esp, 4 
-mov dword ecx, [ebp - 64]
-add ecx, [ebp - 64]
-mov dword [ebp - 248], ecx
+mov dword ecx, [ebp - 72]
+add ecx, [ebp - 72]
+mov dword [ebp - 256], ecx
 mov dword edx, label4
-add edx, [ebp - 248]
-add edx, [ebp - 248]
-add edx, [ebp - 248]
-add edx, [ebp - 248]
+add edx, [ebp - 256]
+add edx, [ebp - 256]
+add edx, [ebp - 256]
+add edx, [ebp - 256]
 mov dword ecx, [ebp - 56]
 mov dword [edx], ecx
-mov dword [ebp - 68], 1
-mov dword [ebp - 68], 1
+mov dword [ebp - 76], 1
+mov dword [ebp - 76], 1
 sub esp, 4 
-mov dword eax, [ebp - 68]
+mov dword eax, [ebp - 76]
 cdq
-imul dword [ebp - 68]
-mov dword [ebp - 252], eax
+imul dword [ebp - 76]
+mov dword [ebp - 260], eax
 mov dword edx, label4
-add edx, [ebp - 252]
-add edx, [ebp - 252]
-add edx, [ebp - 252]
-add edx, [ebp - 252]
+add edx, [ebp - 260]
+add edx, [ebp - 260]
+add edx, [ebp - 260]
+add edx, [ebp - 260]
 mov dword ecx, [ebp - 60]
 mov dword [edx], ecx
 mov dword ebx, esp
@@ -1768,61 +1770,567 @@ push dword label54
 call _printf
 add esp, 8
 add esp, ebx
-mov dword [ebp - 64], 0
-mov dword [ebp - 64], 0
+mov dword [ebp - 72], 0
+mov dword [ebp - 72], 0
 sub esp, 4 
-mov dword ecx, [ebp - 64]
-add ecx, [ebp - 64]
-mov dword [ebp - 256], ecx
-mov dword [ebp - 64], 0
-sub esp, 4 
-mov dword ecx, [ebp - 256]
-add ecx, [ebp - 64]
-mov dword [ebp - 260], ecx
-sub esp, 4 
-mov dword edx, label4
-add edx, [ebp - 260]
-add edx, [ebp - 260]
-add edx, [ebp - 260]
-add edx, [ebp - 260]
-mov dword ecx, [edx]
+mov dword ecx, [ebp - 72]
+add ecx, [ebp - 72]
 mov dword [ebp - 264], ecx
-mov dword [ebp - 68], 1
-mov dword [ebp - 68], 1
-sub esp, 4 
-mov dword eax, [ebp - 68]
-cdq
-imul dword [ebp - 68]
-mov dword [ebp - 268], eax
-mov dword [ebp - 68], 1
-sub esp, 4 
-mov dword eax, [ebp - 268]
-cdq
-imul dword [ebp - 68]
-mov dword [ebp - 272], eax
-sub esp, 4 
-mov dword edx, label4
-add edx, [ebp - 272]
-add edx, [ebp - 272]
-add edx, [ebp - 272]
-add edx, [ebp - 272]
-mov dword ecx, [edx]
-mov dword [ebp - 276], ecx
-sub esp, 4 
-mov dword ecx, [ebp - 276]
-mov dword [ebp - 280], ecx
+mov dword [ebp - 72], 0
 sub esp, 4 
 mov dword ecx, [ebp - 264]
+add ecx, [ebp - 72]
+mov dword [ebp - 268], ecx
+sub esp, 4 
+mov dword edx, label4
+add edx, [ebp - 268]
+add edx, [ebp - 268]
+add edx, [ebp - 268]
+add edx, [ebp - 268]
+mov dword ecx, [edx]
+mov dword [ebp - 272], ecx
+mov dword [ebp - 76], 1
+mov dword [ebp - 76], 1
+sub esp, 4 
+mov dword eax, [ebp - 76]
+cdq
+imul dword [ebp - 76]
+mov dword [ebp - 276], eax
+mov dword [ebp - 76], 1
+sub esp, 4 
+mov dword eax, [ebp - 276]
+cdq
+imul dword [ebp - 76]
+mov dword [ebp - 280], eax
+sub esp, 4 
+mov dword edx, label4
+add edx, [ebp - 280]
+add edx, [ebp - 280]
+add edx, [ebp - 280]
+add edx, [ebp - 280]
+mov dword ecx, [edx]
 mov dword [ebp - 284], ecx
+sub esp, 4 
+mov dword ecx, [ebp - 284]
+mov dword [ebp - 288], ecx
+sub esp, 4 
+mov dword ecx, [ebp - 272]
+mov dword [ebp - 292], ecx
 call code_label29gcd
 sub esp, 4 
-mov dword [ebp - 288], eax
+mov dword [ebp - 296], eax
 mov dword ebx, esp
 and ebx, 0xf
 add ebx, 0x8
 sub esp, ebx
-push dword [ebp - 288]
+push dword [ebp - 296]
 push dword command_int
+call _printf
+add esp, 8
+add esp, ebx
+mov dword [ebp - 72], 0
+mov dword [ebp - 72], 0
+mov dword edx, [ebp - 72]
+mov dword ecx, [ebp - 72]
+cmp edx, ecx
+jnz code_label69
+mov dword [ebp - 72], 0
+mov dword [ebp - 76], 1
+mov dword edx, [ebp - 72]
+mov dword ecx, [ebp - 76]
+cmp edx, ecx
+jz code_label70
+mov dword [ebp - 136], 2
+mov dword [ebp - 76], 1
+mov dword edx, [ebp - 136]
+mov dword ecx, [ebp - 76]
+cmp edx, ecx
+jng code_label71
+mov dword [ebp - 144], 3
+mov dword [ebp - 224], 4
+mov dword edx, [ebp - 144]
+mov dword ecx, [ebp - 224]
+cmp edx, ecx
+jnl code_label72
+mov dword [ebp - 4], 5
+mov dword [ebp - 4], 5
+mov dword edx, [ebp - 4]
+mov dword ecx, [ebp - 4]
+cmp edx, ecx
+jnge code_label73
+mov dword [ebp - 176], 6
+mov dword [ebp - 176], 6
+mov dword edx, [ebp - 176]
+mov dword ecx, [ebp - 176]
+cmp edx, ecx
+jnle code_label74
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword 0
+push dword label55
+call _printf
+add esp, 8
+add esp, ebx
+code_label74: nop
+mov edx, ebp
+sub edx, esp
+mov ecx, 296
+sub ecx, edx
+sub esp, ecx
+code_label73: nop
+mov edx, ebp
+sub edx, esp
+mov ecx, 296
+sub ecx, edx
+sub esp, ecx
+code_label72: nop
+mov edx, ebp
+sub edx, esp
+mov ecx, 296
+sub ecx, edx
+sub esp, ecx
+code_label71: nop
+mov edx, ebp
+sub edx, esp
+mov ecx, 296
+sub ecx, edx
+sub esp, ecx
+code_label70: nop
+mov edx, ebp
+sub edx, esp
+mov ecx, 296
+sub ecx, edx
+sub esp, ecx
+code_label69: nop
+mov edx, ebp
+sub edx, esp
+mov ecx, 296
+sub ecx, edx
+sub esp, ecx
+mov dword [ebp - 72], 0
+mov dword ecx, [ebp - 72]
+mov dword [ebp - 64], ecx
+while_label75: nop
+mov dword [ebp - 4], 5
+mov dword edx, [ebp - 64]
+mov dword ecx, [ebp - 4]
+cmp edx, ecx
+jnl while_label76
+mov dword [ebp - 4], 5
+mov dword edx, [ebp - 64]
+mov dword ecx, [ebp - 4]
+cmp edx, ecx
+jnl code_label77
+mov dword [ebp - 76], 1
+sub esp, 4 
+mov dword ecx, [ebp - 64]
+add ecx, [ebp - 76]
+mov dword [ebp - 300], ecx
+mov dword ecx, [ebp - 300]
+mov dword [ebp - 64], ecx
+code_label77: nop
+mov edx, ebp
+sub edx, esp
+mov ecx, 300
+sub ecx, edx
+sub esp, ecx
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword 0
+push dword label56
+call _printf
+add esp, 8
+add esp, ebx
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword [ebp - 64]
+push dword command_int
+call _printf
+add esp, 8
+add esp, ebx
+add esp, 4 
+jmp while_label75
+while_label76: nop
+sub esp, 4 
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword 0
+push dword label57
+call _printf
+add esp, 8
+add esp, ebx
+mov dword [ebp - 72], 0
+mov dword ecx, [ebp - 72]
+mov dword [ebp - 64], ecx
+mov dword [ebp - 4], 5
+mov dword edx, [ebp - 64]
+mov dword ecx, [ebp - 4]
+cmp edx, ecx
+jnl code_label78
+while_label79: nop
+mov dword [ebp - 4], 5
+mov dword edx, [ebp - 64]
+mov dword ecx, [ebp - 4]
+cmp edx, ecx
+jnl while_label80
+mov dword [ebp - 76], 1
+sub esp, 4 
+mov dword ecx, [ebp - 64]
+add ecx, [ebp - 76]
+mov dword [ebp - 304], ecx
+mov dword ecx, [ebp - 304]
+mov dword [ebp - 64], ecx
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword 0
+push dword label58
+call _printf
+add esp, 8
+add esp, ebx
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword [ebp - 64]
+push dword command_int
+call _printf
+add esp, 8
+add esp, ebx
+add esp, 4 
+jmp while_label79
+while_label80: nop
+sub esp, 4 
+code_label78: nop
+mov edx, ebp
+sub edx, esp
+mov ecx, 304
+sub ecx, edx
+sub esp, ecx
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword 0
+push dword label59
+call _printf
+add esp, 8
+add esp, ebx
+mov dword [ebp - 72], 0
+mov dword ecx, [ebp - 72]
+mov dword [ebp - 64], ecx
+while_label81: nop
+mov dword [ebp - 136], 2
+mov dword edx, [ebp - 64]
+mov dword ecx, [ebp - 136]
+cmp edx, ecx
+jnl while_label82
+mov dword [ebp - 72], 0
+mov dword ecx, [ebp - 72]
+mov dword [ebp - 68], ecx
+while_label83: nop
+mov dword [ebp - 136], 2
+mov dword edx, [ebp - 68]
+mov dword ecx, [ebp - 136]
+cmp edx, ecx
+jnl while_label84
+mov dword [ebp - 76], 1
+sub esp, 4 
+mov dword ecx, [ebp - 68]
+add ecx, [ebp - 76]
+mov dword [ebp - 308], ecx
+mov dword ecx, [ebp - 308]
+mov dword [ebp - 68], ecx
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword 0
+push dword label60
+call _printf
+add esp, 8
+add esp, ebx
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword [ebp - 68]
+push dword command_int
+call _printf
+add esp, 8
+add esp, ebx
+add esp, 4 
+jmp while_label83
+while_label84: nop
+sub esp, 4 
+mov dword [ebp - 76], 1
+sub esp, 4 
+mov dword ecx, [ebp - 64]
+add ecx, [ebp - 76]
+mov dword [ebp - 312], ecx
+mov dword ecx, [ebp - 312]
+mov dword [ebp - 64], ecx
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword 0
+push dword label61
+call _printf
+add esp, 8
+add esp, ebx
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword [ebp - 64]
+push dword command_int
+call _printf
+add esp, 8
+add esp, ebx
+add esp, 4 
+add esp, 4 
+jmp while_label81
+while_label82: nop
+sub esp, 4 
+sub esp, 4 
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword 0
+push dword label62
+call _printf
+add esp, 8
+add esp, ebx
+mov dword [ebp - 72], 0
+mov dword ecx, [ebp - 72]
+mov dword [ebp - 64], ecx
+mov dword [ebp - 72], 0
+mov dword edx, [ebp - 64]
+mov dword ecx, [ebp - 72]
+cmp edx, ecx
+jnz case_label86
+mov dword [ebp - 72], 0
+mov dword edx, [ebp - 64]
+mov dword ecx, [ebp - 72]
+cmp edx, ecx
+jnz code_label87
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword 0
+push dword label63
+call _printf
+add esp, 8
+add esp, ebx
+code_label87: nop
+mov edx, ebp
+sub edx, esp
+mov ecx, 312
+sub ecx, edx
+sub esp, ecx
+jmp switch_label85
+case_label86: nop
+mov edx, ebp
+sub edx, esp
+mov ecx, 312
+sub ecx, edx
+sub esp, ecx
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword 0
+push dword label64
+call _printf
+add esp, 8
+add esp, ebx
+jmp switch_label85
+switch_label85: nop
+mov edx, ebp
+sub edx, esp
+mov ecx, 312
+sub ecx, edx
+sub esp, ecx
+mov dword [ebp - 72], 0
+mov dword ecx, [ebp - 72]
+mov dword [ebp - 64], ecx
+while_label88: nop
+mov dword [ebp - 4], 5
+mov dword edx, [ebp - 64]
+mov dword ecx, [ebp - 4]
+cmp edx, ecx
+jnl while_label89
+mov dword [ebp - 72], 0
+mov dword edx, [ebp - 64]
+mov dword ecx, [ebp - 72]
+cmp edx, ecx
+jnz case_label91
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword 0
+push dword label65
+call _printf
+add esp, 8
+add esp, ebx
+jmp switch_label90
+case_label91: nop
+mov edx, ebp
+sub edx, esp
+mov ecx, 312
+sub ecx, edx
+sub esp, ecx
+mov dword [ebp - 76], 1
+mov dword edx, [ebp - 64]
+mov dword ecx, [ebp - 76]
+cmp edx, ecx
+jnz case_label92
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword 0
+push dword label66
+call _printf
+add esp, 8
+add esp, ebx
+jmp switch_label90
+case_label92: nop
+mov edx, ebp
+sub edx, esp
+mov ecx, 312
+sub ecx, edx
+sub esp, ecx
+mov dword [ebp - 136], 2
+mov dword edx, [ebp - 64]
+mov dword ecx, [ebp - 136]
+cmp edx, ecx
+jnz case_label93
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword 0
+push dword label67
+call _printf
+add esp, 8
+add esp, ebx
+jmp switch_label90
+case_label93: nop
+mov edx, ebp
+sub edx, esp
+mov ecx, 312
+sub ecx, edx
+sub esp, ecx
+mov dword [ebp - 144], 3
+mov dword edx, [ebp - 64]
+mov dword ecx, [ebp - 144]
+cmp edx, ecx
+jnz case_label94
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword 0
+push dword label68
+call _printf
+add esp, 8
+add esp, ebx
+jmp switch_label90
+case_label94: nop
+mov edx, ebp
+sub edx, esp
+mov ecx, 312
+sub ecx, edx
+sub esp, ecx
+mov dword [ebp - 224], 4
+mov dword edx, [ebp - 64]
+mov dword ecx, [ebp - 224]
+cmp edx, ecx
+jnz case_label95
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword 0
+push dword label69
+call _printf
+add esp, 8
+add esp, ebx
+jmp switch_label90
+case_label95: nop
+mov edx, ebp
+sub edx, esp
+mov ecx, 312
+sub ecx, edx
+sub esp, ecx
+mov dword [ebp - 4], 5
+mov dword edx, [ebp - 64]
+mov dword ecx, [ebp - 4]
+cmp edx, ecx
+jnz case_label96
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword 0
+push dword label70
+call _printf
+add esp, 8
+add esp, ebx
+jmp switch_label90
+case_label96: nop
+mov edx, ebp
+sub edx, esp
+mov ecx, 312
+sub ecx, edx
+sub esp, ecx
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword 0
+push dword label71
+call _printf
+add esp, 8
+add esp, ebx
+jmp switch_label90
+switch_label90: nop
+mov edx, ebp
+sub edx, esp
+mov ecx, 312
+sub ecx, edx
+sub esp, ecx
+mov dword [ebp - 76], 1
+sub esp, 4 
+mov dword ecx, [ebp - 64]
+add ecx, [ebp - 76]
+mov dword [ebp - 316], ecx
+mov dword ecx, [ebp - 316]
+mov dword [ebp - 64], ecx
+add esp, 4 
+jmp while_label88
+while_label89: nop
+sub esp, 4 
+mov dword ebx, esp
+and ebx, 0xf
+add ebx, 0x8
+sub esp, ebx
+push dword 0
+push dword label72
 call _printf
 add esp, 8
 add esp, ebx
@@ -1831,10 +2339,8 @@ pop ebp
 ret 
 
 section .data
-command_int:
-dd `%%d\n\0`
-command_char:
-dd `%%c\n\0`
+command_int: dd `%d\n\0`
+command_char: dd `%c\n\0`
 label0:
 dd 1
 label1:
@@ -1939,6 +2445,42 @@ label53:
 dd `The product of the 3 numbers you entered is \n\0`
 label54:
 dd `The gcd of the 2 numbers you entered is \n\0`
+label55:
+dd `If-If test passed.\n\0`
+label56:
+dd `intV30 becomes \n\0`
+label57:
+dd `While-If test passed\n\0`
+label58:
+dd `intV30 becomes \n\0`
+label59:
+dd `If-While test passed\n\0`
+label60:
+dd `intV31 becomes\n\0`
+label61:
+dd `intV30 becomes \n\0`
+label62:
+dd `While-While test passed\n\0`
+label63:
+dd `Switch-If test passed\n\0`
+label64:
+dd `Switch-If test failed\n\0`
+label65:
+dd `intV30 is 0\n\0`
+label66:
+dd `intV30 is 1\n\0`
+label67:
+dd `intV30 is 2\n\0`
+label68:
+dd `intV30 is 3\n\0`
+label69:
+dd `intV30 is 4\n\0`
+label70:
+dd `While-Switch test failed\n\0`
+label71:
+dd `While-Switch test failed\n\0`
+label72:
+dd `While-Switch test passed\n\0`
 
 section .bss
 label3:

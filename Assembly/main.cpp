@@ -9,7 +9,7 @@
 #include <iostream>
 #include <stdio.h>
 
-#define MYDEBUG 0
+#define MYDEBUG 1
 
 extern "C" int test();
 
