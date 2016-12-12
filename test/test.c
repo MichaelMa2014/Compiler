@@ -112,6 +112,8 @@ void main() {
     intV2[0] = 0;
     intV2[1] = 0;
 
+    printf("%d");
+
     scanf(intV1);
     printf("\\You entered ", intV1);
     scanf(charV1);

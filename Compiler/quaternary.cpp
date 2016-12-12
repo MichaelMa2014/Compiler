@@ -214,6 +214,11 @@ Quaternary_string::Quaternary_string(string l, string v) : Quaternary(ddIns, NUL
         v.insert(index, 1, '\\');
         index = v.find('\\', index + 2);
     }
+    index = v.find('%', 0);
+    while (index != string::npos) {
+        v.insert(index, 1, '%');
+        index = v.find('%', index + 2);
+    }
     this -> value = v + "\\n\\0";
 }
 
