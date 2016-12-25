@@ -29,6 +29,7 @@ There are several error defined in the compiler.
 | 301  | An identifier is refered to before any declaration | The statement containing the reference is ignored |
 | 302  | Too few or too many parameters passed to a function | Shut down |
 | 303  | Control reached end of non-void function | Shut down |
-| 304  | Assign to constants | Shut down |
-| 305  | Assign to functions | Shut down |
-| 306  | Assign to matrices | Shut down |
+| 304  | Illegal return statement in void function | Shut down |
+| 305  | Assign to constants | Shut down |
+| 306  | Assign to functions | Shut down |
+| 307  | Assign to matrices | Shut down |

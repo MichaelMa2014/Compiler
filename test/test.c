@@ -68,6 +68,7 @@ void vFunc2(int param1) {
     printf("vFunc2() called");
     printf("param1 is ", param1);
     printf("intC2 is ", intC2);
+    return (0);
 }
 
 void vFunc3(int param1, char param2) {

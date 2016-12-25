@@ -62,6 +62,7 @@ Parameter * GrammarDecoder::Param() {
 
 void GrammarDecoder::FuncDeclare(symbolNo type, string name) {
     bool returned = type == voidSym;
+    current_func_type = type == voidSym ? voidSym : intSym;
     
     id = new IdentifierTable();
     ge -> SetId(id);

@@ -18,6 +18,8 @@
 extern LexicalDecoder * ld;
 extern Generator * ge;
 
+extern symbolNo current_func_type;
+
 class GrammarDecoder {
 private:
     IdentifierTable * id;
