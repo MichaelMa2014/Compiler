@@ -29,7 +29,6 @@ class Quaternary {
     friend class Dag;
     friend class Optimizer;
 protected:
-    bool label_set;
     string label;
     insNo ins;
     Identifier * source1;
@@ -37,13 +36,13 @@ protected:
     Identifier * dest;
 public:
     Quaternary(insNo ins, Identifier * source1, Identifier * source2, Identifier * dest);
-    void SetLabel(string label);
     virtual void Print();
 };
 
-extern vector<Quaternary *> table;
-extern vector<Quaternary *> data_table;
-extern vector<Quaternary *> bss_table;
+typedef vector<Quaternary *> QTable;
+extern QTable code_table;
+extern QTable data_table;
+extern QTable bss_table;
 
 class Quaternary_immediate : public Quaternary {
 private:

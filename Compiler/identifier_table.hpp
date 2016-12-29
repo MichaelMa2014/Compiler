@@ -61,7 +61,7 @@ public:
     }
 };
 
-typedef map<string, Identifier *> Table;
+typedef map<string, Identifier *> IdTable;
 
 class Constant : public Identifier {
 private:
@@ -120,7 +120,7 @@ private:
     int offset; // a multiple of 4
     int param_offset;
 protected:
-    Table table;
+    IdTable table;
 public:
     IdentifierTable();
     ~IdentifierTable();

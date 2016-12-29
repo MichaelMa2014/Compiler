@@ -19,27 +19,15 @@ Quaternary::Quaternary(insNo i, Identifier * s1, Identifier * s2, Identifier * d
     this -> source1 = s1;
     this -> source2 = s2;
     this -> dest = d;
-    this -> label_set = false;
     this -> label = "";
-    
-}
-
-void Quaternary::SetLabel(string l) {
-    this -> label_set = true;
-    this -> label = l;
 }
 
 void Quaternary::Print() {
     // FIXME: Should we use this large function to translate from Quaternary to x86?
 
-    if (label_set) {
-        output << label << ":" << endl;
-    }
-    
     string a;
     switch (this -> ins) {
         case nopIns:
-            output << "nop" << endl;
             break;
             
         case extractIns:
@@ -118,9 +106,9 @@ void Quaternary::Print() {
             }
             output << "push dword edx" << endl;
             if (this -> dest -> Kind() == intSym) {
-                output << "push dword command_int" << endl;
+                output << "push dword scan_int" << endl;
             }
-            else output << "push dword command_char" << endl;
+            else output << "push dword scan_char" << endl;
             output << "call _scanf" << endl;
             output << "add esp, 8\nadd esp, ebx" << endl;
             break;
@@ -136,9 +124,9 @@ void Quaternary::Print() {
                 case varId:
                     output << "push dword [" << this -> source1 -> Addr() << "]" << endl;
                     if (this -> source1 -> Kind() == intSym) {
-                        output << "push dword command_int" << endl;
+                        output << "push dword print_int" << endl;
                     }
-                    else output << "push dword command_char" << endl;
+                    else output << "push dword print_char" << endl;
                     break;
                 default:
                     break;
@@ -190,7 +178,13 @@ Quaternary_label::Quaternary_label(insNo i, string l) : Quaternary(i, NULL, NULL
 }
 
 void Quaternary_label::Print() {
-    output << InsString[this -> ins] << this -> label << endl;
+    if (this -> ins == nopIns) {
+        output << label << ": ";
+        output << "nop" << endl;
+    }
+    else {
+        output << InsString[this -> ins] << this -> label << endl;
+    }
 }
 
 Quaternary_data::Quaternary_data(string l, int v) : Quaternary(ddIns, NULL, NULL, NULL) {
@@ -218,6 +212,11 @@ Quaternary_string::Quaternary_string(string l, string v) : Quaternary(ddIns, NUL
     while (index != string::npos) {
         v.insert(index, 1, '\\');
         index = v.find('\\', index + 2);
+    }
+    index = v.find('%', 0);
+    while (index != string::npos) {
+        v.insert(index, 1, '%');
+        index = v.find('%', index + 2);
     }
     this -> value = v + "\\n\\0";
 }

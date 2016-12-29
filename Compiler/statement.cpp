@@ -427,6 +427,10 @@ void GrammarDecoder::ScanfStat() {
         if (dest == NULL) {
             error(NO_DECLARE);
         }
+        if (dest -> Type() != varId) {
+            error(ILLEGAL_SCANF);
+            exit(ILLEGAL_SCANF);
+        }
         ge -> Scan(dest);
     }
     
@@ -500,7 +504,13 @@ void GrammarDecoder::PrintfStat() {
 
 void GrammarDecoder::ReturnStat() {
     Identifier * value = NULL;
-    if (ld -> LastSymbol() == lRoundSym) {
+    if (current_func_type == voidSym) {
+        if (ld -> LastSymbol() != semiSym) {
+            error(ILLEGAL_RETURN);
+            exit(ILLEGAL_RETURN);
+        }
+    }
+    else if (ld -> LastSymbol() == lRoundSym) {
         ld -> NextWord();
         
         value = Expression();

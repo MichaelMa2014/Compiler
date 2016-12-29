@@ -8,6 +8,8 @@
 
 #include "grammar.hpp"
 
+symbolNo current_func_type;
+
 void GrammarDecoder::Program() {
     if (ld -> LastSymbol() == constSym) {
         // FIXME: NextWord is not called
@@ -70,8 +72,10 @@ void GrammarDecoder::Program() {
 }
 
 void GrammarDecoder::Main() {
+    current_func_type = voidSym;
+    
     Quaternary * temp = new Quaternary(mainIns, NULL, NULL, NULL);
-    table.push_back(temp);
+    code_table.push_back(temp);
     
     id = new IdentifierTable();
     ge -> SetId(id);

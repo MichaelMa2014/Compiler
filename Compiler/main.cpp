@@ -17,9 +17,9 @@
 
 LexicalDecoder * ld;
 Generator * ge;
-vector<Quaternary *> table;
-vector<Quaternary *> data_table;
-vector<Quaternary *> bss_table;
+QTable code_table;
+QTable data_table;
+QTable bss_table;
 
 ofstream output;
 
@@ -31,9 +31,8 @@ int main(int argc, const char * argv[]) {
     string output_path = "/Users/MichaelMa/Dropbox/Xcode/Compiler/Assembly/test.asm";
     
     if (!MYDEBUG) {
-        cout << "Please input the full path to the output file" << endl;
-        cout << "Example: C:\\Assembly\\test.asm" << endl;
-        cin >> output_path;
+        cout << "Output path is set to C:\\Assembly\\test.asm" << endl;
+        output_path = "C:\\Assembly\\test.asm";
     }
     
     output.open(output_path.c_str());
@@ -50,19 +49,23 @@ int main(int argc, const char * argv[]) {
     output << "global _test\nextern _printf\nextern _scanf\n";
     
     output << endl << "section .text" << endl;
-    Optimizer op(table);
-    table = op.Execute();
-    for (vector<Quaternary *>::iterator it = table.begin(); it != table.end(); it++) {
+    Optimizer op(code_table);
+    code_table = op.Execute();
+    for (vector<Quaternary *>::iterator it = code_table.begin(); it != code_table.end(); it++) {
         (* it) -> Print();
     }
     
     output << endl << "section .data" << endl;
-    for (vector<Quaternary *>::iterator it = data_table.begin(); it != data_table.end(); it++) {
+    output << "scan_int: dd ` %d\\0`" << endl;
+    output << "scan_char: dd ` %c\\0`" << endl;
+    output << "print_int: dd `%d\\n\\0`" << endl;
+    output << "print_char: dd `%c\\n\\0`" << endl;
+    for (QTable::iterator it = data_table.begin(); it != data_table.end(); it++) {
         (* it) -> Print();
     }
     
     output << endl << "section .bss" << endl;
-    for (vector<Quaternary *>::iterator it = bss_table.begin(); it != bss_table.end(); it++) {
+    for (QTable::iterator it = bss_table.begin(); it != bss_table.end(); it++) {
         (* it) -> Print();
     }
     

@@ -1,4 +1,4 @@
-//
+ //
 //  error.cpp
 //  Compiler
 //
@@ -95,13 +95,16 @@ void error(int errNo) {
             ERR("303: Control reached end of non-void function");
             break;
         case 304:
-            ERR("304: Assign to constants");
+            ERR("304: Illegal return statement in void function");
             break;
         case 305:
-            ERR("305: Assign to functions");
+            ERR("305: Assign to constants");
             break;
         case 306:
-            ERR("306: Assign to matrices");
+            ERR("306: Assign to functions");
+            break;
+        case 307:
+            ERR("307: Assign to matrices");
             break;
     }
 }
