@@ -20,7 +20,6 @@ Quaternary::Quaternary(insNo i, Identifier * s1, Identifier * s2, Identifier * d
     this -> source2 = s2;
     this -> dest = d;
     this -> label = "";
-    
 }
 
 void Quaternary::Print() {

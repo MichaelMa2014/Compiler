@@ -1,6 +1,6 @@
 There are several error defined in the compiler.
 
-| No   | Description                                                       | Compiler Behaviour                       |
+| No.  | Description                                                       | Compiler Behaviour                       |
 | ---- | ----------------------------------------------------------------- | ---------------------------------------- |
 | 000  | Unexpected end of source file | Shut down |
 | 001  | One line is too long in source file | Shut down |

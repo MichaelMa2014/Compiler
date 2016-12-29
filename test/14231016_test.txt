@@ -16,6 +16,8 @@ char cFunc1() {
 }
 
 int iFunc3() {
+    int intC1;
+    intC1 = 8888;
     return (intC1);
 }
 

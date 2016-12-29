@@ -1,6 +1,7 @@
 const int intC1 = 1;
 const char charC1 = 'a', charC2 = 'b';
 int intV1, intV2[2];
+int intv20, intv21;
 char charV1;
 
 int iFunc1() {
@@ -16,6 +17,8 @@ char cFunc1() {
 }
 
 int iFunc3() {
+    int intC1;
+    intC1 = 8888;
     return (intC1);
 }
 
@@ -68,7 +71,6 @@ void vFunc2(int param1) {
     printf("vFunc2() called");
     printf("param1 is ", param1);
     printf("intC2 is ", intC2);
-    return (0);
 }
 
 void vFunc3(int param1, char param2) {
@@ -91,8 +93,6 @@ void vFunc4() {
 }
 
 int gcd(int a , int b){
-  printf("gcd a = ", a);
-  printf("gcd b = ", b);
     if (a == b) {
         return (a);
     }
@@ -115,9 +115,10 @@ void main() {
     intV2[1] = 0;
 
     printf("%d");
+    printf("\\");
 
     scanf(intV1);
-    printf("\\You entered ", intV1);
+    printf("You entered ", intV1);
     scanf(charV1);
     printf("You entered ", charV1);
 
@@ -271,4 +272,15 @@ void main() {
       intV30 = intV30 + 1;
     }
     printf("While-Switch test passed");
+
+    {}
+    {;}
+    {;;}
+    {{}}
+    {{{}}}
+    {{{;}}}
+    {
+
+    }
+    printf("Blank statement test passed");
 }

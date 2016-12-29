@@ -9,13 +9,14 @@
 #include <iostream>
 #include <stdio.h>
 
-#define MYDEBUG 0
+#define MYDEBUG 1
 
 extern "C" int test();
 
-int main(int, const char**)
+int main(int argc, const char * argv[])
 {
-    test();
+    int out = test();
+    std::cout << out;
     while (!MYDEBUG) {
         ;
     }
