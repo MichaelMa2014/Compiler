@@ -192,6 +192,6 @@ void Optimizer::DagPass() {
 }
 
 void Optimizer::DefUsePass() {
-    bg = new BlockGraph(code_table);
+    bg = new BlockGraph(table);
     bg -> Construct();
 }
