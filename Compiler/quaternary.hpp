@@ -53,8 +53,6 @@ public:
 };
 
 class Quaternary_label : public Quaternary {
-private:
-    string label;
 public:
     Quaternary_label(insNo ins, string label);
     virtual void Print();
@@ -62,7 +60,6 @@ public:
 
 class Quaternary_data : public Quaternary {
 private:
-    string label;
     int value;
     string string_value;
 public:
@@ -72,7 +69,6 @@ public:
 
 class Quaternary_bss : public Quaternary {
 private:
-    string label;
     int size;
 public:
     Quaternary_bss(string label, int size);
@@ -81,7 +77,6 @@ public:
 
 class Quaternary_string : public Quaternary {
 private:
-    string label;
     string value;
 public:
     Quaternary_string(string label, string value);
