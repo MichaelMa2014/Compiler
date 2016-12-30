@@ -58,6 +58,10 @@ int iFunc13() {
     return (iFunc8() / iFunc9() / iFunc12());
 }
 
+int iFunc14(int param1, int param2) {
+    return (param1 + param2);
+}
+
 void main() {
     intV2[0] = 0;
     intV2[1] = 0;
@@ -76,4 +80,5 @@ void main() {
     printf("iFunc11()= ", iFunc11());
     printf("iFunc12()= ", iFunc12());
     printf("iFunc13()= ", iFunc13());
+    printf("21 + 22 + 23 = ", iFunc14(21, iFunc14(22, 23)));
 }
