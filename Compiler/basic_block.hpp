@@ -16,17 +16,32 @@
 class Block {
     friend class BlockGraph;
 private:
+    int id;
     QTable::const_iterator begin;
     QTable::const_iterator end;
     vector<Block *> predecessors;
-    vector<Block *> successors;
+    Block * direct_successor;
+    Block * jump_successor;
+public:
+    Block(int id, QTable::const_iterator begin, QTable::const_iterator end);
+    string Label();
+    void UpdateSuccessors();
+    void AddPredecessor(Block * predecessor);
+    
+    bool UpdateInOut();
 };
 
 class BlockGraph {
 private:
-    vector<QTable> blocktable;
+    vector<Block *> block_table;
+    int count;
 public:
-    void Construct(const QTable table);
+    BlockGraph(const QTable table);
+    void Construct();
+    Block * LocateByLabel(string label);
+    Block * LocateByEntrance(QTable::const_iterator entrance);
 };
+
+extern BlockGraph * bg;
 
 #endif /* basic_block_hpp */

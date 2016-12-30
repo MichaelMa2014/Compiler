@@ -49,9 +49,6 @@ int main(int argc, const char * argv[]) {
     
     output << "global _test\nextern _printf\nextern _scanf\n";
     
-    BlockGraph bg;
-    bg.Construct(code_table);
-    
     output << endl << "section .text" << endl;
     Optimizer op(code_table);
     code_table = op.Execute();

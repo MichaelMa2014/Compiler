@@ -15,8 +15,6 @@
 #include "init.hpp"
 #include "quaternary.hpp"
 
-typedef vector<Quaternary *> InsTable;
-
 class Node;
 typedef vector<Node *> NodeV;
 typedef multimap<Node *, Identifier *> NodeMap;
@@ -41,18 +39,19 @@ public:
     Dag();
     ~Dag();
     bool AllParentsInStack(Node * node);
-    void Execute(InsTable & otable);
+    void Execute(QTable & otable);
     void AddNode(Quaternary * quaternary);
 };
 
 class Optimizer {
 private:
-    InsTable table;
+    QTable table;
     Dag * dag;
 public:
-    Optimizer(InsTable table);
-    InsTable Execute();
+    Optimizer(QTable table);
+    QTable Execute();
     void DagPass();
+    void DefUsePass();
 };
 
 #endif /* optimizer_hpp */

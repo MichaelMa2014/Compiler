@@ -135,9 +135,8 @@ Identifier * Generator::Negative(Identifier * source) {
     
     Identifier * zero = id -> EnterVariable(name, intSym, 0);
     
-    name = itoa(count);
-    count++;
-    
+    name = itoa(count++);
+
     Identifier * dest = id -> EnterVariable(name, intSym, 0);
     
     // Store 0 in zero
