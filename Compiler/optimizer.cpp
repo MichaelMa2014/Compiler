@@ -147,6 +147,7 @@ Optimizer::Optimizer(QTable t) {
 
 QTable Optimizer::Execute() {
     DagPass();
+    DefUsePass();
     return table;
 }
 

@@ -38,11 +38,11 @@ void Block::UpdateSuccessors() {
     }
     else {
         Block * next = bg -> LocateByEntrance(end);
-        if (next == NULL) {
+        if (next == NULL && (* end) -> ins != funcEndIns) {
             ERR("LocateByEntrance returned NULL");
         }
         this -> direct_successor = next;
-        next -> AddPredecessor(this);
+        if (next != NULL) next -> AddPredecessor(this);
         
         switch (last -> ins) {
             case jngIns:
@@ -89,15 +89,21 @@ BlockGraph::BlockGraph(const QTable table) {
         if (it == table.begin()) {
             entrances.push_back(it);
         }
+        else if (it + 1 == table.end()) {
+            entrances.push_back(it);
+        }
         else if (dynamic_cast<Quaternary_label *>(temp)) {
             if (temp -> ins == nopIns) {
                 // This label will be jumped to
-                entrances.push_back(it);
+                if (find(entrances.begin(), entrances.end(), it) == entrances.end()) {
+                    entrances.push_back(it);
+                }
             }
             else {
                 // This is a jump instruction
-                entrances.push_back(++it);
-                LOG(InsString[temp -> ins]);
+                if (find(entrances.begin(), entrances.end(), it + 1) == entrances.end()) {
+                    entrances.push_back(it + 1);
+                }
             }
         }
     }
@@ -110,6 +116,7 @@ BlockGraph::BlockGraph(const QTable table) {
         Block * new_block = new Block(count++, last_en, this_en);
         block_table.push_back(new_block);
     }
+    
 }
 
 void BlockGraph::Construct() {
