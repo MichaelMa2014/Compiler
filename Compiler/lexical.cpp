@@ -14,6 +14,7 @@ LexicalDecoder::LexicalDecoder() {
     if (!MYDEBUG) {
         cout << "Please input the full path to the source file" << endl;
         cout << "Example: C:\\14231016_test.txt" << endl;
+        path.clear();
         cin >> path;
     }
     
