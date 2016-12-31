@@ -10,6 +10,7 @@
 #define basic_block_hpp
 
 #include <iostream>
+#include <set>
 
 #include "quaternary.hpp"
 
@@ -22,16 +23,22 @@ private:
     vector<Block *> predecessors;
     Block * direct_successor;
     Block * jump_successor;
+    set<Identifier *> def;
+    set<Identifier *> use;
+    set<Identifier *> in;
+    set<Identifier *> out;
 public:
     Block(int id, QTable::const_iterator begin, QTable::const_iterator end);
     string Label();
     void UpdateSuccessors();
     void AddPredecessor(Block * predecessor);
     
+    void CalculateDefUse();
     bool UpdateInOut();
 };
 
 class BlockGraph {
+    friend class Optimizer;
 private:
     vector<Block *> block_table;
     int count;

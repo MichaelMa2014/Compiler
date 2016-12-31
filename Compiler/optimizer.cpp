@@ -195,4 +195,12 @@ void Optimizer::DagPass() {
 void Optimizer::DefUsePass() {
     bg = new BlockGraph(table);
     bg -> Construct();
+    for (auto it = bg -> block_table.begin(); it != bg -> block_table.end(); it++) {
+        (* it) -> CalculateDefUse();
+    }
+    for (bool changed = true; changed; ) {
+        for (auto it = bg -> block_table.rbegin(); it != bg -> block_table.rend(); it++) {
+            changed = (* it) -> UpdateInOut();
+        }
+    }
 }

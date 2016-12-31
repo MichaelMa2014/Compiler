@@ -14,6 +14,10 @@ Block::Block(int i, QTable::const_iterator b, QTable::const_iterator e) {
     this -> begin = b;
     this -> end = e;
     this -> predecessors.clear();
+    def.clear();
+    use.clear();
+    in.clear();
+    out.clear();
 }
 
 string Block::Label() {
@@ -71,8 +75,52 @@ void Block::AddPredecessor(Block * predecessor) {
     this -> predecessors.push_back(predecessor);
 }
 
+void Block::CalculateDefUse() {
+    for (auto it = begin; it != end; it++) {
+        Quaternary * temp = * it;
+        if (temp -> source1 != NULL) {
+            if (def.find(temp -> source1) == def.end()) {
+                use.insert(temp -> source1);
+            }
+        }
+        if (temp -> source2 != NULL) {
+            if (def.find(temp -> source2) == def.end()) {
+                use.insert(temp -> source2);
+            }
+        }
+        if (temp -> dest != NULL) {
+            if (use.find(temp -> dest) != use.end()) {
+                def.insert(temp -> dest);
+            }
+        }
+    }
+}
+
 bool Block::UpdateInOut() {
-    return true;
+    bool changed = false;
+    if (direct_successor != NULL) {
+        auto temp = direct_successor -> in;
+        for (auto it = temp.begin(); it != temp.end(); it++) {
+            if (out.insert(* it).second) {
+                changed = true;
+            }
+        }
+    }
+    if (jump_successor != NULL) {
+        auto temp = jump_successor -> in;
+        for (auto it = temp.begin(); it != temp.end(); it++) {
+            if (out.insert(* it).second) {
+                changed = true;
+            }
+        }
+    }
+    in = use;
+    for (auto it = out.begin(); it != out.end(); it++) {
+        if (def.find(* it) == def.end()) {
+            in.insert(* it);
+        }
+    }
+    return changed;
 }
 
 BlockGraph::BlockGraph(const QTable table) {
