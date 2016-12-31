@@ -1,70 +1,105 @@
 # depslib dependency file v1.0
-1480271326 source:c:\compiler\const_var.cpp
+1481092630 source:c:\compiler\const_var.cpp
 	"grammar.hpp"
 
-1480256665 c:\compiler\grammar.hpp
+1483066962 c:\compiler\grammar.hpp
 	"init.hpp"
 	"error.hpp"
 	"lexical.hpp"
 	"identifier_table.hpp"
 	"quaternary.hpp"
 
-1479867899 c:\compiler\init.hpp
+1483171425 c:\compiler\init.hpp
 	<stdio.h>
 	<iostream>
 	<map>
 
-1480253814 c:\compiler\error.hpp
+1483170494 c:\compiler\error.hpp
 	<cstdio>
 	<cstdlib>
 	<iostream>
+	"init.hpp"
+	"lexical.hpp"
 
-1479027691 c:\compiler\lexical.hpp
+1481338338 c:\compiler\lexical.hpp
 	<fstream>
 	<cctype>
 	<cstdlib>
 	"init.hpp"
 	"error.hpp"
 
-1480265378 c:\compiler\identifier_table.hpp
+1483167607 c:\compiler\identifier_table.hpp
 	<map>
 	<vector>
 	"init.hpp"
 	"error.hpp"
 
-1480270110 c:\compiler\quaternary.hpp
+1483167607 c:\compiler\quaternary.hpp
 	<iostream>
 	<sstream>
+	<fstream>
 	"identifier_table.hpp"
 
-1480233705 source:c:\compiler\error.cpp
+1483170387 source:c:\compiler\error.cpp
 	"error.hpp"
 
-1480247435 source:c:\compiler\expression.cpp
+1483170466 source:c:\compiler\expression.cpp
 	"grammar.hpp"
 
-1480253832 source:c:\compiler\func.cpp
+1483066962 source:c:\compiler\func.cpp
 	"grammar.hpp"
 
-1480265378 source:c:\compiler\identifier_table.cpp
+1483066962 source:c:\compiler\identifier_table.cpp
 	"identifier_table.hpp"
 	"quaternary.hpp"
 
 1479273373 source:c:\compiler\init.cpp
 	"init.hpp"
 
-1479976317 source:c:\compiler\lexical.cpp
+1483066962 source:c:\compiler\lexical.cpp
 	"lexical.hpp"
 
-1480269970 source:c:\compiler\main.cpp
+1483167607 source:c:\compiler\main.cpp
 	<iostream>
+	<fstream>
 	"Lexical.hpp"
 	"grammar.hpp"
 	"identifier_table.hpp"
+	"quaternary.hpp"
+	"optimizer.hpp"
 
-1479714015 source:c:\compiler\program.cpp
+1483066962 source:c:\compiler\program.cpp
 	"grammar.hpp"
 
-1480270879 source:c:\compiler\statement.cpp
+1483066962 source:c:\compiler\statement.cpp
 	"grammar.hpp"
+
+1483167607 source:c:\compiler\generator.cpp
+	"quaternary.hpp"
+
+1483170214 c:\compiler\optimizer.hpp
+	<algorithm>
+	<map>
+	"init.hpp"
+	"quaternary.hpp"
+
+1483167607 source:c:\compiler\quaternary.cpp
+	"quaternary.hpp"
+
+1483167607 source:c:\compiler\basic_block.cpp
+	"basic_block.hpp"
+
+1483167607 c:\compiler\basic_block.hpp
+	<iostream>
+	"quaternary.hpp"
+
+1483167607 source:c:\compiler\hit_time.cpp
+	<map>
+	"hit_time.hpp"
+
+1483167607 c:\compiler\hit_time.hpp
+	"optimizer.hpp"
+
+1483170214 source:c:\compiler\optimizer.cpp
+	"optimizer.hpp"
 
