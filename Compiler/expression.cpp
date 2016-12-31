@@ -46,6 +46,11 @@ Identifier * GrammarDecoder::Term() {
         
         Identifier * source2 = Factor();
         
+        if (type == divideSym && source2 -> Type() == constId && source2 -> Value() == 0) {
+            error(DIVIDED_BY_ZERO);
+            exit(DIVIDED_BY_ZERO);
+        }
+        
         source1 = ge -> MultiplyDivide(type, source1, source2);
     }
     

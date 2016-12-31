@@ -33,3 +33,4 @@ There are several error defined in the compiler.
 | 305  | Assign to constants | Shut down |
 | 306  | Assign to functions | Shut down |
 | 307  | Assign to matrices | Shut down |
+| 308  | Divided by zero | Shut down |

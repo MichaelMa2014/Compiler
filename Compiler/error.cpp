@@ -106,5 +106,8 @@ void error(int errNo) {
         case 307:
             ERR("307: Assign to matrices");
             break;
+        case 308:
+            ERR("308: Divided by zero");
+            break;
     }
 }

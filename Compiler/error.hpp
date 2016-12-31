@@ -18,7 +18,7 @@
 
 using namespace std;
 
-#define LOG(x) do {cerr << "***LOG " << x << endl;} while(0);
+#define LOG(x) do {if (MYDEBUG) cerr << "***LOG " << x << endl;} while(0);
 //#define LOG(x) do {;} while(0);
 #define ERR(x) do {cerr << "***ERR " << x << endl; if (MYDEBUG) throw 0;} while(0);
 
@@ -53,6 +53,7 @@ using namespace std;
 #define ASSIGN_CONST 305
 #define ASSIGN_FUNC 306
 #define ASSIGN_MATRIX 307
+#define DIVIDED_BY_ZERO 308
 
 void error(int errNo);
 

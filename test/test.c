@@ -119,6 +119,7 @@ void main() {
     intV5 = intC3 - 0;
     intV5 = intC3 * 1;
     intV5 = intC3 / 1;
+    intV5 = intC3 / 0;
 
     intV2[0] = 0;
     intV2[1] = 0;

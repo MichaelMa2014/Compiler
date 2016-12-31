@@ -37,7 +37,8 @@ error3 = [
           ['ILLEGAL_RETURN', 'Illegal return statement in void function', 'Shut down'],
           ['ASSIGN_CONST', 'Assign to constants', 'Shut down'],
           ['ASSIGN_FUNC', 'Assign to functions', 'Shut down'],
-          ['ASSIGN_MATRIX', 'Assign to matrices', 'Shut down']
+          ['ASSIGN_MATRIX', 'Assign to matrices', 'Shut down'],
+          ['DIVIDED_BY_ZERO', 'Divided by zero', 'Shut down']
 ]
 
 def pad(i):
