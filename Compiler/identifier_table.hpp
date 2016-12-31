@@ -34,7 +34,10 @@ public:
         return this -> addr;
     }
     string Memory() {
-        return "[" + this -> addr + "]";
+        if (this -> addr != "esi" && this -> addr != "edi") {
+            return "[" + this -> addr + "]";
+        }
+        return this -> addr;
     }
     int Offset() {
         return this -> offset;
