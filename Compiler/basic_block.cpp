@@ -30,7 +30,11 @@ string Block::Label() {
 
 void Block::UpdateSuccessors() {
     Quaternary * last = * (end - 1);
-    if (last -> ins == jmpIns) {
+    if (last -> ins == funcEndIns) {
+        this -> direct_successor = NULL;
+        this -> jump_successor = NULL;
+    }
+    else if (last -> ins == jmpIns) {
         this -> direct_successor = NULL;
         
         Block * dest = bg -> LocateByLabel(last -> label);
