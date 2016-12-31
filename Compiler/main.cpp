@@ -13,6 +13,7 @@
 #include "grammar.hpp"
 #include "identifier_table.hpp"
 #include "quaternary.hpp"
+#include "basic_block.hpp"
 #include "optimizer.hpp"
 
 LexicalDecoder * ld;

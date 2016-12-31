@@ -7,6 +7,9 @@
 //
 
 #include "optimizer.hpp"
+#include "basic_block.hpp"
+
+BlockGraph * bg;
 
 Node::Node() {
     ins = nopIns;
@@ -42,7 +45,7 @@ bool Dag::AllParentsInStack(Node * node) {
     return true;
 }
 
-void Dag::Execute(InsTable & o_table) {
+void Dag::Execute(QTable & o_table) {
     // Repeat until every node is deleted (source nodes) or moved to stack (dest nodes)
     while (!node_table.empty()) {
         for (auto it = node_table.rbegin(); it != node_table.rend(); it++) {
@@ -137,13 +140,13 @@ void Dag::AddNode(Quaternary * quaternary) {
     }
 }
 
-Optimizer::Optimizer(InsTable t) {
+Optimizer::Optimizer(QTable t) {
     dag = NULL;
     this -> table = t;
 }
 
 void Optimizer::DagPass() {
-    InsTable o_table;
+    QTable o_table;
     o_table.clear();
     for (auto it = table.begin(); it != table.end(); it++) {
         switch ((* it) -> ins) {
@@ -226,9 +229,25 @@ void Optimizer::PeepholePass() {
     }
 }
 
-InsTable Optimizer::Execute() {
+
+void Optimizer::DefUsePass() {
+    bg = new BlockGraph(table);
+    bg -> Construct();
+    for (auto it = bg -> block_table.begin(); it != bg -> block_table.end(); it++) {
+        (* it) -> CalculateDefUse();
+    }
+    for (bool changed = true; changed; ) {
+        for (auto it = bg -> block_table.rbegin(); it != bg -> block_table.rend(); it++) {
+            changed = (* it) -> UpdateInOut();
+        }
+    }
+}
+
+
+QTable Optimizer::Execute() {
     DagPass();
     PeepholePass();
     HitTimePass();
+    DefUsePass();
     return table;
 }
