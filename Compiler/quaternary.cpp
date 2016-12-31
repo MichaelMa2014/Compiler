@@ -29,71 +29,71 @@ void Quaternary::Print() {
     switch (this -> ins) {
         case nopIns:
             break;
-            
+
         case extractIns:
             a = source1 -> Addr();
             if (a[0] == 'e' && a[1] == 'b' && a[2] == 'p') {
                 output << "mov dword edx, ebp" << endl;
                 output << "sub edx, " << source1 -> Offset() << endl;
-                output << "sub edx, [" << source2 -> Addr() << "]" << endl;
-                output << "sub edx, [" << source2 -> Addr() << "]" << endl;
-                output << "sub edx, [" << source2 -> Addr() << "]" << endl;
-                output << "sub edx, [" << source2 -> Addr() << "]" << endl;
+                output << "sub edx, " << source2 -> Memory() << endl;
+                output << "sub edx, " << source2 -> Memory() << endl;
+                output << "sub edx, " << source2 -> Memory() << endl;
+                output << "sub edx, " << source2 -> Memory() << endl;
             }
             else {
                 output << "mov dword edx, " << source1 -> Addr() << endl;
-                output << "add edx, [" << source2 -> Addr() << "]" << endl;
-                output << "add edx, [" << source2 -> Addr() << "]" << endl;
-                output << "add edx, [" << source2 -> Addr() << "]" << endl;
-                output << "add edx, [" << source2 -> Addr() << "]" << endl;
+                output << "add edx, " << source2 -> Memory() << endl;
+                output << "add edx, " << source2 -> Memory() << endl;
+                output << "add edx, " << source2 -> Memory() << endl;
+                output << "add edx, " << source2 -> Memory() << endl;
             }
             output << "mov dword ecx, [edx]" << endl;
-            output << "mov dword [" << this -> dest -> Addr() << "], ecx" << endl;
+            output << "mov dword " << dest -> Memory() << ", ecx" << endl;
             break;
-            
+
         case assignIns:
             if (source2 != NULL) {
                 a = dest -> Addr();
                 if (a[0] == 'e' && a[1] == 'b' && a[2] == 'p') {
                     output << "mov dword edx, ebp" << endl;
                     output << "sub edx, " << dest -> Offset() << endl;
-                    output << "sub edx, [" << source2 -> Addr() << "]" << endl;
-                    output << "sub edx, [" << source2 -> Addr() << "]" << endl;
-                    output << "sub edx, [" << source2 -> Addr() << "]" << endl;
-                    output << "sub edx, [" << source2 -> Addr() << "]" << endl;
-                    output << "mov dword ecx, [" << source1 -> Addr() << "]" << endl;
+                    output << "sub edx, " << source2 -> Memory() << endl;
+                    output << "sub edx, " << source2 -> Memory() << endl;
+                    output << "sub edx, " << source2 -> Memory() << endl;
+                    output << "sub edx, " << source2 -> Memory() << endl;
+                    output << "mov dword ecx, " << source1 -> Memory() << endl;
                     output << "mov dword [edx], ecx" << endl;
                 }
                 else {
                     output << "mov dword edx, " << dest -> Addr() << endl;
-                    output << "add edx, [" << source2 -> Addr() << "]" << endl;
-                    output << "add edx, [" << source2 -> Addr() << "]" << endl;
-                    output << "add edx, [" << source2 -> Addr() << "]" << endl;
-                    output << "add edx, [" << source2 -> Addr() << "]" << endl;
-                    output << "mov dword ecx, [" << source1 -> Addr() << "]" << endl;
+                    output << "add edx, " << source2 -> Memory() << endl;
+                    output << "add edx, " << source2 -> Memory() << endl;
+                    output << "add edx, " << source2 -> Memory() << endl;
+                    output << "add edx, " << source2 -> Memory() << endl;
+                    output << "mov dword ecx, " << source1 -> Memory() << endl;
                     output << "mov dword [edx], ecx" << endl;
                 }
             }
             else {
-                output << "mov dword ecx, [" << source1 -> Addr() << "]" << endl;
-                output << "mov dword [" << dest -> Addr() << "], ecx" << endl;
+                output << "mov dword ecx, " << source1 -> Memory() << endl;
+                output << "mov dword " << dest -> Memory() << ", ecx" << endl;
             }
             break;
-            
+
         case mulIns:
         case divIns:
-            output << "mov dword eax, [" << this -> source1 -> Addr() << "]" << endl;
+            output << "mov dword eax, " << source1 -> Memory() << endl;
             output << "cdq" << endl;
-            output << InsString[this -> ins] << "dword [" << this -> source2 -> Addr() << "]" << endl;
-            output << "mov dword [" << this -> dest -> Addr() << "], eax" << endl;
+            output << InsString[ins] << "dword " << source2 -> Memory() << endl;
+            output << "mov dword " << dest -> Memory() << ", eax" << endl;
             break;
         case plusIns:
         case minusIns:
-            output << "mov dword ecx, [" << this -> source1 -> Addr() << "]" << endl;
-            output << InsString[this -> ins] << "ecx, [" << this -> source2 -> Addr() << "]" << endl;
-            output << "mov dword [" << this -> dest -> Addr() << "], ecx" << endl;
+            output << "mov dword ecx, " << source1 -> Memory() << endl;
+            output << InsString[ins] << "ecx, " << source2 -> Memory() << endl;
+            output << "mov dword " << dest -> Memory() << ", ecx" << endl;
             break;
-            
+
         case scanIns:
             output << "mov dword ebx, esp\nand ebx, 0xf\nadd ebx, 0x8\nsub esp, ebx" << endl;
             a = dest -> Addr();
@@ -105,25 +105,25 @@ void Quaternary::Print() {
                 output << "mov dword edx, " << dest -> Addr() << endl;
             }
             output << "push dword edx" << endl;
-            if (this -> dest -> Kind() == intSym) {
+            if (dest -> Kind() == intSym) {
                 output << "push dword scan_int" << endl;
             }
             else output << "push dword scan_char" << endl;
             output << "call _scanf" << endl;
             output << "add esp, 8\nadd esp, ebx" << endl;
             break;
-            
+
         case printIns:
             output << "mov dword ebx, esp\nand ebx, 0xf\nadd ebx, 0x8\nsub esp, ebx" << endl;
-            switch (this -> source1 -> Type()) {
+            switch (source1 -> Type()) {
                 case stringId:
                     output << "push dword 0" << endl;
-                    output << "push dword " << this -> source1 -> Addr() << endl;
+                    output << "push dword " << source1 -> Addr() << endl;
                     break;
                 case constId:
                 case varId:
-                    output << "push dword [" << this -> source1 -> Addr() << "]" << endl;
-                    if (this -> source1 -> Kind() == intSym) {
+                    output << "push dword " << source1 -> Memory() << endl;
+                    if (source1 -> Kind() == intSym) {
                         output << "push dword print_int" << endl;
                     }
                     else output << "push dword print_char" << endl;
@@ -134,27 +134,27 @@ void Quaternary::Print() {
             output << "call _printf" << endl;
             output << "add esp, 8\nadd esp, ebx" << endl;
             break;
-            
+
         case cmpIns:
-            output << "mov dword edx, [" << this -> source1 -> Addr() << "]" << endl;
-            output << "mov dword ecx, [" << this -> source2 -> Addr() << "]" << endl;
+            output << "mov dword edx, " << source1 -> Memory() << endl;
+            output << "mov dword ecx, " << source2 -> Memory() << endl;
             output << "cmp edx, ecx" << endl;
             break;
-            
+
         case callIns:
             ERR("Wrong type of quaternary used.");
-        
+
         case saveRetIns:
-            output << InsString[this -> ins] << "eax, [" << this -> source1 -> Addr() << "]" << endl;
+            output << InsString[ins] << "eax, " << source1 -> Memory() << endl;
             break;
-            
+
         case getRetIns:
-            output << InsString[this -> ins] << "[" << this -> dest -> Addr() << "], eax" << endl;
+            output << InsString[ins] << dest -> Memory() << ", eax" << endl;
             break;
-            
-        
+
+
         default:
-            output << InsString[this -> ins] << endl;
+            output << InsString[ins] << endl;
             break;
     }
 }
@@ -164,11 +164,11 @@ Quaternary_immediate::Quaternary_immediate(insNo i, int num, Identifier * d) : Q
 }
 
 void Quaternary_immediate::Print() {
-    if (this -> dest != NULL) {
-        output << InsString[this -> ins] << "[" << this -> dest -> Addr() << "], " << this -> immediate << endl;
+    if (dest != NULL) {
+        output << InsString[ins] << "" << dest -> Memory() << ", " << immediate << endl;
     }
     else {
-        output << "mov edx, ebp\nsub edx, esp\nmov ecx, " << this -> immediate << endl;
+        output << "mov edx, ebp\nsub edx, esp\nmov ecx, " << immediate << endl;
         output << "sub ecx, edx\nsub esp, ecx" << endl;
     }
 }
@@ -178,12 +178,12 @@ Quaternary_label::Quaternary_label(insNo i, string l) : Quaternary(i, NULL, NULL
 }
 
 void Quaternary_label::Print() {
-    if (this -> ins == nopIns) {
+    if (ins == nopIns) {
         output << label << ": ";
         output << "nop" << endl;
     }
     else {
-        output << InsString[this -> ins] << this -> label << endl;
+        output << InsString[ins] << label << endl;
     }
 }
 
@@ -193,7 +193,7 @@ Quaternary_data::Quaternary_data(string l, int v) : Quaternary(ddIns, NULL, NULL
 }
 
 void Quaternary_data::Print() {
-    output << this -> label << ":" << endl << InsString[this -> ins] << this -> value << endl;
+    output << label << ":" << endl << InsString[ins] << value << endl;
 }
 
 Quaternary_bss::Quaternary_bss(string l, int s) : Quaternary(resdIns, NULL, NULL, NULL) {
@@ -202,12 +202,12 @@ Quaternary_bss::Quaternary_bss(string l, int s) : Quaternary(resdIns, NULL, NULL
 }
 
 void Quaternary_bss::Print() {
-    output << this -> label << ":" << endl << InsString[this -> ins] << " " << this -> size << endl;
+    output << label << ":" << endl << InsString[ins] << " " << size << endl;
 }
 
 Quaternary_string::Quaternary_string(string l, string v) : Quaternary(ddIns, NULL, NULL, NULL) {
     this -> label = l;
-    
+
     string::size_type index = v.find('\\', 0);
     while (index != string::npos) {
         v.insert(index, 1, '\\');
@@ -218,10 +218,10 @@ Quaternary_string::Quaternary_string(string l, string v) : Quaternary(ddIns, NUL
         v.insert(index, 1, '%');
         index = v.find('%', index + 2);
     }
-    this -> value = v + "\\n\\0";
+    value = v + "\\n\\0";
 }
 
 void Quaternary_string::Print() {
-    output << this -> label << ":" << endl << InsString[this -> ins] << "`" << this -> value << "`" << endl;
+    output << label << ":" << endl << InsString[ins] << "`" << value << "`" << endl;
 //    output << ".len: equ $ - " << this -> label << endl;
 }
