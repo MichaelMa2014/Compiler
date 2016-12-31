@@ -9,6 +9,7 @@
 #ifndef hit_time_hpp
 #define hit_time_hpp
 
-#include <stdio.h>
+#include "optimizer.hpp"
+
 
 #endif /* hit_time_hpp */

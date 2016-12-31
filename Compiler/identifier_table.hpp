@@ -22,6 +22,7 @@ typedef vector<symbolNo> Parameter;
 class Identifier {
     friend class IdentifierTable;
     friend class GIdentifierTable;
+    friend class Optimizer;
 private:
     string addr;
     int offset;

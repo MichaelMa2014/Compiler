@@ -52,6 +52,7 @@ private:
 public:
     Optimizer(InsTable table);
     InsTable Execute();
+    void HitTimePass();
     void DagPass();
 };
 

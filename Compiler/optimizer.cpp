@@ -144,6 +144,7 @@ Optimizer::Optimizer(InsTable t) {
 
 InsTable Optimizer::Execute() {
     DagPass();
+    HitTimePass();
     return table;
 }
 
