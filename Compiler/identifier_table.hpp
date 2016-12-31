@@ -32,6 +32,9 @@ public:
     string Addr() {
         return this -> addr;
     }
+    string Memory() {
+        return "[" + this -> addr + "]";
+    }
     int Offset() {
         return this -> offset;
     }
