@@ -115,6 +115,11 @@ void main() {
     int intV20, intV21;
     int intV30, intV31;
 
+    intV5 = 0 + intC3;
+    intV5 = intC3 - 0;
+    intV5 = intC3 * 1;
+    intV5 = intC3 / 1;
+
     intV2[0] = 0;
     intV2[1] = 0;
 

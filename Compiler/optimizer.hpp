@@ -54,6 +54,7 @@ public:
     InsTable Execute();
     void HitTimePass();
     void DagPass();
+    void PeepholePass();
 };
 
 #endif /* optimizer_hpp */

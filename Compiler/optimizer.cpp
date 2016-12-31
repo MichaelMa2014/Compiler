@@ -142,12 +142,6 @@ Optimizer::Optimizer(InsTable t) {
     this -> table = t;
 }
 
-InsTable Optimizer::Execute() {
-    DagPass();
-    HitTimePass();
-    return table;
-}
-
 void Optimizer::DagPass() {
     InsTable o_table;
     o_table.clear();
@@ -187,4 +181,54 @@ void Optimizer::DagPass() {
         }
     }
     table = o_table;
+}
+
+void Optimizer::PeepholePass() {
+    for (auto it = table.begin(); it != table.end(); it++) {
+        Quaternary * temp = * it;
+        if (temp -> ins == plusIns) {
+            if (temp -> source1 != NULL && temp -> source1 -> Type() == constId && temp -> source1 -> Value() == 0) {
+                temp -> source1 = temp -> source2;
+                temp -> source2 = NULL;
+                temp -> ins = assignIns;
+            }
+            else if (temp -> source2 != NULL && temp -> source2 -> Type() == constId && temp -> source2 -> Value() == 0) {
+                temp -> source2 = NULL;
+                temp -> ins = assignIns;
+            }
+        }
+        if (temp -> ins == minusIns) {
+            if (temp -> source2 != NULL && temp -> source2 -> Type() == constId && temp -> source2 -> Value() == 0) {
+                temp -> source2 = NULL;
+                temp -> ins = assignIns;
+            }
+        }
+        if (temp -> ins == mulIns) {
+            if (temp -> source1 != NULL && temp -> source1 -> Type() == constId && temp -> source1 -> Value() == 1) {
+                temp -> source1 = temp -> source2;
+                temp -> source2 = NULL;
+                temp -> ins = assignIns;
+            }
+            else if (temp -> source2 != NULL && temp -> source2 -> Type() == constId && temp -> source2 -> Value() == 1) {
+                temp -> source2 = NULL;
+                temp -> ins = assignIns;
+            }
+        }
+        if (temp -> ins == divIns) {
+            if (temp -> source2 != NULL && temp -> source2 -> Type() == constId && temp -> source2 -> Value() == 1) {
+                temp -> source2 = NULL;
+                temp -> ins = assignIns;
+            }
+        }
+        if (temp -> ins == assignIns && temp -> source1 == temp -> dest && temp -> source2 == NULL) {
+            table.erase(it);
+        }
+    }
+}
+
+InsTable Optimizer::Execute() {
+    DagPass();
+//    PeepholePass();
+    HitTimePass();
+    return table;
 }
