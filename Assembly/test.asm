@@ -114,10 +114,8 @@ mov dword [ebp - 4], 1
 sub esp, 4 
 mov dword [ebp - 8], 2
 sub esp, 4 
-mov dword eax, [ebp - 4]
-cdq
-imul dword [ebp - 8]
-mov dword [ebp - 12], eax
+mov dword ecx, [ebp - 8]
+mov dword [ebp - 12], ecx
 mov dword eax, [ebp - 12]
 add esp, 4 
 add esp, 4 
@@ -144,10 +142,8 @@ sub esp, 4
 mov dword [ebp - 16], 0
 sub esp, 4 
 sub esp, 4 
-mov dword eax, [ebp - 4]
-cdq
-imul dword [ebp - 8]
-mov dword [ebp - 12], eax
+mov dword ecx, [ebp - 8]
+mov dword [ebp - 12], ecx
 mov dword ecx, [ebp - 16]
 sub ecx, [ebp - 4]
 mov dword [ebp - 20], ecx
@@ -721,33 +717,27 @@ sub esp, 4
 sub esp, 4 
 mov dword [ebp - 72], 0
 sub esp, 4 
-mov dword ecx, [ebp - 72]
-add ecx, [ebp - 4]
+mov dword ecx, [ebp - 4]
 mov dword [ebp - 76], ecx
 mov dword ecx, [ebp - 76]
 mov dword [ebp - 8], ecx
 mov dword [ebp - 72], 0
 sub esp, 4 
 mov dword ecx, [ebp - 4]
-sub ecx, [ebp - 72]
 mov dword [ebp - 80], ecx
 mov dword ecx, [ebp - 80]
 mov dword [ebp - 8], ecx
 sub esp, 4 
 mov dword [ebp - 84], 1
 sub esp, 4 
-mov dword eax, [ebp - 4]
-cdq
-imul dword [ebp - 84]
-mov dword [ebp - 88], eax
+mov dword ecx, [ebp - 4]
+mov dword [ebp - 88], ecx
 mov dword ecx, [ebp - 88]
 mov dword [ebp - 8], ecx
 mov dword [ebp - 84], 1
 sub esp, 4 
-mov dword eax, [ebp - 4]
-cdq
-idiv dword [ebp - 84]
-mov dword [ebp - 92], eax
+mov dword ecx, [ebp - 4]
+mov dword [ebp - 92], ecx
 mov dword ecx, [ebp - 92]
 mov dword [ebp - 8], ecx
 mov dword [ebp - 72], 0
@@ -1637,10 +1627,8 @@ mov dword eax, [ebp - 72]
 cdq
 imul dword [ebp - 72]
 mov dword [ebp - 248], eax
-mov dword eax, [ebp - 84]
-cdq
-imul dword [ebp - 84]
-mov dword [ebp - 252], eax
+mov dword ecx, [ebp - 84]
+mov dword [ebp - 252], ecx
 mov dword ecx, [ebp - 248]
 add ecx, [ebp - 252]
 mov dword [ebp - 256], ecx
@@ -1812,7 +1800,6 @@ mov dword [ebp - 72], 0
 mov dword [ebp - 72], 0
 sub esp, 4 
 mov dword ecx, [ebp - 72]
-add ecx, [ebp - 72]
 mov dword [ebp - 308], ecx
 mov dword edx, label4
 add edx, [ebp - 308]
@@ -1824,10 +1811,8 @@ mov dword [edx], ecx
 mov dword [ebp - 84], 1
 mov dword [ebp - 84], 1
 sub esp, 4 
-mov dword eax, [ebp - 84]
-cdq
-imul dword [ebp - 84]
-mov dword [ebp - 312], eax
+mov dword ecx, [ebp - 84]
+mov dword [ebp - 312], ecx
 mov dword edx, label4
 add edx, [ebp - 312]
 add edx, [ebp - 312]
@@ -1851,10 +1836,8 @@ mov dword [ebp - 72], 0
 sub esp, 4 
 sub esp, 4 
 mov dword ecx, [ebp - 72]
-add ecx, [ebp - 72]
 mov dword [ebp - 316], ecx
 mov dword ecx, [ebp - 316]
-add ecx, [ebp - 72]
 mov dword [ebp - 320], ecx
 mov dword edx, label4
 add edx, [ebp - 320]
@@ -1869,14 +1852,10 @@ sub esp, 4
 mov dword [ebp - 84], 1
 sub esp, 4 
 sub esp, 4 
-mov dword eax, [ebp - 84]
-cdq
-imul dword [ebp - 84]
-mov dword [ebp - 328], eax
-mov dword eax, [ebp - 328]
-cdq
-imul dword [ebp - 84]
-mov dword [ebp - 332], eax
+mov dword ecx, [ebp - 84]
+mov dword [ebp - 328], ecx
+mov dword ecx, [ebp - 328]
+mov dword [ebp - 332], ecx
 mov dword edx, label4
 add edx, [ebp - 332]
 add edx, [ebp - 332]

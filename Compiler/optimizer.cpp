@@ -228,7 +228,7 @@ void Optimizer::PeepholePass() {
 
 InsTable Optimizer::Execute() {
     DagPass();
-//    PeepholePass();
+    PeepholePass();
     HitTimePass();
     return table;
 }
