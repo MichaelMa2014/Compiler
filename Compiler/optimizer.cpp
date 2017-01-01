@@ -245,9 +245,9 @@ void Optimizer::DefUsePass() {
 
 
 QTable Optimizer::Execute() {
-    DagPass();
-    PeepholePass();
-    HitTimePass();
-    DefUsePass();
+//    DagPass();
+//    PeepholePass();
+//    HitTimePass();
+//    DefUsePass();
     return table;
 }

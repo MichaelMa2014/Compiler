@@ -111,6 +111,14 @@ void Quaternary::Print() {
             else output << "push dword scan_char" << endl;
             output << "call _scanf" << endl;
             output << "add esp, 8\nadd esp, ebx" << endl;
+            if (a[0] == 'e' && a[1] == 'b' && a[2] == 'p') {
+                output << "mov dword edx, ebp" << endl;
+                output << "sub edx, " << dest -> Offset() << endl;
+            }
+            else {
+                output << "mov dword edx, " << dest -> Addr() << endl;
+            }
+            output << "and dword [edx], 0xff" << endl;
             break;
 
         case printIns:
