@@ -103,3 +103,96 @@
 1483170214 source:c:\compiler\optimizer.cpp
 	"optimizer.hpp"
 
+1481092630 source:c:\源代码\const_var.cpp
+	"grammar.hpp"
+
+1483066962 c:\源代码\grammar.hpp
+	"init.hpp"
+	"error.hpp"
+	"lexical.hpp"
+	"identifier_table.hpp"
+	"quaternary.hpp"
+
+1483230410 c:\源代码\init.hpp
+	<stdio.h>
+	<iostream>
+	<map>
+
+1483170494 c:\源代码\error.hpp
+	<cstdio>
+	<cstdlib>
+	<iostream>
+	"init.hpp"
+	"lexical.hpp"
+
+1481338338 c:\源代码\lexical.hpp
+	<fstream>
+	<cctype>
+	<cstdlib>
+	"init.hpp"
+	"error.hpp"
+
+1483167608 c:\源代码\identifier_table.hpp
+	<map>
+	<vector>
+	"init.hpp"
+	"error.hpp"
+
+1483227576 c:\源代码\quaternary.hpp
+	<iostream>
+	<sstream>
+	<fstream>
+	"identifier_table.hpp"
+
+1483170388 source:c:\源代码\error.cpp
+	"error.hpp"
+
+1483170466 source:c:\源代码\expression.cpp
+	"grammar.hpp"
+
+1483066962 source:c:\源代码\func.cpp
+	"grammar.hpp"
+
+1483227576 source:c:\源代码\generator.cpp
+	"quaternary.hpp"
+
+1483066962 source:c:\源代码\identifier_table.cpp
+	"identifier_table.hpp"
+	"quaternary.hpp"
+
+1479273374 source:c:\源代码\init.cpp
+	"init.hpp"
+
+1483066962 source:c:\源代码\lexical.cpp
+	"lexical.hpp"
+
+1483227576 source:c:\源代码\main.cpp
+	<iostream>
+	<fstream>
+	"Lexical.hpp"
+	"grammar.hpp"
+	"identifier_table.hpp"
+	"quaternary.hpp"
+	"basic_block.hpp"
+	"optimizer.hpp"
+
+1483227576 c:\源代码\basic_block.hpp
+	<iostream>
+	<set>
+	"quaternary.hpp"
+
+1483227866 c:\源代码\optimizer.hpp
+	<algorithm>
+	<map>
+	"init.hpp"
+	"quaternary.hpp"
+
+1483066962 source:c:\源代码\program.cpp
+	"grammar.hpp"
+
+1483230300 source:c:\源代码\quaternary.cpp
+	"quaternary.hpp"
+
+1483066962 source:c:\源代码\statement.cpp
+	"grammar.hpp"
+

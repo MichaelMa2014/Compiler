@@ -9,6 +9,8 @@
 #include "basic_block.hpp"
 #include "quaternary.hpp"
 
+#include <algorithm>
+
 Block::Block(int i, QTable::const_iterator b, QTable::const_iterator e) {
     this -> id = i;
     this -> begin = b;
